@@ -1,25 +1,27 @@
 package com.smalaca.archetypes.examples.full;
 
-import com.smalaca.archetypes.annotations.Archetype;
-import com.smalaca.archetypes.annotations.ArchetypePart;
-import com.smalaca.archetypes.party.Address;
-import com.smalaca.archetypes.party.PartyAuthentication;
-import com.smalaca.archetypes.party.PartyIdentifier;
+import com.smalaca.archetypes.annotations.ArchetypeParty;
+import com.smalaca.archetypes.annotations.ArchetypePartyAddress;
+import com.smalaca.archetypes.annotations.ArchetypePartyPartyAuthentication;
+import com.smalaca.archetypes.annotations.ArchetypePartyPartyIdentifier;
+import com.smalaca.archetypes.examples.party.Address;
+import com.smalaca.archetypes.examples.party.PartyAuthentication;
+import com.smalaca.archetypes.examples.party.PartyIdentifier;
 
-@Archetype(name = "Party")
+@ArchetypeParty
 public class ClientManagementService {
-    @ArchetypePart(archetype = "Party", part = "Address")
+    @ArchetypePartyAddress
     public void registerBranch(EnterpriseClient client, String city, String street) {
         client.addAddress(new Address(street, city, "N/A", "Country"));
         client.addUnit(new ClientBranch("Branch in " + city));
     }
 
-    @ArchetypePart(archetype = "Party", part = "PartyIdentifier")
+    @ArchetypePartyPartyIdentifier
     public void assignTaxId(EnterpriseClient client, String taxId) {
         client.addIdentifier(new PartyIdentifier(taxId, "TAX_ID"));
     }
 
-    @ArchetypePart(archetype = "Party", part = "PartyAuthentication")
+    @ArchetypePartyPartyAuthentication
     public void setupLogin(ClientContact contact, String username, String token) {
         contact.addAuthentication(new PartyAuthentication("OAUTH", token));
     }

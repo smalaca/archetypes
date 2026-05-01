@@ -15,11 +15,6 @@
     <dependencies>
         <dependency>
             <groupId>com.smalaca</groupId>
-            <artifactId>archetype-models</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.smalaca</groupId>
             <artifactId>archetype-annotations</artifactId>
             <version>${project.version}</version>
         </dependency>

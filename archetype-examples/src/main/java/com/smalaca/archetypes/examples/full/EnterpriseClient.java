@@ -1,11 +1,11 @@
 package com.smalaca.archetypes.examples.full;
 
-import com.smalaca.archetypes.annotations.Archetype;
-import com.smalaca.archetypes.annotations.ArchetypePart;
-import com.smalaca.archetypes.party.Organization;
+import com.smalaca.archetypes.annotations.ArchetypeParty;
+import com.smalaca.archetypes.annotations.ArchetypePartyOrganization;
+import com.smalaca.archetypes.examples.party.Organization;
 
-@Archetype(name = "Party")
-@ArchetypePart(archetype = "Party", part = "Organization")
+@ArchetypeParty
+@ArchetypePartyOrganization
 public class EnterpriseClient extends Organization {
     private final String industry;
 
