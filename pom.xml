@@ -12,6 +12,8 @@
 
     <modules>
         <module>archetype-models</module>
+        <module>archetype-annotations</module>
+        <module>archetype-examples</module>
     </modules>
 
     <properties>
