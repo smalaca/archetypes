@@ -1,7 +1,6 @@
 package com.smalaca.archetypes.examples.full;
 
 import com.smalaca.archetypes.annotations.ArchetypeParty;
-import com.smalaca.archetypes.party.Organization;
 
 @ArchetypeParty.Organization
 public class EnterpriseClient {

@@ -30,4 +30,5 @@ In many basic applications, the full complexity of a Party Archetype is not requ
 - **PartyIdentifier:** Although listed as mandatory for the pattern, this example omits it for extreme simplicity. In a real-world contact list, the phone number itself often acts as a de facto identifier, or the system relies on internal database IDs, making official `PartyIdentifier` records optional for this specific, narrow use case.
 
 ## Technical Implementation
+- **Self-Contained**: This example does not depend on the `archetype-models` module. All required archetype classes (`Party`, `Person`, etc.) are included directly in this package to demonstrate a fully decoupled implementation.
 - `@ArchetypeParty.Person`: Identifies `SimpleContact` as a Person within the Party archetype pattern via composition.

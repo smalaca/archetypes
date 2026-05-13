@@ -1,6 +1,5 @@
 package com.smalaca.archetypes.examples.organization;
 
-import com.smalaca.archetypes.party.OrganizationUnit;
 import org.assertj.core.api.AbstractAssert;
 
 import java.util.Collection;

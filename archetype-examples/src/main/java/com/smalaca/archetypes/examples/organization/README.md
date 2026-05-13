@@ -31,5 +31,6 @@ In systems focused on resource management, logistics, or internal HR, the primar
 - **PartyIdentifier:** While `CorporateEntity` has a `taxIdentifier` field, it does not use the `PartyIdentifier` archetype class from `archetype-models`. This demonstrates that domain-specific identifiers can be used alongside the archetype, especially when formal multi-identifier management is not required for the specific business context.
 
 ## Technical Implementation
+- **Self-Contained**: This example is independent of the `archetype-models` module. It contains its own copies of `Organization`, `OrganizationUnit`, and `Party` to remain completely decoupled.
 - `@ArchetypeParty.Organization`: Identifies `CorporateEntity` as an Organization.
 - `@ArchetypeParty.OrganizationUnit`: Identifies `Department` as an Organization Unit.

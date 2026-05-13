@@ -25,6 +25,7 @@ Enterprise systems often require a 360-degree view of a client. This includes kn
 - **Extensibility:** The "Full" approach provides a robust foundation. If the system later needs to support different types of clients (e.g., individual consultants), the existing `Person` and `Organization` archetypes are already in place and ready to be reused.
 
 ## Technical Implementation
+- **Self-Contained**: This example is completely independent of the `archetype-models` module. It includes all necessary archetype classes (`Party`, `Person`, `Organization`, `Address`, etc.) within its own package to show a full-scale, decoupled usage.
 - `@ArchetypeParty`: Marks the service as a manager of the Party archetype.
 - `@ArchetypeParty.Organization`: Annotates `EnterpriseClient`.
 - `@ArchetypeParty.Person`: Annotates `ClientContact`.

@@ -1,6 +1,5 @@
 package com.smalaca.archetypes.examples.full;
 
-import com.smalaca.archetypes.party.PartyAuthentication;
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.api.Assertions;
 

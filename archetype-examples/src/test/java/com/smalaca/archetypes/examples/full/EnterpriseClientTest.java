@@ -1,8 +1,5 @@
 package com.smalaca.archetypes.examples.full;
 
-import com.smalaca.archetypes.party.Address;
-import com.smalaca.archetypes.party.PartyAuthentication;
-import com.smalaca.archetypes.party.PartyIdentifier;
 import org.junit.jupiter.api.Test;
 import static com.smalaca.archetypes.examples.full.ClientContactAssert.assertThat;
 import static com.smalaca.archetypes.examples.full.EnterpriseClientAssert.assertThat;

@@ -1,9 +1,6 @@
 package com.smalaca.archetypes.examples.full;
 
 import com.smalaca.archetypes.annotations.ArchetypeParty;
-import com.smalaca.archetypes.party.Address;
-import com.smalaca.archetypes.party.PartyAuthentication;
-import com.smalaca.archetypes.party.PartyIdentifier;
 
 @ArchetypeParty
 public class ClientManagementService {

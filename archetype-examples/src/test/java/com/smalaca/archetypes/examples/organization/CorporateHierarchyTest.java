@@ -1,6 +1,5 @@
 package com.smalaca.archetypes.examples.organization;
 
-import com.smalaca.archetypes.party.OrganizationUnit;
 import org.junit.jupiter.api.Test;
 import static com.smalaca.archetypes.examples.organization.CorporateEntityAssert.assertThat;
 

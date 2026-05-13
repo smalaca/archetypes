@@ -1,7 +1,6 @@
 package com.smalaca.archetypes.examples.simple;
 
 import com.smalaca.archetypes.annotations.ArchetypeParty;
-import com.smalaca.archetypes.party.Person;
 
 @ArchetypeParty.Person
 public class SimpleContact {
