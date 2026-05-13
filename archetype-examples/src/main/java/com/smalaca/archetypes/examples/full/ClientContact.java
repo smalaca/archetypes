@@ -1,11 +1,9 @@
 package com.smalaca.archetypes.examples.full;
 
 import com.smalaca.archetypes.annotations.ArchetypeParty;
-import com.smalaca.archetypes.annotations.ArchetypePartyPerson;
 import com.smalaca.archetypes.examples.party.Person;
 
-@ArchetypeParty
-@ArchetypePartyPerson
+@ArchetypeParty.Person
 public class ClientContact extends Person {
     private final String position;
 
