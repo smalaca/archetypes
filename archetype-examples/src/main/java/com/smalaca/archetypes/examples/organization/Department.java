@@ -1,18 +1,23 @@
 package com.smalaca.archetypes.examples.organization;
 
 import com.smalaca.archetypes.annotations.ArchetypeParty;
-import com.smalaca.archetypes.examples.party.OrganizationUnit;
+import com.smalaca.archetypes.party.OrganizationUnit;
 
 @ArchetypeParty.OrganizationUnit
-public class Department extends OrganizationUnit {
+public class Department {
+    private final OrganizationUnit organizationUnit;
     private final String departmentCode;
 
     public Department(String name, String departmentCode) {
-        super(name);
+        this.organizationUnit = new OrganizationUnit(name);
         this.departmentCode = departmentCode;
     }
 
     public String getDepartmentCode() {
         return departmentCode;
+    }
+
+    public OrganizationUnit getOrganizationUnit() {
+        return organizationUnit;
     }
 }

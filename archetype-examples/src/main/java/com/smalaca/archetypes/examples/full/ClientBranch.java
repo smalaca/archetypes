@@ -1,11 +1,17 @@
 package com.smalaca.archetypes.examples.full;
 
 import com.smalaca.archetypes.annotations.ArchetypeParty;
-import com.smalaca.archetypes.examples.party.OrganizationUnit;
+import com.smalaca.archetypes.party.OrganizationUnit;
 
 @ArchetypeParty.OrganizationUnit
-public class ClientBranch extends OrganizationUnit {
+public class ClientBranch {
+    private final OrganizationUnit organizationUnit;
+
     public ClientBranch(String name) {
-        super(name);
+        this.organizationUnit = new OrganizationUnit(name);
+    }
+
+    public OrganizationUnit getOrganizationUnit() {
+        return organizationUnit;
     }
 }
