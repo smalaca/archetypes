@@ -2,7 +2,7 @@ package com.smalaca.archetypes.examples.organization;
 
 import com.smalaca.archetypes.party.OrganizationUnit;
 import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.smalaca.archetypes.examples.organization.CorporateEntityAssert.assertThat;
 
 class CorporateHierarchyTest {
     @Test
@@ -14,10 +14,9 @@ class CorporateHierarchyTest {
         corporation.getOrganization().addUnit(hr.getOrganizationUnit());
         corporation.getOrganization().addUnit(it.getOrganizationUnit());
 
-        assertThat(corporation.getOrganization().getName()).isEqualTo("Smalaca Corp");
-        assertThat(corporation.getTaxIdentifier()).isEqualTo("PL1234567890");
-        assertThat(corporation.getOrganization().getUnits())
-                .extracting(OrganizationUnit::getName)
-                .containsExactlyInAnyOrder("Human Resources", "Information Technology");
+        assertThat(corporation)
+                .hasName("Smalaca Corp")
+                .hasTaxIdentifier("PL1234567890")
+                .hasDepartments("Human Resources", "Information Technology");
     }
 }

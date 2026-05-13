@@ -4,7 +4,8 @@ import com.smalaca.archetypes.party.Address;
 import com.smalaca.archetypes.party.PartyAuthentication;
 import com.smalaca.archetypes.party.PartyIdentifier;
 import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.smalaca.archetypes.examples.full.ClientContactAssert.assertThat;
+import static com.smalaca.archetypes.examples.full.EnterpriseClientAssert.assertThat;
 
 class EnterpriseClientTest {
     private final ClientManagementService service = new ClientManagementService();
@@ -18,21 +19,14 @@ class EnterpriseClientTest {
         service.registerBranch(client, "Berlin", "Main Street 1");
         service.setupLogin(contact, "alice.smith", "secure-token-123");
 
-        assertThat(client.getOrganization().getName()).isEqualTo("Enterprise Corp");
-        assertThat(client.getIndustry()).isEqualTo("Technology");
-        
-        assertThat(client.getOrganization().getIdentifiers())
-                .extracting(PartyIdentifier::identifier)
-                .containsExactly("VAT-987654321");
+        assertThat(client)
+                .hasName("Enterprise Corp")
+                .hasIndustry("Technology")
+                .hasTaxId("VAT-987654321")
+                .hasBranchIn("Berlin");
 
-        assertThat(client.getOrganization().getAddresses())
-                .extracting(Address::city)
-                .containsExactly("Berlin");
-
-        assertThat(contact.getPerson().getAuthentications())
-                .extracting(PartyAuthentication::value)
-                .containsExactly("secure-token-123");
-        
-        assertThat(contact.getPosition()).isEqualTo("Manager");
+        assertThat(contact)
+                .hasPosition("Manager")
+                .hasLoginToken("secure-token-123");
     }
 }
