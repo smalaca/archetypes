@@ -4,19 +4,25 @@ import com.smalaca.archetypes.annotations.ArchetypeParty;
 
 @ArchetypeParty.Person
 public class SimpleContact {
-    private final Person person;
+    private final String firstName;
+    private final String lastName;
     private final String phoneNumber;
 
     public SimpleContact(String firstName, String lastName, String phoneNumber) {
-        this.person = new Person(firstName, lastName);
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
-    }
-
-    public Person getPerson() {
-        return person;
     }
 }

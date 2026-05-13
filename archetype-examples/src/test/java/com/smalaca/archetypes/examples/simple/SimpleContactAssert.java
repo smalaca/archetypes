@@ -14,12 +14,12 @@ public class SimpleContactAssert extends AbstractAssert<SimpleContactAssert, Sim
     public SimpleContactAssert hasPerson(String firstName, String lastName) {
         isNotNull();
 
-        if (!actual.getPerson().getFirstName().equals(firstName)) {
-            failWithMessage("Expected person's first name to be <%s> but was <%s>", firstName, actual.getPerson().getFirstName());
+        if (!actual.getFirstName().equals(firstName)) {
+            failWithMessage("Expected person's first name to be <%s> but was <%s>", firstName, actual.getFirstName());
         }
 
-        if (!actual.getPerson().getLastName().equals(lastName)) {
-            failWithMessage("Expected person's last name to be <%s> but was <%s>", lastName, actual.getPerson().getLastName());
+        if (!actual.getLastName().equals(lastName)) {
+            failWithMessage("Expected person's last name to be <%s> but was <%s>", lastName, actual.getLastName());
         }
 
         return this;

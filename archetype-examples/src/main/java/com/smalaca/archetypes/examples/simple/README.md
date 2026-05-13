@@ -6,12 +6,15 @@ This example demonstrates a **simplified** usage of the **Party Archetype Patter
 A basic address book or contact list where only individual people are stored with their phone numbers.
 
 ## Archetype Usage
-This example only uses a subset of the Party archetype:
+In this example, the **Party Archetype Pattern** is applied in its most simplified form. To minimize complexity and remove unnecessary boilerplate for a simple use case:
 
-1. **Party**: Base class.
-2. **Person**: Represented by `SimpleContact`.
+1. **Party, Person, and SimpleContact** are merged into a single class.
 
-It **does not** use:
+This demonstrates that for simple domains, the archetype pattern doesn't necessarily require a complex class hierarchy. `SimpleContact` itself acts as both the domain entity and the concrete representation of a `Person` (and thus a `Party`).
+
+It **does not** use separate classes for:
+- `Party`
+- `Person`
 - `Organization`
 - `OrganizationUnit`
 - `Address` (Address records)
@@ -19,16 +22,17 @@ It **does not** use:
 - `PartyAuthentication`
 
 ## Justification of Usage
-In many basic applications, the full complexity of a Party Archetype is not required. When the system only needs to store personal contacts without complex organizational structures, identification documents, or authentication mechanisms, using only the `Person` part of the archetype is sufficient. 
+In many basic applications, the full architectural separation of a Party Archetype is not required. When the system only needs to store personal contacts without complex organizational structures, identification documents, or authentication mechanisms, merging the archetype into the domain class is sufficient. 
 
 **Why this is enough:**
-- **Goal Achievement:** The primary goal is to represent a person with a phone number, which is fully addressed by the `Person` model.
-- **Maintainability:** By avoiding unused components (like `OrganizationUnit` or `Address` records), the codebase remains clean and easy to understand.
-- **Compatibility:** Even with this minimal setup, the system remains "Party-compatible." If requirements grow (e.g., adding corporate contacts), the underlying archetype allows for seamless expansion without refactoring existing simple contacts.
+- **Extreme Simplicity:** Merging `SimpleContact`, `Person`, and `Party` removes layers of abstraction that provide no value in this context, while still maintaining the conceptual alignment with the pattern.
+- **Goal Achievement:** The primary goal is to represent a person with a phone number, which is fully addressed by the consolidated model.
+- **Maintainability:** The codebase is as minimal as possible, making it extremely easy to understand.
+- **Compatibility:** The conceptual model still follows the Party archetype. If requirements grow, it can be easily refactored back into a separate hierarchy.
 
 **Omission of Mandatory Parts:**
 - **PartyIdentifier:** Although listed as mandatory for the pattern, this example omits it for extreme simplicity. In a real-world contact list, the phone number itself often acts as a de facto identifier, or the system relies on internal database IDs, making official `PartyIdentifier` records optional for this specific, narrow use case.
 
 ## Technical Implementation
-- **Self-Contained**: This example does not depend on the `archetype-models` module. All required archetype classes (`Party`, `Person`, etc.) are included directly in this package to demonstrate a fully decoupled implementation.
-- `@ArchetypeParty.Person`: Identifies `SimpleContact` as a Person within the Party archetype pattern via composition.
+- **Self-Contained**: This example is completely independent. While other examples copy archetype classes from `archetype-models`, this one is so simple that it merges them into a single domain class.
+- `@ArchetypeParty.Person`: Identifies `SimpleContact` as a Person within the Party archetype pattern.
