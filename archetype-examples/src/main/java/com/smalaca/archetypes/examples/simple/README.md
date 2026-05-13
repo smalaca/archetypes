@@ -18,8 +18,13 @@ It **does not** use:
 - `PartyIdentifier`
 - `PartyAuthentication`
 
-This shows that the archetype can be used partially when the domain complexity is low.
+## Justification of Usage
+In many basic applications, the full complexity of a Party Archetype is not required. When the system only needs to store personal contacts without complex organizational structures, identification documents, or authentication mechanisms, using only the `Person` part of the archetype is sufficient. 
+
+**Why this is enough:**
+- **Goal Achievement:** The primary goal is to represent a person with a phone number, which is fully addressed by the `Person` model.
+- **Maintainability:** By avoiding unused components (like `OrganizationUnit` or `Address` records), the codebase remains clean and easy to understand.
+- **Compatibility:** Even with this minimal setup, the system remains "Party-compatible." If requirements grow (e.g., adding corporate contacts), the underlying archetype allows for seamless expansion without refactoring existing simple contacts.
 
 ## Technical Implementation
-- `@Archetype(name = "Party")`: Marks the `SimpleContact` as part of the Party pattern.
-- `@ArchetypePart(archetype = "Party", part = "Person")`: Specifically identifies it as a Person archetype.
+- `@ArchetypeParty.Person`: Identifies `SimpleContact` as a Person within the Party archetype pattern via composition.
