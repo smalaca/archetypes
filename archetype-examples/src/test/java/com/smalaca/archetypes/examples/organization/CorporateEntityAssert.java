@@ -4,8 +4,6 @@ import org.assertj.core.api.AbstractAssert;
 
 import java.util.Collection;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 public class CorporateEntityAssert extends AbstractAssert<CorporateEntityAssert, CorporateEntity> {
     private CorporateEntityAssert(CorporateEntity actual) {
         super(actual, CorporateEntityAssert.class);
