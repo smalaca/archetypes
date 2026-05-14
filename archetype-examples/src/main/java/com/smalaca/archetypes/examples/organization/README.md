@@ -8,8 +8,8 @@ Modeling a large corporation with multiple departments. This highlights the recu
 ## Archetype Usage
 This example focuses on the organizational aspects of the Party archetype:
 
-1. **Organization**: Represented by `CorporateEntity`.
-2. **OrganizationUnit**: Represented by `Department`.
+1. **CorporateEntity** realizes **Organization**.
+2. **Department** realizes **OrganizationUnit**.
 
 The `Organization` archetype allows for a hierarchical structure where an organization can contain multiple `OrganizationUnit`s.
 

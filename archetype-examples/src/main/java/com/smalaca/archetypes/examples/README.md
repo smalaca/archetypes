@@ -9,7 +9,7 @@ This document provides a comprehensive overview of how the **Party Archetype Pat
 | **Party** (Base) | ✓ | ✓ | ✓ |
 | **Person** | ✓ | - | ✓ |
 | **Organization** | - | ✓ | ✓ |
-| **PartyIdentifier** | (Omitted) | (Omitted) | ✓ |
+| **PartyIdentifier** | realized by username | (Omitted) | ✓ |
 | **OrganizationUnit** | - | ✓ | ✓ |
 | **Address** | - | - | ✓ |
 | **PartyAuthentication** | - | - | ✓ |
@@ -19,9 +19,9 @@ This document provides a comprehensive overview of how the **Party Archetype Pat
 The Party Archetype Pattern defines `Party`, (`Person` OR `Organization`), and `PartyIdentifier` as mandatory components. While all examples implement the base `Party` and at least one concrete type, some intentionally omit the formal `PartyIdentifier` archetype.
 
 ### Simple Example
-- **Omitted Mandatory Part:** `PartyIdentifier`
+- **Realized Mandatory Part:** `PartyIdentifier` realized by `username`.
 - **Reasoning:** Designed for extreme simplicity (e.g., a basic contact list).
-- **Justification:** In this narrow context, a phone number or an internal database ID is sufficient for identification. Introducing a dedicated `PartyIdentifier` structure would add unnecessary complexity to a "simple" use case.
+- **Justification:** In this narrow context, a `username` field that realizes `PartyIdentifier` provides a unique and stable handle for the contact without the need for a dedicated `PartyIdentifier` class.
 
 ### Corporate Hierarchy Example
 - **Omitted Mandatory Part:** `PartyIdentifier`

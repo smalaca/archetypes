@@ -9,9 +9,9 @@ In this scenario, we model an enterprise client management system where a compan
 The example uses all core parts of the Party archetype:
 
 1. **Party**: The base for all participants.
-2. **Organization**: Represented by `EnterpriseClient`.
-3. **Person**: Represented by `ClientContact` (the person responsible for the account).
-4. **OrganizationUnit**: Represented by `ClientBranch` to model the client's internal structure.
+2. **EnterpriseClient** realizes **Organization**.
+3. **ClientContact** realizes **Person** (the person responsible for the account).
+4. **ClientBranch** realizes **OrganizationUnit** to model the client's internal structure.
 5. **Address**: Used to store physical locations for branches.
 6. **PartyIdentifier**: Used to store official identifiers like Tax IDs.
 7. **PartyAuthentication**: Used to manage secure access for contacts.
@@ -27,9 +27,9 @@ Enterprise systems often require a 360-degree view of a client. This includes kn
 ## Technical Implementation
 - **Self-Contained**: This example is completely independent of the `archetype-models` module. It includes all necessary archetype classes (`Party`, `Person`, `Organization`, `Address`, etc.) within its own package to show a full-scale, decoupled usage.
 - `@ArchetypeParty`: Marks the service as a manager of the Party archetype.
-- `@ArchetypeParty.Organization`: Annotates `EnterpriseClient`.
-- `@ArchetypeParty.Person`: Annotates `ClientContact`.
-- `@ArchetypeParty.OrganizationUnit`: Annotates `ClientBranch`.
+- `@ArchetypeParty.Organization`: Annotates `EnterpriseClient` which realizes an Organization.
+- `@ArchetypeParty.Person`: Annotates `ClientContact` which realizes a Person.
+- `@ArchetypeParty.OrganizationUnit`: Annotates `ClientBranch` which realizes an Organization Unit.
 - `@ArchetypeParty.Address`, `@ArchetypeParty.PartyIdentifier`, `@ArchetypeParty.PartyAuthentication`: Mark service methods that handle these specific archetype parts.
 
 The `ClientManagementService` shows how these parts are orchestrated to fulfill business requirements.
