@@ -32,6 +32,16 @@ public class EnterpriseClientAssert extends AbstractAssert<EnterpriseClientAsser
         return this;
     }
 
+    public EnterpriseClientAssert hasVatNumber(String vatNumber) {
+        isNotNull();
+
+        if (!actual.getVatNumber().equals(vatNumber)) {
+            failWithMessage("Expected VAT number to be <%s> but was <%s>", vatNumber, actual.getVatNumber());
+        }
+
+        return this;
+    }
+
     public EnterpriseClientAssert hasTaxId(String taxId) {
         isNotNull();
 

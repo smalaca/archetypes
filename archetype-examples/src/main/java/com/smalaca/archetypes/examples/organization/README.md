@@ -28,9 +28,10 @@ In systems focused on resource management, logistics, or internal HR, the primar
 - **Separation of Concerns:** This example intentionally excludes `Person` or `Authentication` to keep the focus on the complex organizational tree, proving that the archetype supports modular implementation of its parts.
 
 **Omission of Mandatory Parts:**
-- **PartyIdentifier:** While `CorporateEntity` has a `taxIdentifier` field, it does not use the `PartyIdentifier` archetype class from `archetype-models`. This demonstrates that domain-specific identifiers can be used alongside the archetype, especially when formal multi-identifier management is not required for the specific business context.
+- **None**: Every mandatory part is now realized. While `CorporateEntity` and `Department` use domain-specific fields like `taxIdentifier` and `departmentCode`, these are annotated with `@ArchetypeParty.PartyIdentifier` to explicitly realize the archetype's mandatory identifier requirement.
 
 ## Technical Implementation
 - **Self-Contained**: This example is independent of the `archetype-models` module. It contains its own copies of `Organization`, `OrganizationUnit`, and `Party` to remain completely decoupled.
 - `@ArchetypeParty.Organization`: Identifies `CorporateEntity` as an Organization.
 - `@ArchetypeParty.OrganizationUnit`: Identifies `Department` as an Organization Unit.
+- `@ArchetypeParty.PartyIdentifier`: Applied to `taxIdentifier` and `departmentCode` to mark them as stable identifiers for the respective parties.

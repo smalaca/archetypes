@@ -5,6 +5,7 @@ import com.smalaca.archetypes.annotations.ArchetypeParty;
 @ArchetypeParty.Organization
 public class CorporateEntity {
     private final Organization organization;
+    @ArchetypeParty.PartyIdentifier
     private final String taxIdentifier;
 
     public CorporateEntity(String name, String taxIdentifier) {

@@ -5,6 +5,7 @@ import com.smalaca.archetypes.annotations.ArchetypeParty;
 @ArchetypeParty.OrganizationUnit
 public class Department {
     private final OrganizationUnit organizationUnit;
+    @ArchetypeParty.PartyIdentifier
     private final String departmentCode;
 
     public Department(String name, String departmentCode) {

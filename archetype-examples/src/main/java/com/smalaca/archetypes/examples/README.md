@@ -9,7 +9,7 @@ This document provides a comprehensive overview of how the **Party Archetype Pat
 | **Party** (Base) | ✓ | ✓ | ✓ |
 | **Person** | ✓ | - | ✓ |
 | **Organization** | - | ✓ | ✓ |
-| **PartyIdentifier** | realized by username | (Omitted) | ✓ |
+| **PartyIdentifier** | realized by username | realized by domain fields | ✓ (and domain fields) |
 | **OrganizationUnit** | - | ✓ | ✓ |
 | **Address** | - | - | ✓ |
 | **PartyAuthentication** | - | - | ✓ |
@@ -24,9 +24,9 @@ The Party Archetype Pattern defines `Party`, (`Person` OR `Organization`), and `
 - **Justification:** In this narrow context, a `username` field that realizes `PartyIdentifier` provides a unique and stable handle for the contact without the need for a dedicated `PartyIdentifier` class.
 
 ### Corporate Hierarchy Example
-- **Omitted Mandatory Part:** `PartyIdentifier`
+- **Realized Mandatory Part:** `PartyIdentifier` realized by domain fields.
 - **Reasoning:** Focuses on the recursive organizational structure.
-- **Justification:** While the `CorporateEntity` includes a `taxIdentifier` field, it is implemented as a simple `String` rather than the `PartyIdentifier` archetype class. This demonstrates that the pattern can be adapted to use domain-specific fields when the overhead of multi-identifier management is not required.
+- **Justification:** While the `CorporateEntity` and `Department` include domain-specific fields like `taxIdentifier` and `departmentCode`, these are annotated with `@ArchetypeParty.PartyIdentifier` to explicitly realize the archetype's mandatory identifier requirement without the need for the formal `PartyIdentifier` archetype class.
 
 ### Full Example
 - **Omitted Mandatory Part:** None

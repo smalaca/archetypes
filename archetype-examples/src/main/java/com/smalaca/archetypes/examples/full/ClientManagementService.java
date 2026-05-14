@@ -5,9 +5,9 @@ import com.smalaca.archetypes.annotations.ArchetypeParty;
 @ArchetypeParty
 public class ClientManagementService {
     @ArchetypeParty.Address
-    public void registerBranch(EnterpriseClient client, String city, String street) {
+    public void registerBranch(EnterpriseClient client, String city, String street, String branchCode) {
         client.getOrganization().addAddress(new Address(street, city, "N/A", "Country"));
-        client.getOrganization().addUnit(new ClientBranch("Branch in " + city).getOrganizationUnit());
+        client.getOrganization().addUnit(new ClientBranch("Branch in " + city, branchCode).getOrganizationUnit());
     }
 
     @ArchetypeParty.PartyIdentifier

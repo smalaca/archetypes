@@ -30,6 +30,7 @@ Enterprise systems often require a 360-degree view of a client. This includes kn
 - `@ArchetypeParty.Organization`: Annotates `EnterpriseClient` which realizes an Organization.
 - `@ArchetypeParty.Person`: Annotates `ClientContact` which realizes a Person.
 - `@ArchetypeParty.OrganizationUnit`: Annotates `ClientBranch` which realizes an Organization Unit.
+- `@ArchetypeParty.PartyIdentifier`: Annotates `vatNumber`, `username`, and `branchCode` fields to provide domain-level stable identifiers alongside the formal archetype records.
 - `@ArchetypeParty.Address`, `@ArchetypeParty.PartyIdentifier`, `@ArchetypeParty.PartyAuthentication`: Mark service methods that handle these specific archetype parts.
 
 The `ClientManagementService` shows how these parts are orchestrated to fulfill business requirements.
