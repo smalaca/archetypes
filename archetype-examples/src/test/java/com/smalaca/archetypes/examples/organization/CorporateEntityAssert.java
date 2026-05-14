@@ -43,4 +43,41 @@ public class CorporateEntityAssert extends AbstractAssert<CorporateEntityAssert,
 
         return this;
     }
+
+    public CorporateEntityAssert hasDepartment(String name) {
+        isNotNull();
+
+        OrganizationUnit unit = findUnitByName(actual.getOrganization().getUnits(), name);
+
+        if (unit == null) {
+            failWithMessage("Expected corporate entity to have department <%s> but was not found", name);
+        }
+
+        return this;
+    }
+
+    public CorporateEntityAssert hasSubDepartment(String parentName, String subDepartmentName) {
+        isNotNull();
+
+        OrganizationUnit parent = findUnitByName(actual.getOrganization().getUnits(), parentName);
+
+        if (parent == null) {
+            failWithMessage("Expected corporate entity to have department <%s> but was not found", parentName);
+        }
+
+        OrganizationUnit subUnit = findUnitByName(parent.getUnits(), subDepartmentName);
+
+        if (subUnit == null) {
+            failWithMessage("Expected department <%s> to have sub-department <%s> but was not found", parentName, subDepartmentName);
+        }
+
+        return this;
+    }
+
+    private OrganizationUnit findUnitByName(Collection<OrganizationUnit> units, String name) {
+        return units.stream()
+                .filter(unit -> unit.getName().equals(name))
+                .findFirst()
+                .orElse(null);
+    }
 }

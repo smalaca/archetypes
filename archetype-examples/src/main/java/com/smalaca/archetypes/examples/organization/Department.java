@@ -13,6 +13,10 @@ public class Department {
         this.departmentCode = departmentCode;
     }
 
+    public void addSubDepartment(Department department) {
+        organizationUnit.addUnit(department.getOrganizationUnit());
+    }
+
     public String getDepartmentCode() {
         return departmentCode;
     }

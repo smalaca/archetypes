@@ -11,7 +11,7 @@ This example focuses on the organizational aspects of the Party archetype:
 1. **CorporateEntity** realizes **Organization**.
 2. **Department** realizes **OrganizationUnit**.
 
-The `Organization` archetype allows for a hierarchical structure where an organization can contain multiple `OrganizationUnit`s.
+The `Organization` archetype allows for a hierarchical structure where an organization can contain multiple `OrganizationUnit`s. This implementation demonstrates **recursive hierarchy** at the domain level, allowing departments to contain sub-departments.
 
 This example **does not** use:
 - `Person`
@@ -24,6 +24,7 @@ In systems focused on resource management, logistics, or internal HR, the primar
 
 **Why this is enough:**
 - **Structural Integrity:** The `Organization` and `OrganizationUnit` models are specifically designed to handle parent-child relationships, which is the core requirement for modeling a corporation.
+- **Domain-Driven API:** The domain classes (`CorporateEntity`, `Department`) encapsulate the archetype components and provide high-level methods like `addDepartment()` and `addSubDepartment()`, making the pattern easier to use without exposing its internal complexity.
 - **Interchangeability:** By using the archetype, the system can treat a `CorporateEntity` and a `Department` uniformly where their common "Party" nature matters (e.g., both could be assigned an Address or a Tax ID).
 - **Separation of Concerns:** This example intentionally excludes `Person` or `Authentication` to keep the focus on the complex organizational tree, proving that the archetype supports modular implementation of its parts.
 

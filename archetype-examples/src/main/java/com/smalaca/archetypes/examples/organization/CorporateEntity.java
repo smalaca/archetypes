@@ -13,6 +13,10 @@ public class CorporateEntity {
         this.taxIdentifier = taxIdentifier;
     }
 
+    public void addDepartment(Department department) {
+        organization.addUnit(department.getOrganizationUnit());
+    }
+
     public String getTaxIdentifier() {
         return taxIdentifier;
     }

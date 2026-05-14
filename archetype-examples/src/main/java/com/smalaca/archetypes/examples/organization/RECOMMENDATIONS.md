@@ -5,6 +5,7 @@
 - **Justification**: 
     - **Recursive Nature**: The example effectively demonstrates how `Organization` and `OrganizationUnit` (which is also an `Organization` in this implementation) can be used to build deep hierarchies.
     - **Uniformity**: `Department` and `CorporateEntity` both expose their underlying archetype components, allowing for uniform treatment.
+    - **API Design**: The encapsulation of archetype addition methods (`addDepartment`, `addSubDepartment`) within domain classes is a recommended practice to keep the domain model clean and expressive.
 
 #### 2. Validation of Unused Classes
 - **Correctness**: The list of unused classes in `README.md` is accurate and matches the package content.
