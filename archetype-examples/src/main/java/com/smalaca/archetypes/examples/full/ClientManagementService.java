@@ -4,10 +4,14 @@ import com.smalaca.archetypes.annotations.ArchetypeParty;
 
 @ArchetypeParty
 public class ClientManagementService {
+    @ArchetypeParty.OrganizationUnit
+    public void registerBranch(EnterpriseClient client, String branchName, BranchCode branchCode) {
+        client.addUnit(new ClientBranch(branchName, branchCode));
+    }
+
     @ArchetypeParty.Address
-    public void registerBranch(EnterpriseClient client, String city, String street, BranchCode branchCode) {
-        client.addAddress(new Address(street, city, "N/A", "Country"));
-        client.addUnit(new ClientBranch("Branch in " + city, branchCode));
+    public void addAddress(Party party, String city, String street) {
+        party.addAddress(new Address(street, city, "N/A", "Country"));
     }
 
     @ArchetypeParty.PartyAuthentication

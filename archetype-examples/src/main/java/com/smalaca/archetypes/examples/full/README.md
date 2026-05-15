@@ -18,7 +18,8 @@ The example uses all core parts of the Party archetype:
 
 ## Client Management Service
 The `ClientManagementService` acts as a facade that orchestrates the Party archetype entities. It shows how to:
-- Register a new branch (`ClientBranch`) with its physical address and branch code.
+- Register a new branch (`ClientBranch`) with its branch code.
+- Add an address (`Address`) to a party.
 - Setup authentication (`ClientAuthentication`) for a client contact.
 
 The service uses archetype annotations to explicitly mark which part of the archetype is being handled by each method, ensuring alignment with the Party Archetype pattern.
@@ -39,4 +40,4 @@ Enterprise systems often require a 360-degree view of a client. This includes kn
 - `@ArchetypeParty.Person`: Annotates `ClientContact`.
 - `@ArchetypeParty.OrganizationUnit`: Annotates `ClientBranch`.
 - `@ArchetypeParty.PartyIdentifier`: Annotates `VatNumber`, `BranchCode`, and `ClientContactName`.
-- `@ArchetypeParty.Address`, `@ArchetypeParty.PartyAuthentication`: Mark service methods that handle these specific archetype parts.
+- `@ArchetypeParty.Address`, `@ArchetypeParty.PartyAuthentication`, `@ArchetypeParty.OrganizationUnit`: Mark service methods that handle these specific archetype parts.

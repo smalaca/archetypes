@@ -12,7 +12,8 @@ class EnterpriseClientTest {
         EnterpriseClient client = new EnterpriseClient("Enterprise Corp", new VatNumber("VAT-123456789"), "Technology");
         ClientContact contact = new ClientContact(new ClientContactName("Alice", "Smith"), "Manager");
 
-        service.registerBranch(client, "Berlin", "Main Street 1", new BranchCode("BR-BER-01"));
+        service.registerBranch(client, "Branch in Berlin", new BranchCode("BR-BER-01"));
+        service.addAddress(client, "Berlin", "Main Street 1");
         service.setupLogin(contact, "secure-token-123");
 
         assertThat(client)
