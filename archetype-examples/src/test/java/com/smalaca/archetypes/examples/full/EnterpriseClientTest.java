@@ -33,13 +33,68 @@ class EnterpriseClientTest {
     }
 
     @Test
-    void shouldManageEnterpriseClientWithNoBranches() {
-        EnterpriseClient client = new EnterpriseClient("Startup Inc", new VatNumber("VAT-987654321"), "Retail");
+    void shouldManageEnterpriseClientWithoutBranchAndWithoutAddress() {
+        EnterpriseClient client = new EnterpriseClient("Simple Corp", new VatNumber("VAT-001"), "Services");
 
         assertThat(client)
-                .hasName("Startup Inc")
-                .hasVatNumber("VAT-987654321")
+                .hasName("Simple Corp")
+                .hasVatNumber("VAT-001")
+                .hasIndustry("Services")
+                .hasNoBranches()
+                .hasNoAddresses();
+    }
+
+    @Test
+    void shouldManageEnterpriseClientWithoutBranchAndWithAddress() {
+        EnterpriseClient client = new EnterpriseClient("Local Shop", new VatNumber("VAT-002"), "Retail");
+        service.addAddress(client, "Krakow", "Main Market 1");
+
+        assertThat(client)
+                .hasName("Local Shop")
+                .hasVatNumber("VAT-002")
                 .hasIndustry("Retail")
-                .hasNoBranches();
+                .hasNoBranches()
+                .hasAddressIn("Krakow");
+    }
+
+    @Test
+    void shouldManageEnterpriseClientWithAddressAndVariousBranches() {
+        EnterpriseClient client = new EnterpriseClient("Global Tech", new VatNumber("VAT-003"), "IT");
+        service.addAddress(client, "Warsaw", "Centrum 1");
+
+        // branch with units (sub-branches)
+        service.registerBranch(client, "Main Office", new BranchCode("BC-001"));
+        ClientBranch mainOffice = client.getUnit("Main Office");
+        mainOffice.addUnit(new ClientBranch("HR Unit", new BranchCode("BC-001-HR")));
+
+        // branch with no units
+        service.registerBranch(client, "Sales Office", new BranchCode("BC-002"));
+
+        // branch with address
+        service.registerBranch(client, "London Branch", new BranchCode("BC-003"));
+        ClientBranch londonBranch = client.getUnit("London Branch");
+        service.addAddress(londonBranch, "London", "Abbey Road 1");
+
+        // branch with no units (BC-002 is already one, but let's be explicit with assertions)
+        // branch with no address (BC-001, BC-002 are without address)
+
+        assertThat(client)
+                .hasName("Global Tech")
+                .hasVatNumber("VAT-003")
+                .hasIndustry("IT")
+                .hasAddressIn("Warsaw")
+                .hasBranches(3)
+                // branches with units
+                .hasBranch("Main Office", "BC-001")
+                .hasSubBranch("Main Office", "HR Unit", "BC-001-HR")
+                // branches with no units
+                .hasBranch("Sales Office", "BC-002")
+                .hasNoSubBranches("Sales Office")
+                // branches with address
+                .hasBranch("London Branch", "BC-003")
+                .hasBranchAddressIn("London Branch", "London")
+                // branches with no address
+                .hasNoBranchAddress("Main Office")
+                .hasNoBranchAddress("Sales Office");
     }
 }

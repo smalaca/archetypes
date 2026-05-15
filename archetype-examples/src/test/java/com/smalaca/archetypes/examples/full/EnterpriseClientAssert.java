@@ -52,6 +52,16 @@ public class EnterpriseClientAssert extends AbstractAssert<EnterpriseClientAsser
         return this;
     }
 
+    public EnterpriseClientAssert hasNoAddresses() {
+        isNotNull();
+
+        if (!actual.getAddresses().isEmpty()) {
+            failWithMessage("Expected client to have no addresses but had <%s>", actual.getAddresses().size());
+        }
+
+        return this;
+    }
+
     public EnterpriseClientAssert hasBranchAddressIn(String branchName, String city) {
         isNotNull();
 
@@ -64,6 +74,22 @@ public class EnterpriseClientAssert extends AbstractAssert<EnterpriseClientAsser
         Assertions.assertThat(branch.getAddresses())
                 .extracting(Address::city)
                 .contains(city);
+
+        return this;
+    }
+
+    public EnterpriseClientAssert hasNoBranchAddress(String branchName) {
+        isNotNull();
+
+        ClientBranch branch = findBranchByName(branchName);
+
+        if (branch == null) {
+            failWithMessage("Expected client to have branch <%s> but was not found", branchName);
+        }
+
+        if (!branch.getAddresses().isEmpty()) {
+            failWithMessage("Expected branch <%s> to have no addresses but had <%s>", branchName, branch.getAddresses().size());
+        }
 
         return this;
     }
@@ -131,6 +157,22 @@ public class EnterpriseClientAssert extends AbstractAssert<EnterpriseClientAsser
 
         if (!subBranch.getBranchCode().value().equals(subBranchCode)) {
             failWithMessage("Expected sub-branch <%s> to have code <%s> but was <%s>", subBranchName, subBranchCode, subBranch.getBranchCode().value());
+        }
+
+        return this;
+    }
+
+    public EnterpriseClientAssert hasNoSubBranches(String branchName) {
+        isNotNull();
+
+        ClientBranch branch = findBranchByName(branchName);
+
+        if (branch == null) {
+            failWithMessage("Expected client to have branch <%s> but was not found", branchName);
+        }
+
+        if (!branch.getUnits().isEmpty()) {
+            failWithMessage("Expected branch <%s> to have no sub-branches but had <%s>", branchName, branch.getUnits().size());
         }
 
         return this;
