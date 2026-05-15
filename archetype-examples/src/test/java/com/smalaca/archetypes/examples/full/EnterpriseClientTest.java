@@ -10,9 +10,8 @@ class EnterpriseClientTest {
     @Test
     void shouldManageEnterpriseClient() {
         EnterpriseClient client = new EnterpriseClient("Enterprise Corp", new VatNumber("VAT-123456789"), "Technology");
-        ClientContact contact = new ClientContact(new Username("alice.smith"), "Alice", "Smith", "Manager");
+        ClientContact contact = new ClientContact(new ClientContactName("Alice", "Smith"), "Manager");
 
-        service.assignTaxId(client, "VAT-987654321");
         service.registerBranch(client, "Berlin", "Main Street 1", new BranchCode("BR-BER-01"));
         service.setupLogin(contact, "secure-token-123");
 
@@ -20,11 +19,11 @@ class EnterpriseClientTest {
                 .hasName("Enterprise Corp")
                 .hasVatNumber("VAT-123456789")
                 .hasIndustry("Technology")
-                .hasTaxId("VAT-987654321")
-                .hasBranchIn("Berlin");
+                .hasBranchIn("Berlin")
+                .hasBranch("Branch in Berlin", "BR-BER-01");
 
         assertThat(contact)
-                .hasUsername("alice.smith")
+                .hasName("Alice", "Smith")
                 .hasPosition("Manager")
                 .hasLoginToken("secure-token-123");
     }

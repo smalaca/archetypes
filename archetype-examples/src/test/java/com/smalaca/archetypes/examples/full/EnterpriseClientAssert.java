@@ -15,8 +15,8 @@ public class EnterpriseClientAssert extends AbstractAssert<EnterpriseClientAsser
     public EnterpriseClientAssert hasName(String name) {
         isNotNull();
 
-        if (!actual.getOrganization().getName().equals(name)) {
-            failWithMessage("Expected client name to be <%s> but was <%s>", name, actual.getOrganization().getName());
+        if (!actual.getName().equals(name)) {
+            failWithMessage("Expected client name to be <%s> but was <%s>", name, actual.getName());
         }
 
         return this;
@@ -42,22 +42,31 @@ public class EnterpriseClientAssert extends AbstractAssert<EnterpriseClientAsser
         return this;
     }
 
-    public EnterpriseClientAssert hasTaxId(String taxId) {
+    public EnterpriseClientAssert hasBranchIn(String city) {
         isNotNull();
 
-        Assertions.assertThat(actual.getOrganization().getIdentifiers())
-                .extracting(PartyIdentifier::identifier)
-                .containsExactly(taxId);
+        Assertions.assertThat(actual.getAddresses())
+                .extracting(Address::city)
+                .containsExactly(city);
 
         return this;
     }
 
-    public EnterpriseClientAssert hasBranchIn(String city) {
+    public EnterpriseClientAssert hasBranch(String name, String code) {
         isNotNull();
 
-        Assertions.assertThat(actual.getOrganization().getAddresses())
-                .extracting(Address::city)
-                .containsExactly(city);
+        ClientBranch branch = actual.getUnits().stream()
+                .filter(unit -> unit.getName().equals(name))
+                .findFirst()
+                .orElse(null);
+
+        if (branch == null) {
+            failWithMessage("Expected client to have branch <%s> but was not found", name);
+        }
+
+        if (!branch.getBranchCode().value().equals(code)) {
+            failWithMessage("Expected branch <%s> to have code <%s> but was <%s>", name, code, branch.getBranchCode().value());
+        }
 
         return this;
     }

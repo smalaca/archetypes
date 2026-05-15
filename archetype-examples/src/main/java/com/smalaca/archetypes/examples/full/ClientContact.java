@@ -3,27 +3,21 @@ package com.smalaca.archetypes.examples.full;
 import com.smalaca.archetypes.annotations.ArchetypeParty;
 
 @ArchetypeParty.Person
-public class ClientContact {
-    private final Person person;
+public class ClientContact extends Party {
     @ArchetypeParty.PartyIdentifier
-    private final Username username;
+    private final ClientContactName name;
     private final String position;
 
-    public ClientContact(Username username, String firstName, String lastName, String position) {
-        this.person = new Person(firstName, lastName);
-        this.username = username;
+    public ClientContact(ClientContactName name, String position) {
+        this.name = name;
         this.position = position;
     }
 
-    public Username getUsername() {
-        return username;
+    public ClientContactName getName() {
+        return name;
     }
 
     public String getPosition() {
         return position;
-    }
-
-    public Person getPerson() {
-        return person;
     }
 }

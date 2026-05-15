@@ -12,11 +12,15 @@ public class ClientContactAssert extends AbstractAssert<ClientContactAssert, Cli
         return new ClientContactAssert(actual);
     }
 
-    public ClientContactAssert hasUsername(String username) {
+    public ClientContactAssert hasName(String firstName, String lastName) {
         isNotNull();
 
-        if (!actual.getUsername().value().equals(username)) {
-            failWithMessage("Expected username to be <%s> but was <%s>", username, actual.getUsername().value());
+        if (!actual.getName().firstName().equals(firstName)) {
+            failWithMessage("Expected first name to be <%s> but was <%s>", firstName, actual.getName().firstName());
+        }
+
+        if (!actual.getName().lastName().equals(lastName)) {
+            failWithMessage("Expected last name to be <%s> but was <%s>", lastName, actual.getName().lastName());
         }
 
         return this;
@@ -35,8 +39,8 @@ public class ClientContactAssert extends AbstractAssert<ClientContactAssert, Cli
     public ClientContactAssert hasLoginToken(String token) {
         isNotNull();
 
-        Assertions.assertThat(actual.getPerson().getAuthentications())
-                .extracting(PartyAuthentication::value)
+        Assertions.assertThat(actual.getAuthentications())
+                .extracting(ClientAuthentication::value)
                 .containsExactly(token);
 
         return this;

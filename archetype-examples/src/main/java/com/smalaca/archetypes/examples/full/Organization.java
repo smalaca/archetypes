@@ -8,7 +8,7 @@ import java.util.List;
 @ArchetypeParty.Organization
 public class Organization extends Party {
     private String name;
-    private final List<OrganizationUnit> units = new ArrayList<>();
+    private final List<ClientBranch> units = new ArrayList<>();
 
     public Organization(String name) {
         this.name = name;
@@ -18,11 +18,11 @@ public class Organization extends Party {
         return name;
     }
 
-    public void addUnit(OrganizationUnit unit) {
+    public void addUnit(ClientBranch unit) {
         units.add(unit);
     }
 
-    public Collection<OrganizationUnit> getUnits() {
+    public Collection<ClientBranch> getUnits() {
         return List.copyOf(units);
     }
 }
