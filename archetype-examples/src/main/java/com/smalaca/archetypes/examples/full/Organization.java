@@ -7,7 +7,7 @@ import java.util.List;
 
 @ArchetypeParty.Organization
 public class Organization extends Party {
-    private String name;
+    private final String name;
     private final List<ClientBranch> units = new ArrayList<>();
 
     public Organization(String name) {
@@ -24,5 +24,12 @@ public class Organization extends Party {
 
     public Collection<ClientBranch> getUnits() {
         return List.copyOf(units);
+    }
+
+    ClientBranch getUnit(String name) {
+        return units.stream()
+                .filter(unit -> unit.getName().equals(name))
+                .findFirst()
+                .orElseThrow();
     }
 }

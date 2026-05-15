@@ -39,9 +39,23 @@ public class ClientContactAssert extends AbstractAssert<ClientContactAssert, Cli
     public ClientContactAssert hasLoginToken(String token) {
         isNotNull();
 
-        Assertions.assertThat(actual.getAuthentications())
-                .extracting(ClientAuthentication::value)
-                .containsExactly(token);
+        if (actual.getAuthentication() == null) {
+            failWithMessage("Expected authentication to be present but was not");
+        }
+
+        if (!actual.getAuthentication().value().equals(token)) {
+            failWithMessage("Expected authentication token to be <%s> but was <%s>", token, actual.getAuthentication().value());
+        }
+
+        return this;
+    }
+
+    public ClientContactAssert hasAddressIn(String city) {
+        isNotNull();
+
+        Assertions.assertThat(actual.getAddresses())
+                .extracting(Address::city)
+                .contains(city);
 
         return this;
     }

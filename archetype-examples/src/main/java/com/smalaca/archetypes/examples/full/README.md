@@ -10,9 +10,9 @@ The example uses all core parts of the Party archetype:
 
 1. **Party**: The base for all participants.
 2. **EnterpriseClient** extends **Organization**.
-3. **ClientContact** extends **Party** and realizes **Person**.
+3. **ClientContact** extends **Party** and realizes **Person**. It maintains a 1:1 relationship with **ClientAuthentication**.
 4. **ClientBranch** extends **Organization** and realizes **OrganizationUnit**.
-5. **Address**: Used to store physical locations for branches.
+5. **Address**: Used to store physical locations for any **Party** (including branches).
 6. **Value Objects**: Dedicated VOs (`VatNumber`, `BranchCode`, `ClientContactName`) provide type safety for domain-specific identifiers.
 7. **ClientAuthentication** realizes **PartyAuthentication**: Used to manage secure access for contacts.
 
@@ -30,7 +30,7 @@ Enterprise systems often require a 360-degree view of a client. This includes kn
 **Why this is enough:**
 - **Simplified Structure:** By using inheritance (e.g., `EnterpriseClient` extends `Organization`) and merging generic archetype roles with domain entities, we reduce the number of classes and architectural complexity where deep extensibility is not required.
 - **Completeness:** By utilizing the full breadth of the Party Archetype, we can capture every facet of a business relationship within a single, coherent architectural pattern.
-- **Consistency:** All entities share the same underlying logic for identifiers, addresses, and authentication.
+- **Consistency:** All entities share the same underlying logic for identifiers and addresses.
 - **Value Objects:** Using dedicated Value Objects (e.g., `VatNumber`, `ClientContactName`) ensures type safety and encapsulates validation logic.
 
 ## Technical Implementation

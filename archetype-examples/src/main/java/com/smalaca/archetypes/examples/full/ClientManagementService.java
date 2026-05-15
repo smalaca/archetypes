@@ -16,6 +16,6 @@ public class ClientManagementService {
 
     @ArchetypeParty.PartyAuthentication
     public void setupLogin(ClientContact contact, String token) {
-        contact.addAuthentication(new ClientAuthentication("OAUTH", token));
+        contact.setAuthentication(new ClientAuthentication("OAUTH", token));
     }
 }
