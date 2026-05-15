@@ -2,6 +2,7 @@ package com.smalaca.archetypes.examples.organization;
 
 import org.junit.jupiter.api.Test;
 import static com.smalaca.archetypes.examples.organization.CorporateEntityAssert.assertThat;
+import static com.smalaca.archetypes.examples.organization.DepartmentAssert.assertThat;
 
 class CorporateHierarchyTest {
     @Test
@@ -18,7 +19,12 @@ class CorporateHierarchyTest {
         assertThat(corporation)
                 .hasName("Smalaca Corp")
                 .hasTaxIdentifier("PL1234567890")
-                .hasDepartments("Human Resources", "Information Technology")
-                .hasSubDepartment("Information Technology", "Software Development");
+                .hasDepartments(2)
+                .hasDepartment("Human Resources", "HR-001")
+                .hasDepartment("Information Technology", "IT-001");
+
+        assertThat(corporation.getDepartment("Information Technology"))
+                .hasSubDepartments(1)
+                .hasSubDepartment("Software Development", "IT-DEV-001");
     }
 }

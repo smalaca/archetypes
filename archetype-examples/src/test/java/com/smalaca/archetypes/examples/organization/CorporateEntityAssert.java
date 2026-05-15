@@ -44,13 +44,29 @@ public class CorporateEntityAssert extends AbstractAssert<CorporateEntityAssert,
         return this;
     }
 
-    public CorporateEntityAssert hasDepartment(String name) {
+    public CorporateEntityAssert hasDepartments(int expected) {
         isNotNull();
 
-        OrganizationUnit unit = findUnitByName(actual.getOrganization().getUnits(), name);
+        Collection<OrganizationUnit> units = actual.getOrganization().getUnits();
 
-        if (unit == null) {
+        if (units.size() != expected) {
+            failWithMessage("Expected corporate entity to have <%s> departments but was <%s>", expected, units.size());
+        }
+
+        return this;
+    }
+
+    public CorporateEntityAssert hasDepartment(String name, String code) {
+        isNotNull();
+
+        Department department = actual.getDepartment(name);
+
+        if (department == null) {
             failWithMessage("Expected corporate entity to have department <%s> but was not found", name);
+        }
+
+        if (!department.getDepartmentCode().equals(code)) {
+            failWithMessage("Expected department <%s> to have code <%s> but was <%s>", name, code, department.getDepartmentCode());
         }
 
         return this;
