@@ -1,5 +1,8 @@
 package com.smalaca.archetypes.examples.full;
 
+import com.smalaca.archetypes.annotations.ArchetypeParty;
+
+@ArchetypeParty.Person
 public class Person extends Party {
     private String firstName;
     private String lastName;

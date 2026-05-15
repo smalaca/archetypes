@@ -15,6 +15,7 @@ The example uses all core parts of the Party archetype:
 5. **Address**: Used to store physical locations for branches.
 6. **PartyIdentifier**: Used to store official identifiers like Tax IDs.
 7. **PartyAuthentication**: Used to manage secure access for contacts.
+8. **Value Objects**: Dedicated VOs (`VatNumber`, `BranchCode`, `Username`) provide type safety for domain-specific identifiers.
 
 ## Justification of Usage
 Enterprise systems often require a 360-degree view of a client. This includes knowing who they are (EnterpriseClient), how they are structured (ClientBranch), who to talk to (ClientContact), and how to verify their identity (PartyAuthentication/PartyIdentifier).
@@ -27,10 +28,10 @@ Enterprise systems often require a 360-degree view of a client. This includes kn
 ## Technical Implementation
 - **Self-Contained**: This example is completely independent of the `archetype-models` module. It includes all necessary archetype classes (`Party`, `Person`, `Organization`, `Address`, etc.) within its own package to show a full-scale, decoupled usage.
 - `@ArchetypeParty`: Marks the service as a manager of the Party archetype.
-- `@ArchetypeParty.Organization`: Annotates `EnterpriseClient` which realizes an Organization.
-- `@ArchetypeParty.Person`: Annotates `ClientContact` which realizes a Person.
-- `@ArchetypeParty.OrganizationUnit`: Annotates `ClientBranch` which realizes an Organization Unit.
-- `@ArchetypeParty.PartyIdentifier`: Annotates `vatNumber`, `username`, and `branchCode` fields to provide domain-level stable identifiers alongside the formal archetype records.
+- `@ArchetypeParty.Organization`: Annotates `Organization` and `EnterpriseClient`.
+- `@ArchetypeParty.Person`: Annotates `Person` and `ClientContact`.
+- `@ArchetypeParty.OrganizationUnit`: Annotates `OrganizationUnit` and `ClientBranch`.
+- `@ArchetypeParty.PartyIdentifier`: Annotates `VatNumber`, `Username`, and `BranchCode` to provide domain-level stable identifiers.
 - `@ArchetypeParty.Address`, `@ArchetypeParty.PartyIdentifier`, `@ArchetypeParty.PartyAuthentication`: Mark service methods that handle these specific archetype parts.
 
 The `ClientManagementService` shows how these parts are orchestrated to fulfill business requirements.

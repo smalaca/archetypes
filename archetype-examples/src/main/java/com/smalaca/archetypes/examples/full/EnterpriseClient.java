@@ -6,16 +6,16 @@ import com.smalaca.archetypes.annotations.ArchetypeParty;
 public class EnterpriseClient {
     private final Organization organization;
     @ArchetypeParty.PartyIdentifier
-    private final String vatNumber;
+    private final VatNumber vatNumber;
     private final String industry;
 
-    public EnterpriseClient(String name, String vatNumber, String industry) {
+    public EnterpriseClient(String name, VatNumber vatNumber, String industry) {
         this.organization = new Organization(name);
         this.vatNumber = vatNumber;
         this.industry = industry;
     }
 
-    public String getVatNumber() {
+    public VatNumber getVatNumber() {
         return vatNumber;
     }
 

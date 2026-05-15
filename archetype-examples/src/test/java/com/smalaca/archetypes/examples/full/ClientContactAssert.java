@@ -15,8 +15,8 @@ public class ClientContactAssert extends AbstractAssert<ClientContactAssert, Cli
     public ClientContactAssert hasUsername(String username) {
         isNotNull();
 
-        if (!actual.getUsername().equals(username)) {
-            failWithMessage("Expected username to be <%s> but was <%s>", username, actual.getUsername());
+        if (!actual.getUsername().value().equals(username)) {
+            failWithMessage("Expected username to be <%s> but was <%s>", username, actual.getUsername().value());
         }
 
         return this;

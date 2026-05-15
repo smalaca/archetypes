@@ -5,7 +5,7 @@ import com.smalaca.archetypes.annotations.ArchetypeParty;
 @ArchetypeParty
 public class ClientManagementService {
     @ArchetypeParty.Address
-    public void registerBranch(EnterpriseClient client, String city, String street, String branchCode) {
+    public void registerBranch(EnterpriseClient client, String city, String street, BranchCode branchCode) {
         client.getOrganization().addAddress(new Address(street, city, "N/A", "Country"));
         client.getOrganization().addUnit(new ClientBranch("Branch in " + city, branchCode).getOrganizationUnit());
     }
@@ -16,7 +16,7 @@ public class ClientManagementService {
     }
 
     @ArchetypeParty.PartyAuthentication
-    public void setupLogin(ClientContact contact, String username, String token) {
+    public void setupLogin(ClientContact contact, String token) {
         contact.getPerson().addAuthentication(new PartyAuthentication("OAUTH", token));
     }
 }
