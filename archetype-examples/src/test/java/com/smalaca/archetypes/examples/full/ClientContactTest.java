@@ -28,6 +28,6 @@ class ClientContactTest {
                 .hasName("Jane", "Smith")
                 .hasPosition("Director")
                 .hasLoginToken("token-456")
-                .hasAddressIn("London");
+                .hasAddressIn("London", "Baker Street 221B");
     }
 }

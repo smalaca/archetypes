@@ -24,10 +24,10 @@ class EnterpriseClientTest {
                 .hasName("Enterprise Corp")
                 .hasVatNumber("VAT-123456789")
                 .hasIndustry("Technology")
-                .hasAddressIn("Berlin")
+                .hasAddressIn("Berlin", "Main Street 1")
                 .hasBranches(2)
                 .hasBranch("Branch Berlin", "BR-BER-01")
-                .hasBranchAddressIn("Branch Berlin", "Berlin")
+                .hasBranchAddressIn("Branch Berlin", "Berlin", "Branch Street 1")
                 .hasBranch("Branch Munich", "BR-MUN-01")
                 .hasSubBranch("Branch Munich", "Munich Sales", "BR-MUN-SAL-01");
     }
@@ -54,7 +54,7 @@ class EnterpriseClientTest {
                 .hasVatNumber("VAT-002")
                 .hasIndustry("Retail")
                 .hasNoBranches()
-                .hasAddressIn("Krakow");
+                .hasAddressIn("Krakow", "Main Market 1");
     }
 
     @Test
@@ -75,14 +75,11 @@ class EnterpriseClientTest {
         ClientBranch londonBranch = client.getUnit("London Branch");
         service.addAddress(londonBranch, "London", "Abbey Road 1");
 
-        // branch with no units (BC-002 is already one, but let's be explicit with assertions)
-        // branch with no address (BC-001, BC-002 are without address)
-
         assertThat(client)
                 .hasName("Global Tech")
                 .hasVatNumber("VAT-003")
                 .hasIndustry("IT")
-                .hasAddressIn("Warsaw")
+                .hasAddressIn("Warsaw", "Centrum 1")
                 .hasBranches(3)
                 // branches with units
                 .hasBranch("Main Office", "BC-001")
@@ -92,7 +89,7 @@ class EnterpriseClientTest {
                 .hasNoSubBranches("Sales Office")
                 // branches with address
                 .hasBranch("London Branch", "BC-003")
-                .hasBranchAddressIn("London Branch", "London")
+                .hasBranchAddressIn("London Branch", "London", "Abbey Road 1")
                 // branches with no address
                 .hasNoBranchAddress("Main Office")
                 .hasNoBranchAddress("Sales Office");

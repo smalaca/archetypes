@@ -42,12 +42,17 @@ public class EnterpriseClientAssert extends AbstractAssert<EnterpriseClientAsser
         return this;
     }
 
-    public EnterpriseClientAssert hasAddressIn(String city) {
+    public EnterpriseClientAssert hasAddressIn(String city, String street) {
         isNotNull();
 
-        Assertions.assertThat(actual.getAddresses())
-                .extracting(Address::city)
-                .contains(city);
+        Address address = actual.getAddresses().stream()
+                .filter(a -> a.city().equals(city) && a.street().equals(street))
+                .findFirst()
+                .orElse(null);
+
+        if (address == null) {
+            failWithMessage("Expected client to have address in <%s> at <%s> but was not found", city, street);
+        }
 
         return this;
     }
@@ -62,7 +67,7 @@ public class EnterpriseClientAssert extends AbstractAssert<EnterpriseClientAsser
         return this;
     }
 
-    public EnterpriseClientAssert hasBranchAddressIn(String branchName, String city) {
+    public EnterpriseClientAssert hasBranchAddressIn(String branchName, String city, String street) {
         isNotNull();
 
         ClientBranch branch = findBranchByName(branchName);
@@ -71,9 +76,14 @@ public class EnterpriseClientAssert extends AbstractAssert<EnterpriseClientAsser
             failWithMessage("Expected client to have branch <%s> but was not found", branchName);
         }
 
-        Assertions.assertThat(branch.getAddresses())
-                .extracting(Address::city)
-                .contains(city);
+        Address address = branch.getAddresses().stream()
+                .filter(a -> a.city().equals(city) && a.street().equals(street))
+                .findFirst()
+                .orElse(null);
+
+        if (address == null) {
+            failWithMessage("Expected branch <%s> to have address in <%s> at <%s> but was not found", branchName, city, street);
+        }
 
         return this;
     }

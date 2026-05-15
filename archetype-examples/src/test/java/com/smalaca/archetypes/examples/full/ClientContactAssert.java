@@ -50,12 +50,17 @@ public class ClientContactAssert extends AbstractAssert<ClientContactAssert, Cli
         return this;
     }
 
-    public ClientContactAssert hasAddressIn(String city) {
+    public ClientContactAssert hasAddressIn(String city, String street) {
         isNotNull();
 
-        Assertions.assertThat(actual.getAddresses())
-                .extracting(Address::city)
-                .contains(city);
+        Address address = actual.getAddresses().stream()
+                .filter(a -> a.city().equals(city) && a.street().equals(street))
+                .findFirst()
+                .orElse(null);
+
+        if (address == null) {
+            failWithMessage("Expected client contact to have address in <%s> at <%s> but was not found", city, street);
+        }
 
         return this;
     }
