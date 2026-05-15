@@ -65,6 +65,16 @@ public class ClientContactAssert extends AbstractAssert<ClientContactAssert, Cli
         return this;
     }
 
+    public ClientContactAssert hasAddresses(int count) {
+        isNotNull();
+
+        if (actual.getAddresses().size() != count) {
+            failWithMessage("Expected client contact to have <%s> addresses but had <%s>", count, actual.getAddresses().size());
+        }
+
+        return this;
+    }
+
     public ClientContactAssert hasNoAddresses() {
         isNotNull();
 

@@ -30,4 +30,18 @@ class ClientContactTest {
                 .hasLoginToken("token-456")
                 .hasAddressIn("London", "Baker Street 221B");
     }
+
+    @Test
+    void shouldManageClientContactWithMultipleAddresses() {
+        ClientContact contact = new ClientContact(new ClientContactName("John", "Constantine"), "Exorcist");
+        service.addAddress(contact, "London", "Liverpool Street");
+        service.addAddress(contact, "New York", "Broadway 1");
+
+        assertThat(contact)
+                .hasName("John", "Constantine")
+                .hasPosition("Exorcist")
+                .hasAddresses(2)
+                .hasAddressIn("London", "Liverpool Street")
+                .hasAddressIn("New York", "Broadway 1");
+    }
 }

@@ -57,6 +57,16 @@ public class EnterpriseClientAssert extends AbstractAssert<EnterpriseClientAsser
         return this;
     }
 
+    public EnterpriseClientAssert hasAddresses(int count) {
+        isNotNull();
+
+        if (actual.getAddresses().size() != count) {
+            failWithMessage("Expected client to have <%s> addresses but had <%s>", count, actual.getAddresses().size());
+        }
+
+        return this;
+    }
+
     public EnterpriseClientAssert hasNoAddresses() {
         isNotNull();
 
@@ -83,6 +93,22 @@ public class EnterpriseClientAssert extends AbstractAssert<EnterpriseClientAsser
 
         if (address == null) {
             failWithMessage("Expected branch <%s> to have address in <%s> at <%s> but was not found", branchName, city, street);
+        }
+
+        return this;
+    }
+
+    public EnterpriseClientAssert hasBranchAddresses(String branchName, int count) {
+        isNotNull();
+
+        ClientBranch branch = findBranchByName(branchName);
+
+        if (branch == null) {
+            failWithMessage("Expected client to have branch <%s> but was not found", branchName);
+        }
+
+        if (branch.getAddresses().size() != count) {
+            failWithMessage("Expected branch <%s> to have <%s> addresses but had <%s>", branchName, count, branch.getAddresses().size());
         }
 
         return this;

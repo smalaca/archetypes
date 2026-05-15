@@ -94,4 +94,42 @@ class EnterpriseClientTest {
                 .hasNoBranchAddress("Main Office")
                 .hasNoBranchAddress("Sales Office");
     }
+
+    @Test
+    void shouldManageEnterpriseClientWithMultipleAddresses() {
+        EnterpriseClient client = new EnterpriseClient("MultiAddr Corp", new VatNumber("VAT-MULT"), "Logistics");
+        service.addAddress(client, "Paris", "Rue de Rivoli 1");
+        service.addAddress(client, "Lyon", "Place Bellecour 10");
+
+        assertThat(client)
+                .hasName("MultiAddr Corp")
+                .hasVatNumber("VAT-MULT")
+                .hasIndustry("Logistics")
+                .hasAddresses(2)
+                .hasAddressIn("Paris", "Rue de Rivoli 1")
+                .hasAddressIn("Lyon", "Place Bellecour 10");
+    }
+
+    @Test
+    void shouldManageEnterpriseClientWithTwoBranchesWhereOneHasMultipleAddressesAndOtherHasNoAddress() {
+        EnterpriseClient client = new EnterpriseClient("BranchAddr Corp", new VatNumber("VAT-BR-ADDR"), "Transport");
+        service.registerBranch(client, "No Address Branch", new BranchCode("BC-NONE"));
+        service.registerBranch(client, "Multi Address Branch", new BranchCode("BC-MULTI"));
+
+        ClientBranch multiBranch = client.getUnit("Multi Address Branch");
+        service.addAddress(multiBranch, "Berlin", "Alexanderplatz 1");
+        service.addAddress(multiBranch, "Hamburg", "Reeperbahn 69");
+
+        assertThat(client)
+                .hasName("BranchAddr Corp")
+                .hasVatNumber("VAT-BR-ADDR")
+                .hasIndustry("Transport")
+                .hasBranches(2)
+                .hasBranch("No Address Branch", "BC-NONE")
+                .hasNoBranchAddress("No Address Branch")
+                .hasBranch("Multi Address Branch", "BC-MULTI")
+                .hasBranchAddresses("Multi Address Branch", 2)
+                .hasBranchAddressIn("Multi Address Branch", "Berlin", "Alexanderplatz 1")
+                .hasBranchAddressIn("Multi Address Branch", "Hamburg", "Reeperbahn 69");
+    }
 }
