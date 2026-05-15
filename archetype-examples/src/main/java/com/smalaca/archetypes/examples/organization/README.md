@@ -8,15 +8,14 @@ Modeling a large corporation with multiple departments. This highlights the recu
 ## Archetype Usage
 This example focuses on the organizational aspects of the Party archetype:
 
-1. **CorporateEntity** realizes **Organization**.
-2. **Department** realizes **OrganizationUnit**.
+1. **CorporateEntity** extends **Organization**.
+2. **OrganizationUnit** represents a part of the organization.
 
-The `Organization` archetype allows for a hierarchical structure where an organization can contain multiple `OrganizationUnit`s. This implementation demonstrates **recursive hierarchy** at the domain level, allowing departments to contain sub-departments.
+The `Organization` archetype allows for a hierarchical structure where an organization can contain multiple `OrganizationUnit`s. This implementation demonstrates **recursive hierarchy** at the domain level, allowing units to contain sub-units.
 
 This example **does not** use:
 - `Person`
 - `Address`
-- `PartyIdentifier` (Official archetype records)
 - `PartyAuthentication`
 
 ## Justification of Usage
@@ -24,15 +23,15 @@ In systems focused on resource management, logistics, or internal HR, the primar
 
 **Why this is enough:**
 - **Structural Integrity:** The `Organization` and `OrganizationUnit` models are specifically designed to handle parent-child relationships, which is the core requirement for modeling a corporation.
-- **Domain-Driven API:** The domain classes (`CorporateEntity`, `Department`) encapsulate the archetype components and provide high-level methods like `addDepartment()` and `addSubDepartment()`, making the pattern easier to use without exposing its internal complexity.
-- **Interchangeability:** By using the archetype, the system can treat a `CorporateEntity` and a `Department` uniformly where their common "Party" nature matters (e.g., both could be assigned an Address or a Tax ID).
-- **Separation of Concerns:** This example intentionally excludes `Person` or `Authentication` to keep the focus on the complex organizational tree, proving that the archetype supports modular implementation of its parts.
+- **Simplified Domain Model:** By merging `Organization` with `Party` and `Department` with `OrganizationUnit`, we reduce complexity while maintaining the archetype's core structure. This is justified by the lack of need for additional extensibility in this specific use case.
+- **Value Objects:** Using dedicated Value Objects (e.g., `TaxIdentifier`, `DepartmentCode`) ensures type safety and provides a place for identifier-related validation logic.
+- **Interchangeability:** By using the archetype, the system can treat a `CorporateEntity` and an `OrganizationUnit` uniformly where their common "Organization" nature matters.
 
 **Omission of Mandatory Parts:**
-- **None**: Every mandatory part is now realized. While `CorporateEntity` and `Department` use domain-specific fields like `taxIdentifier` and `departmentCode`, these are annotated with `@ArchetypeParty.PartyIdentifier` to explicitly realize the archetype's mandatory identifier requirement.
+- **None**: Every mandatory part is now realized. `CorporateEntity` and `OrganizationUnit` use dedicated Value Objects, which are annotated with `@ArchetypeParty.PartyIdentifier` to explicitly realize the archetype's mandatory identifier requirement.
 
 ## Technical Implementation
-- **Self-Contained**: This example is independent of the `archetype-models` module. It contains its own copies of `Organization`, `OrganizationUnit`, and `Party` to remain completely decoupled.
-- `@ArchetypeParty.Organization`: Identifies `CorporateEntity` as an Organization.
-- `@ArchetypeParty.OrganizationUnit`: Identifies `Department` as an Organization Unit.
-- `@ArchetypeParty.PartyIdentifier`: Applied to `taxIdentifier` and `departmentCode` to mark them as stable identifiers for the respective parties.
+- **Self-Contained**: This example is independent of the `archetype-models` module. It contains its own copies of `Organization`, `OrganizationUnit`, and dedicated Value Objects (`TaxIdentifier`, `DepartmentCode`) to remain completely decoupled.
+- `@ArchetypeParty.Organization`: Identifies `Organization` and `CorporateEntity` as Organizations.
+- `@ArchetypeParty.OrganizationUnit`: Identifies `OrganizationUnit`.
+- `@ArchetypeParty.PartyIdentifier`: Applied to the `TaxIdentifier` and `DepartmentCode` classes and their usages to mark stable identifiers.

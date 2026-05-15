@@ -16,8 +16,8 @@ public class CorporateEntityAssert extends AbstractAssert<CorporateEntityAssert,
     public CorporateEntityAssert hasName(String name) {
         isNotNull();
 
-        if (!actual.getOrganization().getName().equals(name)) {
-            failWithMessage("Expected corporate entity name to be <%s> but was <%s>", name, actual.getOrganization().getName());
+        if (!actual.getName().equals(name)) {
+            failWithMessage("Expected corporate entity name to be <%s> but was <%s>", name, actual.getName());
         }
 
         return this;
@@ -26,8 +26,8 @@ public class CorporateEntityAssert extends AbstractAssert<CorporateEntityAssert,
     public CorporateEntityAssert hasTaxIdentifier(String taxIdentifier) {
         isNotNull();
 
-        if (!actual.getTaxIdentifier().equals(taxIdentifier)) {
-            failWithMessage("Expected tax identifier to be <%s> but was <%s>", taxIdentifier, actual.getTaxIdentifier());
+        if (!actual.getTaxIdentifier().value().equals(taxIdentifier)) {
+            failWithMessage("Expected tax identifier to be <%s> but was <%s>", taxIdentifier, actual.getTaxIdentifier().value());
         }
 
         return this;
@@ -36,9 +36,9 @@ public class CorporateEntityAssert extends AbstractAssert<CorporateEntityAssert,
     public CorporateEntityAssert hasDepartments(String... departmentNames) {
         isNotNull();
 
-        Collection<OrganizationUnit> units = actual.getOrganization().getUnits();
+        Collection<Department> units = actual.getDepartments();
         org.assertj.core.api.Assertions.assertThat(units)
-                .extracting(OrganizationUnit::getName)
+                .extracting(Department::getName)
                 .containsExactlyInAnyOrder(departmentNames);
 
         return this;
@@ -47,7 +47,7 @@ public class CorporateEntityAssert extends AbstractAssert<CorporateEntityAssert,
     public CorporateEntityAssert hasDepartments(int expected) {
         isNotNull();
 
-        Collection<OrganizationUnit> units = actual.getOrganization().getUnits();
+        Collection<Department> units = actual.getDepartments();
 
         if (units.size() != expected) {
             failWithMessage("Expected corporate entity to have <%s> departments but was <%s>", expected, units.size());
@@ -65,8 +65,8 @@ public class CorporateEntityAssert extends AbstractAssert<CorporateEntityAssert,
             failWithMessage("Expected corporate entity to have department <%s> but was not found", name);
         }
 
-        if (!department.getDepartmentCode().equals(code)) {
-            failWithMessage("Expected department <%s> to have code <%s> but was <%s>", name, code, department.getDepartmentCode());
+        if (!department.getDepartmentCode().value().equals(code)) {
+            failWithMessage("Expected department <%s> to have code <%s> but was <%s>", name, code, department.getDepartmentCode().value());
         }
 
         return this;
@@ -75,13 +75,13 @@ public class CorporateEntityAssert extends AbstractAssert<CorporateEntityAssert,
     public CorporateEntityAssert hasSubDepartment(String parentName, String subDepartmentName) {
         isNotNull();
 
-        OrganizationUnit parent = findUnitByName(actual.getOrganization().getUnits(), parentName);
+        Department parent = findUnitByName(actual.getDepartments(), parentName);
 
         if (parent == null) {
             failWithMessage("Expected corporate entity to have department <%s> but was not found", parentName);
         }
 
-        OrganizationUnit subUnit = findUnitByName(parent.getUnits(), subDepartmentName);
+        Department subUnit = findUnitByName(parent.getDepartments(), subDepartmentName);
 
         if (subUnit == null) {
             failWithMessage("Expected department <%s> to have sub-department <%s> but was not found", parentName, subDepartmentName);
@@ -90,7 +90,7 @@ public class CorporateEntityAssert extends AbstractAssert<CorporateEntityAssert,
         return this;
     }
 
-    private OrganizationUnit findUnitByName(Collection<OrganizationUnit> units, String name) {
+    private Department findUnitByName(Collection<Department> units, String name) {
         return units.stream()
                 .filter(unit -> unit.getName().equals(name))
                 .findFirst()

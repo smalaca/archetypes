@@ -7,14 +7,14 @@ import static com.smalaca.archetypes.examples.organization.DepartmentAssert.asse
 class CorporateHierarchyTest {
     @Test
     void shouldModelCorporateHierarchy() {
-        CorporateEntity corporation = new CorporateEntity("Smalaca Corp", "PL1234567890");
-        Department hr = new Department("Human Resources", "HR-001");
-        Department it = new Department("Information Technology", "IT-001");
-        Department dev = new Department("Software Development", "IT-DEV-001");
+        CorporateEntity corporation = new CorporateEntity("Smalaca Corp", new TaxIdentifier("PL1234567890"));
+        Department hr = new Department("Human Resources", new DepartmentCode("HR-001"));
+        Department it = new Department("Information Technology", new DepartmentCode("IT-001"));
+        Department dev = new Department("Software Development", new DepartmentCode("IT-DEV-001"));
 
-        it.addSubDepartment(dev);
-        corporation.addDepartment(hr);
-        corporation.addDepartment(it);
+        it.add(dev);
+        corporation.add(hr);
+        corporation.add(it);
 
         assertThat(corporation)
                 .hasName("Smalaca Corp")
@@ -24,7 +24,7 @@ class CorporateHierarchyTest {
                 .hasDepartment("Information Technology", "IT-001");
 
         assertThat(corporation.getDepartment("Information Technology"))
-                .hasSubDepartments(1)
-                .hasSubDepartment("Software Development", "IT-DEV-001");
+                .hasDepartments(1)
+                .hasDepartment("Software Development", "IT-DEV-001");
     }
 }
