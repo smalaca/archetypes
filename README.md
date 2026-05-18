@@ -17,7 +17,7 @@ Represents an identifiable, addressable unit that has some autonomous control ov
 ### 2. PartyRelationship Archetype Pattern
 Describes the relationships between parties and the roles they play within those relationships.
 - **Key Concepts:** Captures how parties interact (e.g., Employment, Peer-to-Peer).
-- **Core Archetypes:** `PartyRole`, `PartyRelationship`, `RelationshipConstraint`.
+- **Core Archetypes:** `PartyRole`, `RoleType`, `PartyRelationship`, `RelationshipType`, `RelationshipConstraint`.
 
 ### 3. Customer Relationship Management (CRM) Archetype Pattern
 Extends the Party and PartyRelationship patterns to focus specifically on the interactions between a business and its customers.
