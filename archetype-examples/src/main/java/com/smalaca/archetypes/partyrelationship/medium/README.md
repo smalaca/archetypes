@@ -9,12 +9,18 @@ An employment relationship where one employer (organization name as String) has 
 In this example, the **PartyRelationship Archetype Pattern** is applied with a focus on roles:
 1. **Employment** realizes **PartyRelationship** with a fixed `RelationshipType` of "Employment".
 2. **EmployerRole** realizes **PartyRole** with a fixed `RoleType` of "Employer".
-3. **EmployeeRole** (inner record) realizes **PartyRole** with a `position` field realizing `RoleType`.
+3. **EmployeeRole** realizes **PartyRole** with a `position` field realizing `RoleType`.
 
 It **does not** use separate classes for:
 - `RelationshipConstraint`
 - `Party` (Parties are represented as simple Strings)
 - `PartyIdentifier`
+
+## What Makes This "Medium" (vs Simple)
+- **Multiple distinct role types:** Unlike the simple example where both sides play the same role, here `EmployerRole` and `EmployeeRole` are different classes with different structures and semantics.
+- **Asymmetric relationship:** The employer and employees play fundamentally different roles — one side is singular and fixed, the other is a collection.
+- **One-to-many:** A single `EmployerRole` relates to multiple `EmployeeRole` instances, demonstrating that a `PartyRelationship` can involve a collection of roles.
+- **Role-specific attributes:** `EmployeeRole` carries a `position` attribute beyond just the party name, showing that roles can have their own domain data.
 
 ## Justification of Usage
 In many HR or project management systems, we need to track who works for whom and in what capacity.
@@ -22,7 +28,7 @@ In many HR or project management systems, we need to track who works for whom an
 **Why this is enough:**
 - **Mandatory Coverage:** All mandatory parts (`PartyRelationship`, `RelationshipType`, `PartyRole`, `RoleType`, `Party`) are present, even if realized as simple fields or Strings.
 - **Role Awareness:** It explicitly models `EmployerRole` and `EmployeeRole`, allowing for additional attributes like `position`.
-- **One-to-Many Relationship:** It demonstrates that a `PartyRelationship` can involve multiple roles.
+- **One-to-Many Relationship:** It demonstrates that a `PartyRelationship` can involve multiple roles on one side.
 
 **Omission of Optional Parts:**
 - **RelationshipConstraint:** No business rules enforcement is required in this use case.

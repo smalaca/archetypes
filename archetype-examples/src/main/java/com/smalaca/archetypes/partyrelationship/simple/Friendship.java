@@ -27,24 +27,4 @@ public class Friendship {
     public FriendRole getFriend2() {
         return friend2;
     }
-
-    @ArchetypePartyRelationship.PartyRole
-    public static class FriendRole {
-        @ArchetypePartyRelationship.RoleType
-        private final String roleType = "Friend";
-        @ArchetypePartyRelationship.Party
-        private final String person;
-
-        public FriendRole(String person) {
-            this.person = person;
-        }
-
-        public String getRoleType() {
-            return roleType;
-        }
-
-        public String getPerson() {
-            return person;
-        }
-    }
 }

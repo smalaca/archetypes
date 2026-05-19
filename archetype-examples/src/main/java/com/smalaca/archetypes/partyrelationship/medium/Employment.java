@@ -34,29 +34,4 @@ public class Employment {
         return employees;
     }
 
-    @ArchetypePartyRelationship.PartyRole
-    public static class EmployerRole {
-        @ArchetypePartyRelationship.RoleType
-        private final String roleType = "Employer";
-        @ArchetypePartyRelationship.Party
-        private final String name;
-
-        public EmployerRole(String name) {
-            this.name = name;
-        }
-
-        public String getRoleType() {
-            return roleType;
-        }
-
-        public String getName() {
-            return name;
-        }
-    }
-
-    @ArchetypePartyRelationship.PartyRole
-    public static record EmployeeRole(
-            @ArchetypePartyRelationship.Party String name,
-            @ArchetypePartyRelationship.RoleType String position) {
-    }
 }

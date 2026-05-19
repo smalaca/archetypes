@@ -15,11 +15,17 @@ It **does not** use separate classes for:
 - `Party` (Persons are represented as simple Strings)
 - `PartyIdentifier`
 
+## What Makes This "Simple"
+- **One role type:** Both participants play the same role (`FriendRole`). There is no distinction between the two sides of the relationship.
+- **Symmetric relationship:** `friend1` and `friend2` are both `FriendRole` instances — the relationship is equal on both sides.
+- **Minimal structure:** Only two classes are needed: `Friendship` (the relationship) and `FriendRole` (the role).
+- **No role-specific attributes:** `FriendRole` carries only the party (person as String) and the fixed role type.
+
 ## Justification of Usage
 For a simple friendship relationship where roles are symmetric (both are "friends"), a consolidated model is sufficient.
 
 **Why this is enough:**
-- **Simplicity:** `Friendship` directly captures the relationship between two entities using inline `FriendRole` instances.
+- **Simplicity:** `Friendship` directly captures the relationship between two entities using `FriendRole` instances.
 - **Goal Achievement:** The primary goal is to represent a link between two people with their roles.
 - **Mandatory Coverage:** All mandatory parts (`PartyRelationship`, `RelationshipType`, `PartyRole`, `RoleType`, `Party`) are present, even if realized as simple fields or Strings.
 
