@@ -1,5 +1,8 @@
 package com.smalaca.archetypes.partyrelationship.full;
 
+import com.smalaca.archetypes.annotations.ArchetypePartyRelationship;
+
+@ArchetypePartyRelationship.PartyRole
 public class PartyRole {
     private final Party party;
     private final RoleType roleType;

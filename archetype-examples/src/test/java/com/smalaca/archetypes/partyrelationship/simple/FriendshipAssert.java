@@ -11,17 +11,35 @@ public class FriendshipAssert extends AbstractAssert<FriendshipAssert, Friendshi
         return new FriendshipAssert(actual);
     }
 
-    public FriendshipAssert isBetween(String person1, String person2) {
+    public FriendshipAssert hasRelationshipType(String type) {
         isNotNull();
-
-        if (!actual.getPerson1().equals(person1)) {
-            failWithMessage("Expected person1 to be <%s> but was <%s>", person1, actual.getPerson1());
+        if (!actual.getRelationshipType().equals(type)) {
+            failWithMessage("Expected relationship type to be <%s> but was <%s>", type, actual.getRelationshipType());
         }
+        return this;
+    }
 
-        if (!actual.getPerson2().equals(person2)) {
-            failWithMessage("Expected person2 to be <%s> but was <%s>", person2, actual.getPerson2());
+    public FriendshipAssert hasFriend1(String person) {
+        isNotNull();
+        if (!actual.getFriend1().getPerson().equals(person)) {
+            failWithMessage("Expected friend1 to be <%s> but was <%s>", person, actual.getFriend1().getPerson());
         }
+        return this;
+    }
 
+    public FriendshipAssert hasFriend2(String person) {
+        isNotNull();
+        if (!actual.getFriend2().getPerson().equals(person)) {
+            failWithMessage("Expected friend2 to be <%s> but was <%s>", person, actual.getFriend2().getPerson());
+        }
+        return this;
+    }
+
+    public FriendshipAssert hasFriendRoleType(String roleType) {
+        isNotNull();
+        if (!actual.getFriend1().getRoleType().equals(roleType)) {
+            failWithMessage("Expected friend role type to be <%s> but was <%s>", roleType, actual.getFriend1().getRoleType());
+        }
         return this;
     }
 }

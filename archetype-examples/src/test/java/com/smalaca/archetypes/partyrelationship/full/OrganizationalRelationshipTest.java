@@ -1,6 +1,7 @@
 package com.smalaca.archetypes.partyrelationship.full;
 
 import org.junit.jupiter.api.Test;
+
 import static com.smalaca.archetypes.partyrelationship.full.OrganizationalRelationshipAssert.assertThat;
 
 class OrganizationalRelationshipTest {
@@ -11,10 +12,12 @@ class OrganizationalRelationshipTest {
 
         RoleType employerRole = new RoleType("Employer");
         Organization company = new Organization("Smalaca Corp");
+        company.addIdentifier(new PartyIdentifier("TAX-001", "TaxId"));
         relationship.addRole(new PartyRole(company, employerRole));
 
         RoleType employeeRole = new RoleType("Employee");
         Person person = new Person("John", "Doe");
+        person.addIdentifier(new PartyIdentifier("EMP-001", "EmployeeId"));
         relationship.addRole(new PartyRole(person, employeeRole));
 
         RelationshipConstraint constraint = new OrganizationalHierarchyConstraint("Employer", "Employee");
@@ -24,6 +27,8 @@ class OrganizationalRelationshipTest {
                 .hasRolesCount(2)
                 .hasRole("Employer", "Smalaca Corp")
                 .hasRole("Employee", "John Doe")
+                .hasPartyIdentifier("Employer", "TAX-001", "TaxId")
+                .hasPartyIdentifier("Employee", "EMP-001", "EmployeeId")
                 .satisfies(constraint);
     }
 

@@ -63,6 +63,18 @@ public class OrganizationalRelationshipAssert extends AbstractAssert<Organizatio
         return this;
     }
 
+    public OrganizationalRelationshipAssert hasPartyIdentifier(String roleName, String identifier, String type) {
+        isNotNull();
+        boolean found = actual.getRoles().stream()
+                .filter(role -> role.getRoleType().name().equals(roleName))
+                .flatMap(role -> role.getParty().getIdentifiers().stream())
+                .anyMatch(id -> id.identifier().equals(identifier) && id.type().equals(type));
+        if (!found) {
+            failWithMessage("Expected party in role <%s> to have identifier <%s> of type <%s>", roleName, identifier, type);
+        }
+        return this;
+    }
+
     public OrganizationalRelationshipAssert doesNotSatisfy(RelationshipConstraint constraint) {
         isNotNull();
 

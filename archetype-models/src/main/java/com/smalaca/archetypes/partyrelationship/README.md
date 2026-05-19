@@ -11,17 +11,26 @@ The pattern introduces an intermediate layer of **Roles** between **Parties**. I
 
 ## Archetype Components
 
-### Core Archetypes
-- **PartyRelationship:** Represents the actual connection between roles. It has a `RelationshipType`.
-- **RelationshipType:** Defines the kind of relationship (e.g., Employment, Partnership).
-- **PartyRole:** Represents a specific capacity or role that a `Party` plays (e.g., Employee, Employer). It has a `RoleType`.
-- **RoleType:** Defines the kind of role (e.g., Manager, Customer, Supplier).
-- **RelationshipConstraint:** Defines the rules governing the valid formation of relationships.
+### Mandatory Parts
+- **PartyRelationship:** The core of the pattern. Every relationship MUST be a `PartyRelationship` to capture the connection between roles.
+- **RelationshipType:** Essential for classifying the kind of relationship (e.g., Employment, Partnership, Friendship).
+- **PartyRole:** Required to represent how a `Party` participates in a relationship. A relationship must have at least one role.
+- **RoleType:** Essential for defining the capacity in which a party participates (e.g., Employer, Employee, Friend).
+- **Party:** At least one concrete implementation is required to represent the entities participating in the relationship.
 
-### Supporting Archetypes (Self-contained)
+### Optional Parts
+- **RelationshipConstraint:** Only needed if the system must enforce business rules about which roles can form valid relationships.
+- **PartyIdentifier:** Required only if parties within the relationship need to be uniquely identified.
+
+## Archetype Classes
+
+- **PartyRelationship:** Represents the actual connection between roles. It holds a `RelationshipType` and a collection of `PartyRole` instances.
+- **RelationshipType:** A value object that defines the kind of relationship (e.g., "Employment", "Partnership").
+- **PartyRole:** Represents a specific capacity or role that a `Party` plays. It links a `Party` to a `RoleType`.
+- **RoleType:** A value object that defines the kind of role (e.g., "Manager", "Customer", "Supplier").
+- **RelationshipConstraint:** An interface for defining rules governing the valid formation of relationships.
 - **Party:** Abstract base for entities participating in roles.
-- **Person & Organization:** Concrete implementations of `Party`.
-- **PartyIdentifier:** Unique identifier for a `Party`.
+- **PartyIdentifier:** A unique identifier for a party, such as an ID or Tax Number.
 
 ## Dependency Diagram
 
@@ -51,10 +60,16 @@ classDiagram
         <<abstract>>
         -List~PartyIdentifier~ identifiers
     }
+    class PartyIdentifier {
+        <<record>>
+        -String identifier
+        -String type
+    }
 
     PartyRelationship "1" *-- "1" RelationshipType
-    PartyRelationship "1" *-- "0..*" PartyRole
+    PartyRelationship "1" *-- "1..*" PartyRole
     PartyRole "1" *-- "1" Party
     PartyRole "1" *-- "1" RoleType
+    Party "1" *-- "0..*" PartyIdentifier
     RelationshipConstraint ..> PartyRelationship : validates
 ```
