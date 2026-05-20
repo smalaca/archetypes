@@ -3,14 +3,14 @@ package com.smalaca.archetypes.partyrelationship.simple;
 import com.smalaca.archetypes.annotations.ArchetypePartyRelationship;
 
 @ArchetypePartyRelationship.PartyRole
-public class FriendRole {
+public class ChildRole {
     @ArchetypePartyRelationship.RoleType
-    private final String roleType = "Friend";
+    private final String roleType = "Child";
     @ArchetypePartyRelationship.Party
     private final String partyId;
     private final String person;
 
-    public FriendRole(String partyId, String person) {
+    public ChildRole(String partyId, String person) {
         this.partyId = partyId;
         this.person = person;
     }

@@ -11,9 +11,9 @@ public class Friendship {
     @ArchetypePartyRelationship.PartyRole
     private final FriendRole friend2;
 
-    public Friendship(String person1, String person2) {
-        this.friend1 = new FriendRole(person1);
-        this.friend2 = new FriendRole(person2);
+    public Friendship(String partyId1, String person1, String partyId2, String person2) {
+        this.friend1 = new FriendRole(partyId1, person1);
+        this.friend2 = new FriendRole(partyId2, person2);
     }
 
     public String getRelationshipType() {
