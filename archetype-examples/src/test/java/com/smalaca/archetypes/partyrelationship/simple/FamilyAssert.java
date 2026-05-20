@@ -2,6 +2,8 @@ package com.smalaca.archetypes.partyrelationship.simple;
 
 import org.assertj.core.api.AbstractAssert;
 
+import java.util.UUID;
+
 public class FamilyAssert extends AbstractAssert<FamilyAssert, Family> {
     private FamilyAssert(Family actual) {
         super(actual, FamilyAssert.class);
@@ -9,14 +11,6 @@ public class FamilyAssert extends AbstractAssert<FamilyAssert, Family> {
 
     public static FamilyAssert assertThat(Family actual) {
         return new FamilyAssert(actual);
-    }
-
-    public FamilyAssert hasRelationshipType(String type) {
-        isNotNull();
-        if (!actual.getRelationshipType().equals(type)) {
-            failWithMessage("Expected relationship type to be <%s> but was <%s>", type, actual.getRelationshipType());
-        }
-        return this;
     }
 
     public FamilyAssert hasParentsCount(int count) {
@@ -35,22 +29,22 @@ public class FamilyAssert extends AbstractAssert<FamilyAssert, Family> {
         return this;
     }
 
-    public FamilyAssert hasParent(String partyId, String person) {
+    public FamilyAssert hasParent(UUID partyId) {
         isNotNull();
         boolean found = actual.getParents().stream()
-                .anyMatch(p -> p.getPartyId().equals(partyId) && p.getPerson().equals(person));
+                .anyMatch(p -> p.getPartyId().equals(partyId));
         if (!found) {
-            failWithMessage("Expected parent with partyId <%s> and person <%s> not found", partyId, person);
+            failWithMessage("Expected parent with partyId <%s> not found", partyId);
         }
         return this;
     }
 
-    public FamilyAssert hasChild(String partyId, String person) {
+    public FamilyAssert hasChild(UUID partyId) {
         isNotNull();
         boolean found = actual.getChildren().stream()
-                .anyMatch(c -> c.getPartyId().equals(partyId) && c.getPerson().equals(person));
+                .anyMatch(c -> c.getPartyId().equals(partyId));
         if (!found) {
-            failWithMessage("Expected child with partyId <%s> and person <%s> not found", partyId, person);
+            failWithMessage("Expected child with partyId <%s> not found", partyId);
         }
         return this;
     }

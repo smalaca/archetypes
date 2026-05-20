@@ -2,6 +2,8 @@ package com.smalaca.archetypes.partyrelationship.medium;
 
 import org.assertj.core.api.AbstractAssert;
 
+import java.util.UUID;
+
 public class EmploymentAssert extends AbstractAssert<EmploymentAssert, Employment> {
     private EmploymentAssert(Employment actual) {
         super(actual, EmploymentAssert.class);
@@ -11,36 +13,20 @@ public class EmploymentAssert extends AbstractAssert<EmploymentAssert, Employmen
         return new EmploymentAssert(actual);
     }
 
-    public EmploymentAssert hasRelationshipType(String type) {
+    public EmploymentAssert hasEmployer(UUID partyId) {
         isNotNull();
-        if (!actual.getRelationshipType().equals(type)) {
-            failWithMessage("Expected relationship type to be <%s> but was <%s>", type, actual.getRelationshipType());
+        if (!actual.getEmployer().getPartyId().equals(partyId)) {
+            failWithMessage("Expected employer partyId to be <%s> but was <%s>", partyId, actual.getEmployer().getPartyId());
         }
         return this;
     }
 
-    public EmploymentAssert hasEmployer(String employerName) {
-        isNotNull();
-        if (!actual.getEmployer().getName().equals(employerName)) {
-            failWithMessage("Expected employer to be <%s> but was <%s>", employerName, actual.getEmployer().getName());
-        }
-        return this;
-    }
-
-    public EmploymentAssert hasEmployerRoleType(String roleType) {
-        isNotNull();
-        if (!actual.getEmployer().getRoleType().equals(roleType)) {
-            failWithMessage("Expected employer role type to be <%s> but was <%s>", roleType, actual.getEmployer().getRoleType());
-        }
-        return this;
-    }
-
-    public EmploymentAssert hasEmployee(String name, String position) {
+    public EmploymentAssert hasEmployee(UUID partyId, String position) {
         isNotNull();
         boolean found = actual.getEmployees().stream()
-                .anyMatch(role -> role.name().equals(name) && role.position().equals(position));
+                .anyMatch(role -> role.partyId().equals(partyId) && role.position().equals(position));
         if (!found) {
-            failWithMessage("Expected employee <%s> with position <%s> to be present", name, position);
+            failWithMessage("Expected employee with partyId <%s> and position <%s> to be present", partyId, position);
         }
         return this;
     }

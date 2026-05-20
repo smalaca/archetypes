@@ -2,17 +2,20 @@ package com.smalaca.archetypes.partyrelationship.simple;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static com.smalaca.archetypes.partyrelationship.simple.MarriageAssert.assertThat;
 
 class MarriageTest {
+    private static final UUID PARTY_ID_1 = UUID.randomUUID();
+    private static final UUID PARTY_ID_2 = UUID.randomUUID();
+
     @Test
     void shouldCreateMarriage() {
-        Marriage marriage = new Marriage("P-001", "John Doe", "P-002", "Jane Doe");
+        Marriage marriage = new Marriage(PARTY_ID_1, PARTY_ID_2);
 
         assertThat(marriage)
-                .hasRelationshipType("Marriage")
-                .hasSpouseRoleType("Spouse")
-                .hasSpouse1("P-001", "John Doe")
-                .hasSpouse2("P-002", "Jane Doe");
+                .hasSpouse1(PARTY_ID_1)
+                .hasSpouse2(PARTY_ID_2);
     }
 }

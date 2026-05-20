@@ -2,28 +2,18 @@ package com.smalaca.archetypes.partyrelationship.simple;
 
 import com.smalaca.archetypes.annotations.ArchetypePartyRelationship;
 
+import java.util.UUID;
+
 @ArchetypePartyRelationship.PartyRole
 public class FriendRole {
-    @ArchetypePartyRelationship.RoleType
-    private final String roleType = "Friend";
     @ArchetypePartyRelationship.Party
-    private final String partyId;
-    private final String person;
+    private final UUID partyId;
 
-    public FriendRole(String partyId, String person) {
+    public FriendRole(UUID partyId) {
         this.partyId = partyId;
-        this.person = person;
     }
 
-    public String getRoleType() {
-        return roleType;
-    }
-
-    public String getPartyId() {
+    public UUID getPartyId() {
         return partyId;
-    }
-
-    public String getPerson() {
-        return person;
     }
 }

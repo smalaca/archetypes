@@ -4,26 +4,21 @@ import com.smalaca.archetypes.annotations.ArchetypePartyRelationship;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @ArchetypePartyRelationship.PartyRelationship
 public class Employment {
-    @ArchetypePartyRelationship.RelationshipType
-    private final String relationshipType = "Employment";
     @ArchetypePartyRelationship.PartyRole
     private final EmployerRole employer;
     @ArchetypePartyRelationship.PartyRole
     private final List<EmployeeRole> employees = new ArrayList<>();
 
-    public Employment(String employerName) {
-        this.employer = new EmployerRole(employerName);
+    public Employment(UUID employerPartyId) {
+        this.employer = new EmployerRole(employerPartyId);
     }
 
-    public void addEmployee(String name, String position) {
-        employees.add(new EmployeeRole(name, position));
-    }
-
-    public String getRelationshipType() {
-        return relationshipType;
+    public void addEmployee(UUID partyId, String position) {
+        employees.add(new EmployeeRole(partyId, position));
     }
 
     public EmployerRole getEmployer() {
@@ -33,5 +28,4 @@ public class Employment {
     public List<EmployeeRole> getEmployees() {
         return employees;
     }
-
 }

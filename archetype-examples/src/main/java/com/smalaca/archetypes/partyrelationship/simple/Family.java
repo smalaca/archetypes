@@ -4,26 +4,21 @@ import com.smalaca.archetypes.annotations.ArchetypePartyRelationship;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @ArchetypePartyRelationship.PartyRelationship
 public class Family {
-    @ArchetypePartyRelationship.RelationshipType
-    private final String relationshipType = "Family";
     @ArchetypePartyRelationship.PartyRole
     private final List<ParentRole> parents = new ArrayList<>();
     @ArchetypePartyRelationship.PartyRole
     private final List<ChildRole> children = new ArrayList<>();
 
-    public void addParent(String partyId, String person) {
-        parents.add(new ParentRole(partyId, person));
+    public void addParent(UUID partyId) {
+        parents.add(new ParentRole(partyId));
     }
 
-    public void addChild(String partyId, String person) {
-        children.add(new ChildRole(partyId, person));
-    }
-
-    public String getRelationshipType() {
-        return relationshipType;
+    public void addChild(UUID partyId) {
+        children.add(new ChildRole(partyId));
     }
 
     public List<ParentRole> getParents() {

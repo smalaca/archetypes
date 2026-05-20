@@ -2,17 +2,20 @@ package com.smalaca.archetypes.partyrelationship.simple;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static com.smalaca.archetypes.partyrelationship.simple.FriendshipAssert.assertThat;
 
 class FriendshipTest {
+    private static final UUID PARTY_ID_1 = UUID.randomUUID();
+    private static final UUID PARTY_ID_2 = UUID.randomUUID();
+
     @Test
     void shouldCreateFriendship() {
-        Friendship friendship = new Friendship("P-001", "John Doe", "P-002", "Jane Doe");
+        Friendship friendship = new Friendship(PARTY_ID_1, PARTY_ID_2);
 
         assertThat(friendship)
-                .hasRelationshipType("Friendship")
-                .hasFriendRoleType("Friend")
-                .hasFriend1("P-001", "John Doe")
-                .hasFriend2("P-002", "Jane Doe");
+                .hasFriend1(PARTY_ID_1)
+                .hasFriend2(PARTY_ID_2);
     }
 }
