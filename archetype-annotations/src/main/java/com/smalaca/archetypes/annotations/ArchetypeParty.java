@@ -10,11 +10,12 @@ import java.lang.annotation.Target;
 public @interface ArchetypeParty {
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
-    @interface PartyIdentifier {
+    @interface Party {
     }
+
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
-    @interface RegisteredIdentifier {
+    @interface PartyIdentifier {
     }
 
     @Retention(RetentionPolicy.RUNTIME)
@@ -24,12 +25,17 @@ public @interface ArchetypeParty {
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
-    @interface Address {
+    @interface Organization {
     }
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
-    @interface Organization {
+    @interface RegisteredIdentifier {
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
+    @interface Address {
     }
 
     @Retention(RetentionPolicy.RUNTIME)

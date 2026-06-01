@@ -1,4 +1,4 @@
-package companiescatalogue.model;
+package com.smalaca.trainingcenter.companiescatalogue.model;
 
 import com.smalaca.archetypes.annotations.ArchetypeParty;
 

@@ -1,4 +1,4 @@
-package usersmanagement.model;
+package com.smalaca.trainingcenter.usersmanagement.model;
 
 import com.smalaca.archetypes.annotations.ArchetypeParty;
 
