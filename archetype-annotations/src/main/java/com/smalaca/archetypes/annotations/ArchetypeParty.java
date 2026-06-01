@@ -10,6 +10,15 @@ import java.lang.annotation.Target;
 public @interface ArchetypeParty {
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
+    @interface PartyIdentifier {
+    }
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
+    @interface RegisteredIdentifier {
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
     @interface Person {
     }
 
@@ -26,10 +35,5 @@ public @interface ArchetypeParty {
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
     @interface OrganizationUnit {
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
-    @interface PartyIdentifier {
     }
 }

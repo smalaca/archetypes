@@ -1,7 +1,7 @@
-package usersmanagement.model;
+package companiescatalogue.model;
 
 import com.smalaca.archetypes.annotations.ArchetypeParty;
 
 @ArchetypeParty.PartyIdentifier
-public record Login(String username) {
+public record CompanyId() {
 }
