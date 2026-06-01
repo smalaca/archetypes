@@ -3,6 +3,7 @@ package com.smalaca.trainingcenter.accounting.model;
 import com.smalaca.archetypes.annotations.ArchetypeParty;
 
 @ArchetypeParty.PartyRole
+@ArchetypeParty.PartyRoleType
 public class Buyer {
     private final BuyerId buyerId;
     private final TaxNumber taxNumber;

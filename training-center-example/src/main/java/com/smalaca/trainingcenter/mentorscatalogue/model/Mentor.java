@@ -3,6 +3,7 @@ package com.smalaca.trainingcenter.mentorscatalogue.model;
 import com.smalaca.archetypes.annotations.ArchetypeParty;
 
 @ArchetypeParty.PartyRole
+@ArchetypeParty.PartyRoleType
 public class Mentor {
     private final MentorId mentorId;
     private final UserId userId;
