@@ -30,11 +30,6 @@ public @interface ArchetypeParty {
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
-    @interface PartyAuthentication {
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
     @interface PartyIdentifier {
     }
 }
