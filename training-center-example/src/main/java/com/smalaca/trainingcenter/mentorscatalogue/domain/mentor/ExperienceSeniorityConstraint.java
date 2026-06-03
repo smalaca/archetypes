@@ -4,8 +4,14 @@ import com.smalaca.archetypes.annotations.ArchetypeParty;
 
 @ArchetypeParty.PartyRoleConstraint
 class ExperienceSeniorityConstraint implements MentorConstraint {
+    private final SeniorityService seniorityService;
+
+    ExperienceSeniorityConstraint(SeniorityService seniorityService) {
+        this.seniorityService = seniorityService;
+    }
+
     @Override
     public boolean isSatisfiedBy(UserId userId) {
-        return true;
+        return seniorityService.hasEnoughExperience(userId);
     }
 }
