@@ -1,9 +1,9 @@
-package com.smalaca.trainingcenter.usersmanagement.domain;
+package com.smalaca.trainingcenter.usersmanagement.domain.user;
 
 import com.smalaca.archetypes.annotations.ArchetypeParty;
 
 import java.util.UUID;
 
 @ArchetypeParty.PartyIdentifier
-public record UserId(UUID id) {
+record UserId(UUID id) {
 }
