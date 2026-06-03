@@ -1,9 +1,9 @@
-package com.smalaca.trainingcenter.mentorscatalogue.domain;
+package com.smalaca.trainingcenter.mentorscatalogue.domain.mentor;
 
 import com.smalaca.archetypes.annotations.ArchetypeParty;
 
 import java.util.UUID;
 
 @ArchetypeParty.PartyRoleIdentifier
-public record MentorId(UUID id) {
+record MentorId(UUID id) {
 }
