@@ -10,6 +10,10 @@ to dos:
 ## Part
 Party Role:
 - party role constrain 
+  - Seller
+  - Buyer
+  - Trainer
+  - Mentor
 - rule set
 
 Party Relationship:
@@ -60,10 +64,4 @@ RuleOverride
 PartySignature
 Examples in form of tests
 
-## 
-
-Examples in form of tests
-
-## 
-
-Examples in form of tests
+## Integrate with Sonar 

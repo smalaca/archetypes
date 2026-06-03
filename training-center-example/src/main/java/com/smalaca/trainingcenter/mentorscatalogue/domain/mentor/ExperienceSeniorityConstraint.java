@@ -2,7 +2,7 @@ package com.smalaca.trainingcenter.mentorscatalogue.domain.mentor;
 
 import com.smalaca.archetypes.annotations.ArchetypeParty;
 
-@ArchetypeParty.PartyRoleConstrain
+@ArchetypeParty.PartyRoleConstraint
 class ExperienceSeniorityConstraint implements MentorConstraint {
     @Override
     public boolean isSatisfiedBy(UserId userId) {
