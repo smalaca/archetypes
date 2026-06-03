@@ -6,8 +6,15 @@ import java.util.List;
 public class BuyerFactory {
     private final List<BuyerConstraint> constraints;
 
-    BuyerFactory(List<BuyerConstraint> constraints) {
+    private BuyerFactory(List<BuyerConstraint> constraints) {
         this.constraints = constraints;
+    }
+
+    public static BuyerFactory buyerFactory(AccountService accountService, LocationService locationService) {
+        return new BuyerFactory(List.of(
+                new ActiveAccountConstraint(accountService),
+                new RegionalEligibilityConstraint(locationService)
+        ));
     }
 
     public Buyer create(BuyerId buyerId, TaxNumber taxNumber) {

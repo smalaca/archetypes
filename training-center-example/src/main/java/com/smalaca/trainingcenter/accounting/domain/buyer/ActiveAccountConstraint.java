@@ -4,8 +4,14 @@ import com.smalaca.archetypes.annotations.ArchetypeParty;
 
 @ArchetypeParty.PartyRoleConstraint
 class ActiveAccountConstraint implements BuyerConstraint {
+    private final AccountService accountService;
+
+    ActiveAccountConstraint(AccountService accountService) {
+        this.accountService = accountService;
+    }
+
     @Override
     public boolean isSatisfiedBy(BuyerId buyerId) {
-        return true;
+        return accountService.isActive(buyerId);
     }
 }
