@@ -54,10 +54,10 @@ public @interface ArchetypeParty {
     @interface PartyRoleIdentifier {
 
     }
+
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
-    @interface OrganizationUnit {
-
+    @interface PartyRoleConstrain {
 
     }
 }
