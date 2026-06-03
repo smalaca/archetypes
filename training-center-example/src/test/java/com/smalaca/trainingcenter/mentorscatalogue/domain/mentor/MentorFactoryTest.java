@@ -1,9 +1,7 @@
 package com.smalaca.trainingcenter.mentorscatalogue.domain.mentor;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,48 +10,39 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 class MentorFactoryTest {
-    private final MentorId mentorId = new MentorId(UUID.randomUUID());
-    private final UserId userId = new UserId(UUID.randomUUID());
-    private final MentorNumber mentorNumber = new MentorNumber(UUID.randomUUID());
+    private static final MentorId DUMMY_MENTOR_ID = new MentorId(UUID.randomUUID());
+    private static final UserId DUMMY_USER_ID = new UserId(UUID.randomUUID());
+    private static final MentorNumber DUMMY_MENTOR_NUMBER = new MentorNumber(UUID.randomUUID());
 
     private final SeniorityService seniorityService = mock(SeniorityService.class);
     private final CertificationService certificationService = mock(CertificationService.class);
-
-    private MentorFactory factory;
-
-    @BeforeEach
-    void setUp() {
-        factory = new MentorFactory(List.of(
-                new ExperienceSeniorityConstraint(seniorityService),
-                new InternalCertificationConstraint(certificationService)
-        ));
-    }
+    private final MentorFactory factory = MentorFactory.mentorFactory(seniorityService, certificationService);
 
     @Test
     void shouldCreateMentorWhenAllConstraintsAreSatisfied() {
-        given(seniorityService.hasEnoughExperience(userId)).willReturn(true);
-        given(certificationService.isCertified(userId)).willReturn(true);
+        given(seniorityService.hasEnoughExperience(DUMMY_USER_ID)).willReturn(true);
+        given(certificationService.isCertified(DUMMY_USER_ID)).willReturn(true);
 
-        Mentor mentor = factory.create(mentorId, userId, mentorNumber);
+        Mentor mentor = factory.create(DUMMY_MENTOR_ID, DUMMY_USER_ID, DUMMY_MENTOR_NUMBER);
 
         assertThat(mentor).isNotNull();
     }
 
     @Test
     void shouldThrowExceptionWhenExperienceSeniorityConstraintIsNotSatisfied() {
-        given(seniorityService.hasEnoughExperience(userId)).willReturn(false);
+        given(seniorityService.hasEnoughExperience(DUMMY_USER_ID)).willReturn(false);
 
-        assertThatThrownBy(() -> factory.create(mentorId, userId, mentorNumber))
+        assertThatThrownBy(() -> factory.create(DUMMY_MENTOR_ID, DUMMY_USER_ID, DUMMY_MENTOR_NUMBER))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessage("Mentor constraints not satisfied");
     }
 
     @Test
     void shouldThrowExceptionWhenInternalCertificationConstraintIsNotSatisfied() {
-        given(seniorityService.hasEnoughExperience(userId)).willReturn(true);
-        given(certificationService.isCertified(userId)).willReturn(false);
+        given(seniorityService.hasEnoughExperience(DUMMY_USER_ID)).willReturn(true);
+        given(certificationService.isCertified(DUMMY_USER_ID)).willReturn(false);
 
-        assertThatThrownBy(() -> factory.create(mentorId, userId, mentorNumber))
+        assertThatThrownBy(() -> factory.create(DUMMY_MENTOR_ID, DUMMY_USER_ID, DUMMY_MENTOR_NUMBER))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessage("Mentor constraints not satisfied");
     }

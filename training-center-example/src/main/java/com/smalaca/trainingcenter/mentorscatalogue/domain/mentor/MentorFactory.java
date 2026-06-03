@@ -5,8 +5,15 @@ import java.util.List;
 public class MentorFactory {
     private final List<MentorConstraint> constraints;
 
-    MentorFactory(List<MentorConstraint> constraints) {
+    private MentorFactory(List<MentorConstraint> constraints) {
         this.constraints = constraints;
+    }
+
+    public static MentorFactory mentorFactory(SeniorityService seniorityService, CertificationService certificationService) {
+        return new MentorFactory(List.of(
+                new ExperienceSeniorityConstraint(seniorityService),
+                new InternalCertificationConstraint(certificationService)
+        ));
     }
 
     public Mentor create(MentorId mentorId, UserId userId, MentorNumber mentorNumber) {
