@@ -1,4 +1,4 @@
-package com.smalaca.trainingcenter.companiescatalogue.domain;
+package com.smalaca.trainingcenter.companiescatalogue.domain.company;
 
 import com.smalaca.archetypes.annotations.ArchetypeParty;
 
@@ -9,7 +9,7 @@ public class Company {
     private final CompanyId companyId;
     private final List<CompanyRegisteredIdentifier> registeredIdentifiers;
 
-    public Company(CompanyId companyId,  List<CompanyRegisteredIdentifier> registeredIdentifiers) {
+    Company(CompanyId companyId,  List<CompanyRegisteredIdentifier> registeredIdentifiers) {
         this.companyId = companyId;
         this.registeredIdentifiers = registeredIdentifiers;
     }

@@ -1,9 +1,9 @@
-package com.smalaca.trainingcenter.companiescatalogue.domain;
+package com.smalaca.trainingcenter.companiescatalogue.domain.company;
 
 import com.smalaca.archetypes.annotations.ArchetypeParty;
 
 import java.util.UUID;
 
 @ArchetypeParty.PartyIdentifier
-public record CompanyId(UUID id) {
+record CompanyId(UUID id) {
 }
