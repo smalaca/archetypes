@@ -1,4 +1,4 @@
-package com.smalaca.trainingcenter.accounting.domain;
+package com.smalaca.trainingcenter.accounting.domain.buyer;
 
 import com.smalaca.archetypes.annotations.ArchetypeParty;
 
@@ -6,5 +6,5 @@ import java.util.UUID;
 
 @ArchetypeParty.PartyIdentifier
 @ArchetypeParty.PartyRoleIdentifier
-public record SellerId(UUID id) {
+record BuyerId(UUID id) {
 }

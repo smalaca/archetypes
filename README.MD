@@ -9,7 +9,8 @@ to dos:
 
 ## Part
 Party Role:
-- party role constrain + rule set
+- party role constrain 
+- rule set
 
 Party Relationship:
 - party relationship

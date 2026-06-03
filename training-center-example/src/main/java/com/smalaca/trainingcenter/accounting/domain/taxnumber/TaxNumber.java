@@ -1,4 +1,4 @@
-package com.smalaca.trainingcenter.accounting.domain;
+package com.smalaca.trainingcenter.accounting.domain.taxnumber;
 
 import com.smalaca.archetypes.annotations.ArchetypeParty;
 
