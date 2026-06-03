@@ -1,7 +1,7 @@
-package com.smalaca.trainingcenter.addressbook.domain;
+package com.smalaca.trainingcenter.addressbook.domain.addressee;
 
 import com.smalaca.archetypes.annotations.ArchetypeParty;
 
 @ArchetypeParty.Address
-public interface Address {
+interface Address {
 }

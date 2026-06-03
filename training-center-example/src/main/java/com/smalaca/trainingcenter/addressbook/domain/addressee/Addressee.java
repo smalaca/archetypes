@@ -1,4 +1,4 @@
-package com.smalaca.trainingcenter.addressbook.domain;
+package com.smalaca.trainingcenter.addressbook.domain.addressee;
 
 import com.smalaca.archetypes.annotations.ArchetypeParty;
 
@@ -10,7 +10,7 @@ public class Addressee {
     private final AddresseeId addresseeId;
     private final List<Address> address = new ArrayList<>();
 
-    public Addressee(AddresseeId addresseeId) {
+    Addressee(AddresseeId addresseeId) {
         this.addresseeId = addresseeId;
     }
 }

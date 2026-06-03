@@ -1,9 +1,9 @@
-package com.smalaca.trainingcenter.addressbook.domain;
+package com.smalaca.trainingcenter.addressbook.domain.addressee;
 
 import com.smalaca.archetypes.annotations.ArchetypeParty;
 
 import java.util.UUID;
 
 @ArchetypeParty.PartyIdentifier
-public record AddresseeId(UUID id) {
+record AddresseeId(UUID id) {
 }
