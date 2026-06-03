@@ -1,4 +1,4 @@
-package com.smalaca.trainingcenter.trainerscatalogue.domain;
+package com.smalaca.trainingcenter.trainerscatalogue.domain.trainer;
 
 import com.smalaca.archetypes.annotations.ArchetypeParty;
 
@@ -9,7 +9,7 @@ public class Trainer {
     private final UserId userId;
     private final TrainerNumber trainerNumber;
 
-    public Trainer(TrainerId trainerId, UserId userId, TrainerNumber trainerNumber) {
+    Trainer(TrainerId trainerId, UserId userId, TrainerNumber trainerNumber) {
         this.trainerId = trainerId;
         this.userId = userId;
         this.trainerNumber = trainerNumber;
