@@ -6,8 +6,16 @@ import java.util.List;
 public class SellerFactory {
     private final List<SellerConstraint> constraints;
 
-    SellerFactory(List<SellerConstraint> constraints) {
+    private SellerFactory(List<SellerConstraint> constraints) {
         this.constraints = constraints;
+    }
+
+    public static SellerFactory sellerFactory(CompanyService companyService, AccreditationService accreditationService) {
+        return new SellerFactory(List.of(
+                new LegalEntityConstraint(companyService),
+                new ValidTaxNumberConstraint(companyService),
+                new AccreditationConstraint(accreditationService)
+        ));
     }
 
     public Seller create(SellerId sellerId, TaxNumber taxNumber) {

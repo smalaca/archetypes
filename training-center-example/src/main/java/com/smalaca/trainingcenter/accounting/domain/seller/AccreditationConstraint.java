@@ -4,8 +4,14 @@ import com.smalaca.archetypes.annotations.ArchetypeParty;
 
 @ArchetypeParty.PartyRoleConstraint
 class AccreditationConstraint implements SellerConstraint {
+    private final AccreditationService accreditationService;
+
+    AccreditationConstraint(AccreditationService accreditationService) {
+        this.accreditationService = accreditationService;
+    }
+
     @Override
     public boolean isSatisfiedBy(SellerId sellerId) {
-        return true;
+        return accreditationService.hasValidAccreditation(sellerId);
     }
 }

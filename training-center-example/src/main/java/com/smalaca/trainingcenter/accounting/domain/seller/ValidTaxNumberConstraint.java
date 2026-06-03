@@ -4,8 +4,14 @@ import com.smalaca.archetypes.annotations.ArchetypeParty;
 
 @ArchetypeParty.PartyRoleConstraint
 class ValidTaxNumberConstraint implements SellerConstraint {
+    private final CompanyService companyService;
+
+    ValidTaxNumberConstraint(CompanyService companyService) {
+        this.companyService = companyService;
+    }
+
     @Override
     public boolean isSatisfiedBy(SellerId sellerId) {
-        return true;
+        return companyService.hasValidTaxNumber(sellerId);
     }
 }
