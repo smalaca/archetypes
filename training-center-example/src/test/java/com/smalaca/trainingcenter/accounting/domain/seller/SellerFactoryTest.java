@@ -24,9 +24,11 @@ class SellerFactoryTest {
         given(companyService.hasValidTaxNumber(DUMMY_SELLER_ID)).willReturn(true);
         given(accreditationService.hasValidAccreditation(DUMMY_SELLER_ID)).willReturn(true);
 
-        Seller seller = factory.create(DUMMY_SELLER_ID, DUMMY_TAX_NUMBER);
+        Seller actual = factory.create(DUMMY_SELLER_ID, DUMMY_TAX_NUMBER);
 
-        assertThat(seller).isNotNull();
+        assertThat(actual)
+                .extracting("sellerId", "taxNumber")
+                .containsExactly(DUMMY_SELLER_ID, DUMMY_TAX_NUMBER);
     }
 
     @Test

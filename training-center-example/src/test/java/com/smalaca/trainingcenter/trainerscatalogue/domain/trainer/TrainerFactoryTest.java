@@ -21,9 +21,11 @@ class TrainerFactoryTest {
     void shouldCreateTrainerWhenConstraintIsSatisfied() {
         given(seniorityService.hasEnoughExperience(DUMMY_USER_ID)).willReturn(true);
 
-        Trainer trainer = factory.create(DUMMY_TRAINER_ID, DUMMY_USER_ID, DUMMY_TRAINER_NUMBER);
+        Trainer actual = factory.create(DUMMY_TRAINER_ID, DUMMY_USER_ID, DUMMY_TRAINER_NUMBER);
 
-        assertThat(trainer).isNotNull();
+        assertThat(actual)
+                .extracting("trainerId", "userId", "trainerNumber")
+                .containsExactly(DUMMY_TRAINER_ID, DUMMY_USER_ID, DUMMY_TRAINER_NUMBER);
     }
 
     @Test

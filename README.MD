@@ -9,14 +9,7 @@ to dos:
 
 ## Part
 Party Role:
-- party role constrain 
-  - Seller
-  - Buyer
-  - Trainer
-  - Mentor
-- check all values in tests
-- increase coverage 
-- rule set
+- rule set as policies
 
 Party Relationship:
 - party relationship

@@ -23,9 +23,11 @@ class BuyerFactoryTest {
         given(accountService.isActive(DUMMY_BUYER_ID)).willReturn(true);
         given(locationService.isEligible(DUMMY_BUYER_ID)).willReturn(true);
 
-        Buyer buyer = factory.create(DUMMY_BUYER_ID, DUMMY_TAX_NUMBER);
+        Buyer actual = factory.create(DUMMY_BUYER_ID, DUMMY_TAX_NUMBER);
 
-        assertThat(buyer).isNotNull();
+        assertThat(actual)
+                .extracting("buyerId", "taxNumber")
+                .containsExactly(DUMMY_BUYER_ID, DUMMY_TAX_NUMBER);
     }
 
     @Test

@@ -23,9 +23,11 @@ class MentorFactoryTest {
         given(seniorityService.hasEnoughExperience(DUMMY_USER_ID)).willReturn(true);
         given(certificationService.isCertified(DUMMY_USER_ID)).willReturn(true);
 
-        Mentor mentor = factory.create(DUMMY_MENTOR_ID, DUMMY_USER_ID, DUMMY_MENTOR_NUMBER);
+        Mentor actual = factory.create(DUMMY_MENTOR_ID, DUMMY_USER_ID, DUMMY_MENTOR_NUMBER);
 
-        assertThat(mentor).isNotNull();
+        assertThat(actual)
+                .extracting("mentorId", "userId", "mentorNumber")
+                .containsExactly(DUMMY_MENTOR_ID, DUMMY_USER_ID, DUMMY_MENTOR_NUMBER);
     }
 
     @Test
