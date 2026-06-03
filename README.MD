@@ -14,6 +14,8 @@ Party Role:
   - Buyer
   - Trainer
   - Mentor
+- check all values in tests
+- increase coverage 
 - rule set
 
 Party Relationship:
