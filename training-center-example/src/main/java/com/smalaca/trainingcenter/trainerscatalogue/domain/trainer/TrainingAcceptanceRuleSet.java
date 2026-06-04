@@ -5,22 +5,13 @@ import java.util.List;
 
 @ArchetypeRule.RuleSet
 class TrainingAcceptanceRuleSet {
-    private final List<Object> rules;
+    private final List<TrainingRule> rules;
 
-    TrainingAcceptanceRuleSet(TrainerExpertiseRule expertiseRule, TrainerWorkloadRule workloadRule, TrainerCertificationRule certificationRule) {
-        this.rules = List.of(expertiseRule, workloadRule, certificationRule);
+    TrainingAcceptanceRuleSet(List<TrainingRule> rules) {
+        this.rules = rules;
     }
 
     boolean canAccept(TrainingContext context) {
-        return rules.stream().allMatch(rule -> {
-            if (rule instanceof TrainerExpertiseRule) {
-                return ((TrainerExpertiseRule) rule).isSatisfiedBy(context);
-            } else if (rule instanceof TrainerWorkloadRule) {
-                return ((TrainerWorkloadRule) rule).isSatisfiedBy(context);
-            } else if (rule instanceof TrainerCertificationRule) {
-                return ((TrainerCertificationRule) rule).isSatisfiedBy(context);
-            }
-            return false;
-        });
+        return rules.stream().allMatch(rule -> rule.isSatisfiedBy(context));
     }
 }

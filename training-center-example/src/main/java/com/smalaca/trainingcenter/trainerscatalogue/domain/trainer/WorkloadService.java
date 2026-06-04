@@ -1,5 +1,5 @@
 package com.smalaca.trainingcenter.trainerscatalogue.domain.trainer;
 
-interface WorkloadService {
+public interface WorkloadService {
     boolean hasCapacity(UserId trainerUserId);
 }

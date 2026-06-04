@@ -3,14 +3,15 @@ package com.smalaca.trainingcenter.trainerscatalogue.domain.trainer;
 import com.smalaca.archetypes.annotations.ArchetypeRule;
 
 @ArchetypeRule.Rule
-class TrainerWorkloadRule {
+class TrainerWorkloadRule implements TrainingRule {
     private final WorkloadService workloadService;
 
     TrainerWorkloadRule(WorkloadService workloadService) {
         this.workloadService = workloadService;
     }
 
-    boolean isSatisfiedBy(TrainingContext context) {
+    @Override
+    public boolean isSatisfiedBy(TrainingContext context) {
         return workloadService.hasCapacity(context.trainerUserId());
     }
 }

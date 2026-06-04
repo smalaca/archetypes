@@ -1,6 +1,8 @@
 package com.smalaca.trainingcenter.trainerscatalogue.domain.trainer;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -15,16 +17,17 @@ class TrainerTest {
     private final TrainerWorkloadRule workloadRule = new TrainerWorkloadRule(workloadService);
     private final TrainerCertificationRule certificationRule = new TrainerCertificationRule(certificationService);
 
-    private final TrainingAcceptanceRuleSet ruleSet = new TrainingAcceptanceRuleSet(expertiseRule, workloadRule, certificationRule);
+    private final TrainingAcceptanceRuleSet ruleSet = new TrainingAcceptanceRuleSet(List.of(expertiseRule, workloadRule, certificationRule));
     
     private final TrainerId trainerId = new TrainerId(UUID.randomUUID());
     private final UserId userId = new UserId(UUID.randomUUID());
     private final TrainerNumber trainerNumber = new TrainerNumber(UUID.randomUUID());
     private final Trainer trainer = new Trainer(trainerId, userId, trainerNumber, ruleSet);
 
+    private final UUID trainingId = UUID.randomUUID();
     private final UUID topicId = UUID.randomUUID();
     private final UUID levelId = UUID.randomUUID();
-    private final TrainingContext context = new TrainingContext(topicId, levelId, userId);
+    private final TrainingContext context = new TrainingContext(trainingId, topicId, levelId, userId);
 
     @Test
     void shouldAcceptTrainingWhenAllRulesAreSatisfied() {
@@ -32,9 +35,9 @@ class TrainerTest {
         given(workloadService.hasCapacity(userId)).willReturn(true);
         given(certificationService.isCertifiedFor(userId, topicId, levelId)).willReturn(true);
 
-        boolean actual = trainer.acceptTraining(context);
+        trainer.acceptTraining(context);
 
-        assertThat(actual).isTrue();
+        assertThat(trainer).extracting("acceptedTrainings").asList().containsExactly(trainingId);
     }
 
     @Test
@@ -43,9 +46,9 @@ class TrainerTest {
         given(workloadService.hasCapacity(userId)).willReturn(true);
         given(certificationService.isCertifiedFor(userId, topicId, levelId)).willReturn(true);
 
-        boolean actual = trainer.acceptTraining(context);
+        trainer.acceptTraining(context);
 
-        assertThat(actual).isFalse();
+        assertThat(trainer).extracting("acceptedTrainings").asList().isEmpty();
     }
 
     @Test
@@ -54,9 +57,9 @@ class TrainerTest {
         given(workloadService.hasCapacity(userId)).willReturn(false);
         given(certificationService.isCertifiedFor(userId, topicId, levelId)).willReturn(true);
 
-        boolean actual = trainer.acceptTraining(context);
+        trainer.acceptTraining(context);
 
-        assertThat(actual).isFalse();
+        assertThat(trainer).extracting("acceptedTrainings").asList().isEmpty();
     }
 
     @Test
@@ -65,8 +68,8 @@ class TrainerTest {
         given(workloadService.hasCapacity(userId)).willReturn(true);
         given(certificationService.isCertifiedFor(userId, topicId, levelId)).willReturn(false);
 
-        boolean actual = trainer.acceptTraining(context);
+        trainer.acceptTraining(context);
 
-        assertThat(actual).isFalse();
+        assertThat(trainer).extracting("acceptedTrainings").asList().isEmpty();
     }
 }

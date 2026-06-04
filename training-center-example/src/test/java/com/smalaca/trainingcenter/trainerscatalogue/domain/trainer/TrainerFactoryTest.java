@@ -15,26 +15,28 @@ class TrainerFactoryTest {
     private static final TrainerNumber DUMMY_TRAINER_NUMBER = new TrainerNumber(UUID.randomUUID());
 
     private final SeniorityService seniorityService = mock(SeniorityService.class);
-    private final TrainerFactory factory = TrainerFactory.trainerFactory(seniorityService);
+    private final ExpertiseService expertiseService = mock(ExpertiseService.class);
+    private final WorkloadService workloadService = mock(WorkloadService.class);
+    private final CertificationService certificationService = mock(CertificationService.class);
+    private final TrainerFactory factory = TrainerFactory.trainerFactory(seniorityService, expertiseService, workloadService, certificationService);
 
     @Test
     void shouldCreateTrainerWhenConstraintIsSatisfied() {
         given(seniorityService.hasEnoughExperience(DUMMY_USER_ID)).willReturn(true);
-        TrainingAcceptanceRuleSet ruleSet = mock(TrainingAcceptanceRuleSet.class);
 
-        Trainer actual = factory.create(DUMMY_TRAINER_ID, DUMMY_USER_ID, DUMMY_TRAINER_NUMBER, ruleSet);
+        Trainer actual = factory.create(DUMMY_TRAINER_ID, DUMMY_USER_ID, DUMMY_TRAINER_NUMBER);
 
         assertThat(actual)
-                .extracting("trainerId", "userId", "trainerNumber", "trainingAcceptanceRuleSet")
-                .containsExactly(DUMMY_TRAINER_ID, DUMMY_USER_ID, DUMMY_TRAINER_NUMBER, ruleSet);
+                .extracting("trainerId", "userId", "trainerNumber")
+                .containsExactly(DUMMY_TRAINER_ID, DUMMY_USER_ID, DUMMY_TRAINER_NUMBER);
+        assertThat(actual).extracting("trainingAcceptanceRuleSet").isNotNull();
     }
 
     @Test
     void shouldThrowExceptionWhenConstraintIsNotSatisfied() {
         given(seniorityService.hasEnoughExperience(DUMMY_USER_ID)).willReturn(false);
-        TrainingAcceptanceRuleSet ruleSet = mock(TrainingAcceptanceRuleSet.class);
 
-        assertThatThrownBy(() -> factory.create(DUMMY_TRAINER_ID, DUMMY_USER_ID, DUMMY_TRAINER_NUMBER, ruleSet))
+        assertThatThrownBy(() -> factory.create(DUMMY_TRAINER_ID, DUMMY_USER_ID, DUMMY_TRAINER_NUMBER))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessage("Trainer constraints not satisfied");
     }
