@@ -1,5 +1,5 @@
 package com.smalaca.trainingcenter.accounting.domain.buyer;
 
-interface AccountService {
+public interface AccountService {
     boolean isActive(BuyerId buyerId);
 }

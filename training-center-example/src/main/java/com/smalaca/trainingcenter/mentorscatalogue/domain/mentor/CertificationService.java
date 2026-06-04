@@ -1,5 +1,5 @@
 package com.smalaca.trainingcenter.mentorscatalogue.domain.mentor;
 
-interface CertificationService {
+public interface CertificationService {
     boolean isCertified(UserId userId);
 }

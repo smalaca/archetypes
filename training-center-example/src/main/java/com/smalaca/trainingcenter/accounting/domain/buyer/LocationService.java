@@ -1,5 +1,5 @@
 package com.smalaca.trainingcenter.accounting.domain.buyer;
 
-interface LocationService {
+public interface LocationService {
     boolean isEligible(BuyerId buyerId);
 }
