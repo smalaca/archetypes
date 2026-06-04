@@ -8,9 +8,6 @@ to dos:
 - tell where is the party role that can be used by both Organization and Person
 
 ## Part
-Party Role:
-- rule set as a list and rules (3) for mentor
-
 Party Relationship:
 - party relationship
 - party relationship type

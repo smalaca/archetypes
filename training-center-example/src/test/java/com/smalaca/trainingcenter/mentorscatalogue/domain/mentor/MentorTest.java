@@ -75,4 +75,36 @@ class MentorTest {
 
         assertThat(mentor).extracting("initiatedMentoring").asList().isEmpty();
     }
+
+    @Test
+    void shouldInitiateAnotherMentoringWhenOneWasAlreadyInitiated() {
+        UUID existingMenteeId = givenMentorWithInitiatedMentoring();
+        given(menteeService.canBeMentored(menteeId)).willReturn(true);
+        given(capacityService.hasCapacity(userId.id())).willReturn(true);
+        given(certificationService.isCertifiedFor(userId.id(), topicId)).willReturn(true);
+
+        mentor.initiateMentoring(context);
+
+        assertThat(mentor).extracting("initiatedMentoring").asList().containsExactlyInAnyOrder(existingMenteeId, menteeId);
+    }
+
+    @Test
+    void shouldNotInitiateAnotherMentoringWhenRulesAreNotSatisfiedAndOneWasAlreadyInitiated() {
+        UUID existingMenteeId = givenMentorWithInitiatedMentoring();
+        given(menteeService.canBeMentored(menteeId)).willReturn(false);
+
+        mentor.initiateMentoring(context);
+
+        assertThat(mentor).extracting("initiatedMentoring").asList().containsExactly(existingMenteeId);
+    }
+
+    private UUID givenMentorWithInitiatedMentoring() {
+        UUID existingMenteeId = UUID.randomUUID();
+        given(menteeService.canBeMentored(existingMenteeId)).willReturn(true);
+        given(capacityService.hasCapacity(userId.id())).willReturn(true);
+        given(certificationService.isCertifiedFor(userId.id(), topicId)).willReturn(true);
+        mentor.initiateMentoring(new MentoringContext(existingMenteeId, topicId, userId.id()));
+
+        return existingMenteeId;
+    }
 }
