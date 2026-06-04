@@ -60,3 +60,5 @@ PartySignature
 Examples in form of tests
 
 ## Integrate with Sonar 
+increase the coverage
+onboard to sonar
