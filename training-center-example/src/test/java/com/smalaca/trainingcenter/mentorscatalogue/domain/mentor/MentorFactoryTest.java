@@ -16,7 +16,9 @@ class MentorFactoryTest {
 
     private final SeniorityService seniorityService = mock(SeniorityService.class);
     private final CertificationService certificationService = mock(CertificationService.class);
-    private final MentorFactory factory = MentorFactory.mentorFactory(seniorityService, certificationService);
+    private final MenteeService menteeService = mock(MenteeService.class);
+    private final MentorshipCapacityService capacityService = mock(MentorshipCapacityService.class);
+    private final MentorFactory factory = MentorFactory.mentorFactory(seniorityService, certificationService, menteeService, capacityService);
 
     @Test
     void shouldCreateMentorWhenAllConstraintsAreSatisfied() {
@@ -28,6 +30,7 @@ class MentorFactoryTest {
         assertThat(actual)
                 .extracting("mentorId", "userId", "mentorNumber")
                 .containsExactly(DUMMY_MENTOR_ID, DUMMY_USER_ID, DUMMY_MENTOR_NUMBER);
+        assertThat(actual).extracting("rules").isNotNull();
     }
 
     @Test
