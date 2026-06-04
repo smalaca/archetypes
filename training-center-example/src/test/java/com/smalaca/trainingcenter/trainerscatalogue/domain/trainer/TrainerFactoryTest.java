@@ -20,19 +20,21 @@ class TrainerFactoryTest {
     @Test
     void shouldCreateTrainerWhenConstraintIsSatisfied() {
         given(seniorityService.hasEnoughExperience(DUMMY_USER_ID)).willReturn(true);
+        TrainingAcceptanceRuleSet ruleSet = mock(TrainingAcceptanceRuleSet.class);
 
-        Trainer actual = factory.create(DUMMY_TRAINER_ID, DUMMY_USER_ID, DUMMY_TRAINER_NUMBER);
+        Trainer actual = factory.create(DUMMY_TRAINER_ID, DUMMY_USER_ID, DUMMY_TRAINER_NUMBER, ruleSet);
 
         assertThat(actual)
-                .extracting("trainerId", "userId", "trainerNumber")
-                .containsExactly(DUMMY_TRAINER_ID, DUMMY_USER_ID, DUMMY_TRAINER_NUMBER);
+                .extracting("trainerId", "userId", "trainerNumber", "trainingAcceptanceRuleSet")
+                .containsExactly(DUMMY_TRAINER_ID, DUMMY_USER_ID, DUMMY_TRAINER_NUMBER, ruleSet);
     }
 
     @Test
     void shouldThrowExceptionWhenConstraintIsNotSatisfied() {
         given(seniorityService.hasEnoughExperience(DUMMY_USER_ID)).willReturn(false);
+        TrainingAcceptanceRuleSet ruleSet = mock(TrainingAcceptanceRuleSet.class);
 
-        assertThatThrownBy(() -> factory.create(DUMMY_TRAINER_ID, DUMMY_USER_ID, DUMMY_TRAINER_NUMBER))
+        assertThatThrownBy(() -> factory.create(DUMMY_TRAINER_ID, DUMMY_USER_ID, DUMMY_TRAINER_NUMBER, ruleSet))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessage("Trainer constraints not satisfied");
     }

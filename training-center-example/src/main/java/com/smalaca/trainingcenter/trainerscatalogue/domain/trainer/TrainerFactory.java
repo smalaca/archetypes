@@ -11,9 +11,9 @@ public class TrainerFactory {
         return new TrainerFactory(new TrainerExperienceSeniorityConstraint(seniorityService));
     }
 
-    public Trainer create(TrainerId trainerId, UserId userId, TrainerNumber trainerNumber) {
+    public Trainer create(TrainerId trainerId, UserId userId, TrainerNumber trainerNumber, TrainingAcceptanceRuleSet trainingAcceptanceRuleSet) {
         if (constraint.isSatisfiedBy(userId)) {
-            return new Trainer(trainerId, userId, trainerNumber);
+            return new Trainer(trainerId, userId, trainerNumber, trainingAcceptanceRuleSet);
         }
 
         throw new RuntimeException("Trainer constraints not satisfied");
