@@ -9,7 +9,7 @@ to dos:
 
 ## Part
 Party Role:
-- rule set as policies
+- rule set as a list and rules (3) for mentor
 
 Party Relationship:
 - party relationship

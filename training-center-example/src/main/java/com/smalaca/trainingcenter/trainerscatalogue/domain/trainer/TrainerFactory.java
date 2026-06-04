@@ -27,15 +27,15 @@ public class TrainerFactory {
 
     public Trainer create(TrainerId trainerId, UserId userId, TrainerNumber trainerNumber) {
         if (constraint.isSatisfiedBy(userId)) {
-            TrainingAcceptanceRuleSet ruleSet = trainingAcceptanceRuleSet();
-            return new Trainer(trainerId, userId, trainerNumber, ruleSet);
+            TrainingAcceptancePolicy policy = trainingAcceptancePolicy();
+            return new Trainer(trainerId, userId, trainerNumber, policy);
         }
 
         throw new RuntimeException("Trainer constraints not satisfied");
     }
 
-    private TrainingAcceptanceRuleSet trainingAcceptanceRuleSet() {
-        return new TrainingAcceptanceRuleSet(List.of(
+    private TrainingAcceptancePolicy trainingAcceptancePolicy() {
+        return new TrainingAcceptancePolicy(List.of(
                 new TrainerExpertiseRule(expertiseService),
                 new TrainerWorkloadRule(workloadService),
                 new TrainerCertificationRule(certificationService)

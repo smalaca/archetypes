@@ -1,9 +1,10 @@
 package com.smalaca.trainingcenter.trainerscatalogue.domain.trainer;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
 import java.util.UUID;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
@@ -13,21 +14,24 @@ class TrainerTest {
     private final WorkloadService workloadService = mock(WorkloadService.class);
     private final CertificationService certificationService = mock(CertificationService.class);
 
-    private final TrainerExpertiseRule expertiseRule = new TrainerExpertiseRule(expertiseService);
-    private final TrainerWorkloadRule workloadRule = new TrainerWorkloadRule(workloadService);
-    private final TrainerCertificationRule certificationRule = new TrainerCertificationRule(certificationService);
-
-    private final TrainingAcceptanceRuleSet ruleSet = new TrainingAcceptanceRuleSet(List.of(expertiseRule, workloadRule, certificationRule));
-    
     private final TrainerId trainerId = new TrainerId(UUID.randomUUID());
     private final UserId userId = new UserId(UUID.randomUUID());
     private final TrainerNumber trainerNumber = new TrainerNumber(UUID.randomUUID());
-    private final Trainer trainer = new Trainer(trainerId, userId, trainerNumber, ruleSet);
+    private Trainer trainer;
 
     private final UUID trainingId = UUID.randomUUID();
     private final UUID topicId = UUID.randomUUID();
     private final UUID levelId = UUID.randomUUID();
     private final TrainingContext context = new TrainingContext(trainingId, topicId, levelId, userId);
+
+    @BeforeEach
+    void createTrainer() {
+        SeniorityService seniorityService = mock(SeniorityService.class);
+        given(seniorityService.hasEnoughExperience(userId)).willReturn(true);
+        TrainerFactory factory = TrainerFactory.trainerFactory(seniorityService, expertiseService, workloadService, certificationService);
+
+        trainer = factory.create(trainerId, userId, trainerNumber);
+    }
 
     @Test
     void shouldAcceptTrainingWhenAllRulesAreSatisfied() {
@@ -71,5 +75,34 @@ class TrainerTest {
         trainer.acceptTraining(context);
 
         assertThat(trainer).extracting("acceptedTrainings").asList().isEmpty();
+    }
+
+    @Test
+    void shouldAcceptAnotherTrainingWhenOneWasAlreadyAccepted() {
+        UUID acceptedTrainingId = givenTrainerWithAcceptedTraining();
+
+        trainer.acceptTraining(context);
+
+        assertThat(trainer).extracting("acceptedTrainings").asList().containsExactlyInAnyOrder(acceptedTrainingId, trainingId);
+    }
+
+    @Test
+    void shouldNotAcceptAnotherTrainingWhenRulesAreNotSatisfiedAndOneWasAlreadyAccepted() {
+        UUID acceptedTrainingId = givenTrainerWithAcceptedTraining();
+        given(expertiseService.hasExpertiseIn(userId, topicId)).willReturn(false);
+
+        trainer.acceptTraining(context);
+
+        assertThat(trainer).extracting("acceptedTrainings").asList().containsExactly(acceptedTrainingId);
+    }
+
+    private UUID givenTrainerWithAcceptedTraining() {
+        UUID existingTrainingId = UUID.randomUUID();
+        given(expertiseService.hasExpertiseIn(userId, topicId)).willReturn(true);
+        given(workloadService.hasCapacity(userId)).willReturn(true);
+        given(certificationService.isCertifiedFor(userId, topicId, levelId)).willReturn(true);
+        trainer.acceptTraining(new TrainingContext(existingTrainingId, topicId, levelId, userId));
+
+        return existingTrainingId;
     }
 }

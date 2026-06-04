@@ -13,18 +13,18 @@ public class Trainer {
     private final UserId userId;
     private final TrainerNumber trainerNumber;
     @ArchetypeRule.RuleSet
-    private final TrainingAcceptanceRuleSet trainingAcceptanceRuleSet;
+    private final TrainingAcceptancePolicy trainingAcceptancePolicy;
     private final List<UUID> acceptedTrainings = new ArrayList<>();
 
-    Trainer(TrainerId trainerId, UserId userId, TrainerNumber trainerNumber, TrainingAcceptanceRuleSet trainingAcceptanceRuleSet) {
+    Trainer(TrainerId trainerId, UserId userId, TrainerNumber trainerNumber, TrainingAcceptancePolicy trainingAcceptancePolicy) {
         this.trainerId = trainerId;
         this.userId = userId;
         this.trainerNumber = trainerNumber;
-        this.trainingAcceptanceRuleSet = trainingAcceptanceRuleSet;
+        this.trainingAcceptancePolicy = trainingAcceptancePolicy;
     }
 
     public void acceptTraining(TrainingContext context) {
-        if (trainingAcceptanceRuleSet.canAccept(context)) {
+        if (trainingAcceptancePolicy.canAccept(context)) {
             acceptedTrainings.add(context.trainingId());
         }
     }

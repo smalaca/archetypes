@@ -29,7 +29,7 @@ class TrainerFactoryTest {
         assertThat(actual)
                 .extracting("trainerId", "userId", "trainerNumber")
                 .containsExactly(DUMMY_TRAINER_ID, DUMMY_USER_ID, DUMMY_TRAINER_NUMBER);
-        assertThat(actual).extracting("trainingAcceptanceRuleSet").isNotNull();
+        assertThat(actual).extracting("trainingAcceptancePolicy").isNotNull();
     }
 
     @Test

@@ -4,10 +4,10 @@ import com.smalaca.archetypes.annotations.ArchetypeRule;
 import java.util.List;
 
 @ArchetypeRule.RuleSet
-class TrainingAcceptanceRuleSet {
+class TrainingAcceptancePolicy {
     private final List<TrainingRule> rules;
 
-    TrainingAcceptanceRuleSet(List<TrainingRule> rules) {
+    TrainingAcceptancePolicy(List<TrainingRule> rules) {
         this.rules = rules;
     }
 
