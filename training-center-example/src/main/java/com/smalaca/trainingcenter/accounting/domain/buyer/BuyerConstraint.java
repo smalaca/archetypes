@@ -1,6 +1,6 @@
 package com.smalaca.trainingcenter.accounting.domain.buyer;
 
-import com.smalaca.archetypes.annotations.ArchetypeParty;
+import com.smalaca.annotations.archetypes.ArchetypeParty;
 
 @ArchetypeParty.PartyRoleConstraint
 interface BuyerConstraint {

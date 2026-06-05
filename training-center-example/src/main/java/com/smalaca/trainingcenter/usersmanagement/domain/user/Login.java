@@ -1,6 +1,6 @@
 package com.smalaca.trainingcenter.usersmanagement.domain.user;
 
-import com.smalaca.archetypes.annotations.ArchetypeParty;
+import com.smalaca.annotations.archetypes.ArchetypeParty;
 
 @ArchetypeParty.PartyIdentifier
 record Login(String username) {

@@ -1,6 +1,6 @@
 package com.smalaca.trainingcenter.trainerscatalogue.domain.trainer;
 
-import com.smalaca.archetypes.annotations.ArchetypeParty;
+import com.smalaca.annotations.archetypes.ArchetypeParty;
 
 @ArchetypeParty.PartyRoleConstraint
 class TrainerExperienceSeniorityConstraint {

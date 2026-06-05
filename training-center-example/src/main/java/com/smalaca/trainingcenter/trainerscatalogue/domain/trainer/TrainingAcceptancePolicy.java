@@ -1,6 +1,6 @@
 package com.smalaca.trainingcenter.trainerscatalogue.domain.trainer;
 
-import com.smalaca.archetypes.annotations.ArchetypeRule;
+import com.smalaca.annotations.archetypes.ArchetypeRule;
 import java.util.List;
 
 @ArchetypeRule.RuleSet

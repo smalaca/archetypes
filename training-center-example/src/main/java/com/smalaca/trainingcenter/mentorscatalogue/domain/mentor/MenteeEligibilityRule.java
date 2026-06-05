@@ -1,6 +1,6 @@
 package com.smalaca.trainingcenter.mentorscatalogue.domain.mentor;
 
-import com.smalaca.archetypes.annotations.ArchetypeRule;
+import com.smalaca.annotations.archetypes.ArchetypeRule;
 
 @ArchetypeRule.Rule
 class MenteeEligibilityRule implements MentoringRule {

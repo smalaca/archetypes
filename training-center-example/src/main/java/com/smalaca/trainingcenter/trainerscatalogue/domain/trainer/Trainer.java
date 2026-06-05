@@ -1,7 +1,7 @@
 package com.smalaca.trainingcenter.trainerscatalogue.domain.trainer;
 
-import com.smalaca.archetypes.annotations.ArchetypeParty;
-import com.smalaca.archetypes.annotations.ArchetypeRule;
+import com.smalaca.annotations.archetypes.ArchetypeParty;
+import com.smalaca.annotations.archetypes.ArchetypeRule;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
