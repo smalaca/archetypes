@@ -1,7 +1,9 @@
 package com.smalaca.trainingcenter.accounting.domain.seller;
 
 import com.smalaca.annotations.archetypes.ArchetypeParty;
+import com.smalaca.annotations.architecture.DomainDrivenDesign;
 
+@DomainDrivenDesign.Specification
 @ArchetypeParty.PartyRoleConstraint
 class LegalEntityConstraint implements SellerConstraint {
     private final CompanyService companyService;

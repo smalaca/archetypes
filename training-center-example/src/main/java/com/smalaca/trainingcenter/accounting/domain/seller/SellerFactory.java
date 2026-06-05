@@ -1,8 +1,11 @@
 package com.smalaca.trainingcenter.accounting.domain.seller;
 
+import com.smalaca.annotations.architecture.DomainDrivenDesign;
 import com.smalaca.trainingcenter.accounting.domain.taxnumber.TaxNumber;
+
 import java.util.List;
 
+@DomainDrivenDesign.Factory
 public class SellerFactory {
     private final List<SellerConstraint> constraints;
 
