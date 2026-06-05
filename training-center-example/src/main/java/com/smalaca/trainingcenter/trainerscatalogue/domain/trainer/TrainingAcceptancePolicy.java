@@ -1,8 +1,11 @@
 package com.smalaca.trainingcenter.trainerscatalogue.domain.trainer;
 
 import com.smalaca.annotations.archetypes.ArchetypeRule;
+import com.smalaca.annotations.architecture.DomainDrivenDesign;
+
 import java.util.List;
 
+@DomainDrivenDesign.Policy
 @ArchetypeRule.RuleSet
 class TrainingAcceptancePolicy {
     private final List<TrainingRule> rules;

@@ -1,7 +1,10 @@
 package com.smalaca.trainingcenter.trainerscatalogue.domain.trainer;
 
+import com.smalaca.annotations.architecture.DomainDrivenDesign;
+
 import java.util.List;
 
+@DomainDrivenDesign.Factory
 public class TrainerFactory {
     private final TrainerExperienceSeniorityConstraint constraint;
     private final ExpertiseService expertiseService;

@@ -1,7 +1,9 @@
 package com.smalaca.trainingcenter.trainerscatalogue.domain.trainer;
 
 import com.smalaca.annotations.archetypes.ArchetypeParty;
+import com.smalaca.annotations.architecture.DomainDrivenDesign;
 
+@DomainDrivenDesign.Specification
 @ArchetypeParty.PartyRoleConstraint
 class TrainerExperienceSeniorityConstraint {
     private final SeniorityService seniorityService;
