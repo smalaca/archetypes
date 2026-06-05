@@ -53,10 +53,11 @@ class TrainerTest {
         trainer.acceptTraining(context);
 
         assertThat(trainer).extracting("acceptedTrainings").asList().isEmpty();
+        assertThat(trainer).extracting("trainingsForManualIntervention").asList().isEmpty();
     }
 
     @Test
-    void shouldNotAcceptTrainingWhenWorkloadRuleIsNotSatisfied() {
+    void shouldRequireManualInterventionWhenWorkloadRuleIsNotSatisfied() {
         given(expertiseService.hasExpertiseIn(userId, topicId)).willReturn(true);
         given(workloadService.hasCapacity(userId)).willReturn(false);
         given(certificationService.isCertifiedFor(userId, topicId, levelId)).willReturn(true);
@@ -64,10 +65,11 @@ class TrainerTest {
         trainer.acceptTraining(context);
 
         assertThat(trainer).extracting("acceptedTrainings").asList().isEmpty();
+        assertThat(trainer).extracting("trainingsForManualIntervention").asList().containsExactly(trainingId);
     }
 
     @Test
-    void shouldNotAcceptTrainingWhenCertificationRuleIsNotSatisfied() {
+    void shouldRequireManualInterventionWhenCertificationRuleIsNotSatisfied() {
         given(expertiseService.hasExpertiseIn(userId, topicId)).willReturn(true);
         given(workloadService.hasCapacity(userId)).willReturn(true);
         given(certificationService.isCertifiedFor(userId, topicId, levelId)).willReturn(false);
@@ -75,6 +77,7 @@ class TrainerTest {
         trainer.acceptTraining(context);
 
         assertThat(trainer).extracting("acceptedTrainings").asList().isEmpty();
+        assertThat(trainer).extracting("trainingsForManualIntervention").asList().containsExactly(trainingId);
     }
 
     @Test
@@ -94,6 +97,39 @@ class TrainerTest {
         trainer.acceptTraining(context);
 
         assertThat(trainer).extracting("acceptedTrainings").asList().containsExactly(acceptedTrainingId);
+    }
+
+    @Test
+    void shouldRequireAnotherManualInterventionWhenOneWasAlreadyRequired() {
+        UUID manualTrainingId = givenTrainerWithTrainingForManualIntervention();
+
+        given(expertiseService.hasExpertiseIn(userId, topicId)).willReturn(true);
+        given(workloadService.hasCapacity(userId)).willReturn(false);
+        given(certificationService.isCertifiedFor(userId, topicId, levelId)).willReturn(true);
+
+        trainer.acceptTraining(context);
+
+        assertThat(trainer).extracting("trainingsForManualIntervention").asList().containsExactlyInAnyOrder(manualTrainingId, trainingId);
+    }
+
+    @Test
+    void shouldNotRequireAnotherManualInterventionWhenExpertiseRuleIsNotSatisfiedAndOneWasAlreadyRequired() {
+        UUID manualTrainingId = givenTrainerWithTrainingForManualIntervention();
+        given(expertiseService.hasExpertiseIn(userId, topicId)).willReturn(false);
+
+        trainer.acceptTraining(context);
+
+        assertThat(trainer).extracting("trainingsForManualIntervention").asList().containsExactly(manualTrainingId);
+    }
+
+    private UUID givenTrainerWithTrainingForManualIntervention() {
+        UUID existingTrainingId = UUID.randomUUID();
+        given(expertiseService.hasExpertiseIn(userId, topicId)).willReturn(true);
+        given(workloadService.hasCapacity(userId)).willReturn(false);
+        given(certificationService.isCertifiedFor(userId, topicId, levelId)).willReturn(true);
+        trainer.acceptTraining(new TrainingContext(existingTrainingId, topicId, levelId, userId));
+
+        return existingTrainingId;
     }
 
     private UUID givenTrainerWithAcceptedTraining() {
