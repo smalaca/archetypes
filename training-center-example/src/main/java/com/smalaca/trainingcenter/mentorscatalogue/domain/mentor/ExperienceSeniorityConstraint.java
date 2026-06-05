@@ -1,7 +1,9 @@
 package com.smalaca.trainingcenter.mentorscatalogue.domain.mentor;
 
 import com.smalaca.annotations.archetypes.ArchetypeParty;
+import com.smalaca.annotations.architecture.DomainDrivenDesign;
 
+@DomainDrivenDesign.Specification
 @ArchetypeParty.PartyRoleConstraint
 class ExperienceSeniorityConstraint implements MentorConstraint {
     private final SeniorityService seniorityService;

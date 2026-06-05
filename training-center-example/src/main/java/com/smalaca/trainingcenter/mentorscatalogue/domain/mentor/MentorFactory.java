@@ -1,7 +1,9 @@
 package com.smalaca.trainingcenter.mentorscatalogue.domain.mentor;
 
+import com.smalaca.annotations.architecture.DomainDrivenDesign;
 import java.util.List;
 
+@DomainDrivenDesign.Factory
 public class MentorFactory {
     private final List<MentorConstraint> constraints;
     private final MenteeService menteeService;
