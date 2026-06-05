@@ -1,7 +1,9 @@
 package com.smalaca.trainingcenter.usersmanagement.domain.user;
 
 import com.smalaca.annotations.archetypes.ArchetypeParty;
+import com.smalaca.annotations.architecture.DomainDrivenDesign;
 
+@DomainDrivenDesign.AggregateRoot
 @ArchetypeParty.Person
 public class User {
     private final UserId userId;
