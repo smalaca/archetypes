@@ -17,6 +17,7 @@ public class Trainer {
     @ArchetypeRule.RuleSet
     private final TrainingAcceptancePolicy trainingAcceptancePolicy;
     private final List<UUID> acceptedTrainings = new ArrayList<>();
+    private final List<UUID> trainingsForManualIntervention = new ArrayList<>();
 
     Trainer(TrainerId trainerId, UserId userId, TrainerNumber trainerNumber, TrainingAcceptancePolicy trainingAcceptancePolicy) {
         this.trainerId = trainerId;
@@ -26,8 +27,14 @@ public class Trainer {
     }
 
     public void acceptTraining(TrainingContext context) {
-        if (trainingAcceptancePolicy.canAccept(context)) {
+        TrainingAcceptanceResult result = trainingAcceptancePolicy.canAccept(context);
+
+        if (result.isAccepted()) {
             acceptedTrainings.add(context.trainingId());
+        }
+
+        if (result.requiresManualIntervention()) {
+            trainingsForManualIntervention.add(context.trainingId());
         }
     }
 }

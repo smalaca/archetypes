@@ -14,7 +14,21 @@ class TrainingAcceptancePolicy {
         this.rules = rules;
     }
 
-    boolean canAccept(TrainingContext context) {
-        return rules.stream().allMatch(rule -> rule.isSatisfiedBy(context));
+    TrainingAcceptanceResult canAccept(TrainingContext context) {
+        TrainingAcceptanceResult finalResult = TrainingAcceptanceResult.accepted();
+
+        for (TrainingRule rule : rules) {
+            TrainingAcceptanceResult result = rule.isSatisfiedBy(context);
+
+            if (result.isRejected()) {
+                return result;
+            }
+
+            if (result.requiresManualIntervention()) {
+                finalResult = result;
+            }
+        }
+
+        return finalResult;
     }
 }
