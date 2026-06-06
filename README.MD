@@ -8,11 +8,6 @@ to dos:
 - tell where is the party role that can be used by both Organization and Person
 
 ## Part
-Party Relationship:
-- party relationship
-- party relationship type
-- party relationship constrain + rule set
-
 Organization Name
 
 Organization Unit
@@ -20,6 +15,7 @@ Organization Unit
 Examples in form of tests
 
 ## Product
+Add archetype and annotation
 Product Type and Price
 Product Instance and Price
 Product Catalog and Catalog Entry
@@ -29,16 +25,19 @@ ProductFeatureType and ProductFeatureInstance
 Examples in form of tests
 
 ## Inventory
+Add archetype and annotation
 Inventory + InventoryEntry
 Examples in form of tests
 
 ## Availability
+Add archetype and annotation
 ReservationRequest and Reservation (id to the product instance as well)
 availability policy
 cancellation policy
 Examples in form of tests
 
 ## Order
+Add archetype and annotation
 Order and OrderItem
 PurchaseOrder
 SalesOrder
@@ -59,3 +58,8 @@ Examples in form of tests
 ## Integrate with Sonar 
 increase the coverage
 onboard to sonar
+
+
+### Documentation
+Update archetypes module to reflect proper archetypes
+Add a documentation and diagrams for every archetype

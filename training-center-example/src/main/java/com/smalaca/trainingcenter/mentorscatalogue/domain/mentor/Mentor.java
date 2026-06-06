@@ -3,9 +3,10 @@ package com.smalaca.trainingcenter.mentorscatalogue.domain.mentor;
 import com.smalaca.annotations.archetypes.ArchetypeParty;
 import com.smalaca.annotations.archetypes.ArchetypeRule;
 import com.smalaca.annotations.architecture.DomainDrivenDesign;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+import java.util.stream.Collectors;
 
 @DomainDrivenDesign.AggregateRoot
 @ArchetypeParty.PartyRole
@@ -15,10 +16,10 @@ public class Mentor {
     private final UserId userId;
     private final MentorNumber mentorNumber;
     @ArchetypeRule.RuleSet
-    private final List<MentoringRule> rules;
-    private final List<UUID> initiatedMentoring = new ArrayList<>();
+    private final List<MentoringCondition> rules;
+    private final List<Mentoring> mentorings = new ArrayList<>();
 
-    Mentor(MentorId mentorId, UserId userId, MentorNumber mentorNumber, List<MentoringRule> rules) {
+    Mentor(MentorId mentorId, UserId userId, MentorNumber mentorNumber, List<MentoringCondition> rules) {
         this.mentorId = mentorId;
         this.userId = userId;
         this.mentorNumber = mentorNumber;
@@ -27,7 +28,11 @@ public class Mentor {
 
     public void initiateMentoring(MentoringContext context) {
         if (canInitiate(context)) {
-            initiatedMentoring.add(context.menteeId());
+            List<MenteeId> mentees = context.menteeIds().stream()
+                    .map(MenteeId::new)
+                    .collect(Collectors.toList());
+            Mentoring mentoring = Mentoring.toBeStarted(mentorId, mentees);
+            mentorings.add(mentoring);
         }
     }
 

@@ -3,8 +3,11 @@ package com.smalaca.trainingcenter.mentorscatalogue.domain.mentor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
+import java.util.List;
 import java.util.UUID;
 
+import static com.smalaca.trainingcenter.mentorscatalogue.domain.mentor.MentoringStatus.TO_BE_STARTED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
@@ -22,8 +25,7 @@ class MentorTest {
     private Mentor mentor;
 
     private final UUID menteeId = UUID.randomUUID();
-    private final UUID topicId = UUID.randomUUID();
-    private final MentoringContext context = new MentoringContext(menteeId, topicId, userId.id());
+    private final MentoringContext context = new MentoringContext(List.of(menteeId), userId.id());
 
     @BeforeEach
     void createMentor() {
@@ -36,44 +38,34 @@ class MentorTest {
     void shouldInitiateMentoringWhenAllRulesAreSatisfied() {
         given(menteeService.canBeMentored(menteeId)).willReturn(true);
         given(capacityService.hasCapacity(userId.id())).willReturn(true);
-        given(certificationService.isCertifiedFor(userId.id(), topicId)).willReturn(true);
 
         mentor.initiateMentoring(context);
 
-        assertThat(mentor).extracting("initiatedMentoring").asList().containsExactly(menteeId);
+        assertThat(mentor).extracting("mentorings").asList().hasSize(1);
+        Mentoring mentoring = getMentoring(mentor, 0);
+        assertThat(mentoring).extracting("mentorId").isEqualTo(mentorId);
+        assertThat(mentoring).extracting("mentees").asList().containsExactly(new MenteeId(menteeId));
+        assertThat(mentoring).extracting("status").isEqualTo(TO_BE_STARTED);
     }
 
     @Test
     void shouldNotInitiateMentoringWhenMenteeEligibilityRuleIsNotSatisfied() {
         given(menteeService.canBeMentored(menteeId)).willReturn(false);
         given(capacityService.hasCapacity(userId.id())).willReturn(true);
-        given(certificationService.isCertifiedFor(userId.id(), topicId)).willReturn(true);
 
         mentor.initiateMentoring(context);
 
-        assertThat(mentor).extracting("initiatedMentoring").asList().isEmpty();
+        assertThat(mentor).extracting("mentorings").asList().isEmpty();
     }
 
     @Test
     void shouldNotInitiateMentoringWhenMentorshipCapacityRuleIsNotSatisfied() {
         given(menteeService.canBeMentored(menteeId)).willReturn(true);
         given(capacityService.hasCapacity(userId.id())).willReturn(false);
-        given(certificationService.isCertifiedFor(userId.id(), topicId)).willReturn(true);
 
         mentor.initiateMentoring(context);
 
-        assertThat(mentor).extracting("initiatedMentoring").asList().isEmpty();
-    }
-
-    @Test
-    void shouldNotInitiateMentoringWhenMentorTopicCertificationRuleIsNotSatisfied() {
-        given(menteeService.canBeMentored(menteeId)).willReturn(true);
-        given(capacityService.hasCapacity(userId.id())).willReturn(true);
-        given(certificationService.isCertifiedFor(userId.id(), topicId)).willReturn(false);
-
-        mentor.initiateMentoring(context);
-
-        assertThat(mentor).extracting("initiatedMentoring").asList().isEmpty();
+        assertThat(mentor).extracting("mentorings").asList().isEmpty();
     }
 
     @Test
@@ -81,11 +73,18 @@ class MentorTest {
         UUID existingMenteeId = givenMentorWithInitiatedMentoring();
         given(menteeService.canBeMentored(menteeId)).willReturn(true);
         given(capacityService.hasCapacity(userId.id())).willReturn(true);
-        given(certificationService.isCertifiedFor(userId.id(), topicId)).willReturn(true);
 
         mentor.initiateMentoring(context);
 
-        assertThat(mentor).extracting("initiatedMentoring").asList().containsExactlyInAnyOrder(existingMenteeId, menteeId);
+        assertThat(mentor).extracting("mentorings").asList().hasSize(2);
+        Mentoring mentoringOne = getMentoring(mentor, 0);
+        assertThat(mentoringOne).extracting("mentorId").isEqualTo(mentorId);
+        assertThat(mentoringOne).extracting("mentees").asList().containsExactly(new MenteeId(existingMenteeId));
+        assertThat(mentoringOne).extracting("status").isEqualTo(TO_BE_STARTED);
+        Mentoring mentoringTwo = getMentoring(mentor, 1);
+        assertThat(mentoringTwo).extracting("mentorId").isEqualTo(mentorId);
+        assertThat(mentoringTwo).extracting("mentees").asList().containsExactly(new MenteeId(menteeId));
+        assertThat(mentoringTwo).extracting("status").isEqualTo(TO_BE_STARTED);
     }
 
     @Test
@@ -95,16 +94,51 @@ class MentorTest {
 
         mentor.initiateMentoring(context);
 
-        assertThat(mentor).extracting("initiatedMentoring").asList().containsExactly(existingMenteeId);
+        assertThat(mentor).extracting("mentorings").asList().hasSize(1);
+        Mentoring mentoring = getMentoring(mentor, 0);
+        assertThat(mentoring).extracting("mentorId").isEqualTo(mentorId);
+        assertThat(mentoring).extracting("mentees").asList().containsExactly(new MenteeId(existingMenteeId));
+        assertThat(mentoring).extracting("status").isEqualTo(TO_BE_STARTED);
+    }
+
+    @Test
+    void shouldNotInitiateMentoringWhenTooManyMentees() {
+        List<UUID> tooManyMentees = List.of(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID());
+        MentoringContext tooManyContext = new MentoringContext(tooManyMentees, userId.id());
+        given(capacityService.hasCapacity(userId.id())).willReturn(true);
+        tooManyMentees.forEach(id -> given(menteeService.canBeMentored(id)).willReturn(true));
+
+        mentor.initiateMentoring(tooManyContext);
+
+        assertThat(mentor).extracting("mentorings").asList().isEmpty();
+    }
+
+    @Test
+    void shouldNotInitiateMentoringWhenNoMentees() {
+        MentoringContext noMenteesContext = new MentoringContext(List.of(), userId.id());
+        given(capacityService.hasCapacity(userId.id())).willReturn(true);
+
+        mentor.initiateMentoring(noMenteesContext);
+
+        assertThat(mentor).extracting("mentorings").asList().isEmpty();
     }
 
     private UUID givenMentorWithInitiatedMentoring() {
         UUID existingMenteeId = UUID.randomUUID();
         given(menteeService.canBeMentored(existingMenteeId)).willReturn(true);
         given(capacityService.hasCapacity(userId.id())).willReturn(true);
-        given(certificationService.isCertifiedFor(userId.id(), topicId)).willReturn(true);
-        mentor.initiateMentoring(new MentoringContext(existingMenteeId, topicId, userId.id()));
+        mentor.initiateMentoring(new MentoringContext(List.of(existingMenteeId), userId.id()));
 
         return existingMenteeId;
+    }
+
+    private Mentoring getMentoring(Mentor mentor, int index) {
+        try {
+            Field field = Mentor.class.getDeclaredField("mentorings");
+            field.setAccessible(true);
+            return ((List<Mentoring>) field.get(mentor)).get(index);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

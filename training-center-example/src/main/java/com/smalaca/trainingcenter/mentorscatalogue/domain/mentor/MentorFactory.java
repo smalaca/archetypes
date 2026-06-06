@@ -38,11 +38,11 @@ public class MentorFactory {
         throw new RuntimeException("Mentor constraints not satisfied");
     }
 
-    private List<MentoringRule> rules() {
+    private List<MentoringCondition> rules() {
         return List.of(
-                new MenteeEligibilityRule(menteeService),
+                new RoleCompatibilityConstraint(),
                 new MentorshipCapacityRule(capacityService),
-                new MentorTopicCertificationRule(certificationService)
+                new MenteeEligibilityConstraint(menteeService)
         );
     }
 

@@ -5,7 +5,7 @@ import com.smalaca.annotations.architecture.DomainDrivenDesign;
 
 @DomainDrivenDesign.Specification
 @ArchetypeRule.Rule
-class MentorshipCapacityRule implements MentoringRule {
+class MentorshipCapacityRule implements MentoringCondition {
     private final MentorshipCapacityService capacityService;
 
     MentorshipCapacityRule(MentorshipCapacityService capacityService) {
