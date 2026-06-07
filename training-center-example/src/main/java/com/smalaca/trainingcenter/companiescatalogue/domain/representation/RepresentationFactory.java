@@ -16,6 +16,13 @@ public class RepresentationFactory {
         this.constraints = constraints;
     }
 
+    public static RepresentationFactory representationFactory(RepresentationRepository repository) {
+        RepresentationConstraint onlyOneCompany = new OnlyOneCompanyRepresentationConstraint(repository);
+        RepresentationConstraint maxThreeBusinessUnits = new MaxThreeBusinessUnitsRepresentationConstraint(repository);
+        RepresentationConstraint oneRepresentativePerBusinessUnit = new OneRepresentativePerBusinessUnitConstraint(repository);
+        return new RepresentationFactory(List.of(onlyOneCompany, maxThreeBusinessUnits, oneRepresentativePerBusinessUnit));
+    }
+
     public Optional<Representation> representation(RepresentativeId representativeId, CompanyId companyId, BusinessUnitId businessUnitId) {
         if (canRepresent(representativeId, companyId, businessUnitId)) {
             return Optional.of(Representation.representation(representativeId, businessUnitId));
