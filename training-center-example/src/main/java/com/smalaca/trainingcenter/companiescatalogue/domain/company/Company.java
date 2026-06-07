@@ -6,6 +6,7 @@ import com.smalaca.annotations.architecture.DomainDrivenDesign;
 import java.util.List;
 
 @DomainDrivenDesign.AggregateRoot
+@ArchetypeParty.Party
 @ArchetypeParty.Organization
 public class Company {
     private final CompanyId companyId;
