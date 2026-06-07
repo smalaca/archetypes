@@ -8,4 +8,7 @@ import com.smalaca.annotations.architecture.DomainDrivenDesign;
 @ArchetypeParty.Organization
 @ArchetypeParty.OrganizationUnit
 record BusinessUnit(BusinessUnitId id, String name) {
+    boolean hasId(BusinessUnitId businessUnitId) {
+        return id.equals(businessUnitId);
+    }
 }

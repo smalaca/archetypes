@@ -27,7 +27,15 @@ public class Company {
     }
 
     public Optional<Representation> represent(RepresentativeId representativeId, BusinessUnitId businessUnitId, RepresentationFactory factory) {
-        return factory.representation(representativeId, companyId, businessUnitId);
+        if (isBusinessUnitExist(businessUnitId)) {
+            return factory.representation(representativeId, companyId, businessUnitId);
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    private boolean isBusinessUnitExist(BusinessUnitId businessUnitId) {
+        return businessUnits.stream().anyMatch(businessUnit -> businessUnit.hasId(businessUnitId));
     }
 
     public void add(BusinessUnit businessUnit) {
