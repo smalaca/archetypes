@@ -7,8 +7,6 @@ to dos:
 - tell where part is
 - tell where is the party role that can be used by both Organization and Person
 
-## Part
-Examples in form of tests
 
 ## Product
 Add archetype and annotation
