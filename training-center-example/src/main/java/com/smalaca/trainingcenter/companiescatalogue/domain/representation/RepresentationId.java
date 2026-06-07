@@ -8,6 +8,8 @@ import java.util.UUID;
 @DomainDrivenDesign.ValueObject
 @ArchetypeParty.PartyIdentifier
 record RepresentationId(UUID id) {
+
+    @DomainDrivenDesign.Factory
     public static RepresentationId representationId() {
         return new RepresentationId(UUID.randomUUID());
     }

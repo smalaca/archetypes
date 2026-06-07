@@ -14,14 +14,17 @@ public class TrainingAcceptanceResult {
         this.reason = reason;
     }
 
+    @DomainDrivenDesign.Factory
     public static TrainingAcceptanceResult accepted() {
         return new TrainingAcceptanceResult(Status.ACCEPTED, null);
     }
 
+    @DomainDrivenDesign.Factory
     public static TrainingAcceptanceResult rejected(String reason) {
         return new TrainingAcceptanceResult(Status.REJECTED, reason);
     }
 
+    @DomainDrivenDesign.Factory
     public static TrainingAcceptanceResult manualIntervention(String reason) {
         return new TrainingAcceptanceResult(Status.MANUAL_INTERVENTION, reason);
     }

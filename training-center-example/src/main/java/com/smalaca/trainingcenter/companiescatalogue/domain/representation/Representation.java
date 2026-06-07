@@ -18,7 +18,8 @@ public class Representation {
         this.businessUnitId = businessUnitId;
     }
 
-    public static Representation representation(RepresentativeId representativeId, BusinessUnitId businessUnitId) {
+    @DomainDrivenDesign.Factory
+    static Representation representation(RepresentativeId representativeId, BusinessUnitId businessUnitId) {
         return new Representation(RepresentationId.representationId(), representativeId, businessUnitId);
     }
 }

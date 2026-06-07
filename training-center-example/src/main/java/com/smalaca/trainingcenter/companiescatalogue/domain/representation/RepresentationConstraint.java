@@ -8,6 +8,6 @@ import com.smalaca.trainingcenter.companiescatalogue.domain.representative.Repre
 
 @DomainDrivenDesign.Specification
 @ArchetypeParty.PartyRelationshipConstraint
-public interface RepresentationConstraint {
+interface RepresentationConstraint {
     boolean canRepresent(RepresentativeId representativeId, CompanyId companyId, BusinessUnitId businessUnitId);
 }

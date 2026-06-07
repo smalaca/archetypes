@@ -2,9 +2,13 @@ package com.smalaca.trainingcenter.companiescatalogue.domain.company;
 
 import com.smalaca.annotations.archetypes.ArchetypeParty;
 import com.smalaca.annotations.architecture.DomainDrivenDesign;
+import com.smalaca.trainingcenter.companiescatalogue.domain.representation.Representation;
+import com.smalaca.trainingcenter.companiescatalogue.domain.representation.RepresentationFactory;
+import com.smalaca.trainingcenter.companiescatalogue.domain.representative.RepresentativeId;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @DomainDrivenDesign.AggregateRoot
 @ArchetypeParty.Party
@@ -20,6 +24,10 @@ public class Company {
         this.companyId = companyId;
         this.registeredIdentifiers = registeredIdentifiers;
         this.primaryName = primaryName;
+    }
+
+    public Optional<Representation> represent(RepresentativeId representativeId, BusinessUnitId businessUnitId, RepresentationFactory factory) {
+        return factory.representation(representativeId, companyId, businessUnitId);
     }
 
     public void add(BusinessUnit businessUnit) {
