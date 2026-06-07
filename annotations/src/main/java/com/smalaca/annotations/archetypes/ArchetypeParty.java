@@ -30,6 +30,11 @@ public @interface ArchetypeParty {
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
+    @interface OrganizationName {
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
     @interface RegisteredIdentifier {
     }
 
