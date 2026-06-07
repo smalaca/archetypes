@@ -1,8 +1,8 @@
 package com.smalaca.archetypes.party;
 
 public class Person extends Party {
-    private String firstName;
-    private String lastName;
+    private final String firstName;
+    private final String lastName;
 
     public Person(String firstName, String lastName) {
         this.firstName = firstName;

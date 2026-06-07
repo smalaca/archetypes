@@ -1,4 +1,4 @@
-package com.smalaca.archetypes.partyrelationship;
+package com.smalaca.archetypes.party;
 
 import java.util.ArrayList;
 import java.util.Collection;
