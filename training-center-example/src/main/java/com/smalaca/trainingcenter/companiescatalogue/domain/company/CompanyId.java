@@ -7,5 +7,5 @@ import java.util.UUID;
 
 @DomainDrivenDesign.ValueObject
 @ArchetypeParty.PartyIdentifier
-record CompanyId(UUID id) {
+public record CompanyId(UUID id) {
 }
