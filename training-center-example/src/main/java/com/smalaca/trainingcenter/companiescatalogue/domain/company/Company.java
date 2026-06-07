@@ -14,6 +14,7 @@ public class Company {
     private final List<CompanyRegisteredIdentifier> registeredIdentifiers;
     private final CompanyName primaryName;
     private final List<CompanyName> alternativeNames = new ArrayList<>();
+    private final List<BusinessUnit> businessUnits = new ArrayList<>();
 
     public Company(CompanyId companyId, List<CompanyRegisteredIdentifier> registeredIdentifiers, CompanyName primaryName) {
         this.companyId = companyId;
