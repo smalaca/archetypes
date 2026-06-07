@@ -13,7 +13,7 @@
     <modules>
         <module>archetype-models</module>
         <module>annotations</module>
-        <module>training-center-example</module>
+        <module>training-center</module>
     </modules>
 
     <properties>
