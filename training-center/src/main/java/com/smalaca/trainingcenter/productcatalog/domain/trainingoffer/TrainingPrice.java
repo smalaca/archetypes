@@ -8,4 +8,7 @@ import java.math.BigDecimal;
 @DomainDrivenDesign.ValueObject
 @ArchetypeProduct.Price
 record TrainingPrice(PriceType type, BigDecimal amount, String currency) {
+    boolean hasSameTypeAs(TrainingPrice trainingPrice) {
+        return type.equals(trainingPrice.type);
+    }
 }

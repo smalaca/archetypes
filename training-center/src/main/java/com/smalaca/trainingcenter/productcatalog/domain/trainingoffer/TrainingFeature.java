@@ -9,4 +9,7 @@ import java.util.List;
 @ArchetypeProduct.ProductFeatureType
 record TrainingFeature(String name, String description, List<String> possibleValues) {
 
+    public boolean hasSameNameAs(TrainingFeature trainingFeature) {
+        return name.equals(trainingFeature.name);
+    }
 }

@@ -20,10 +20,24 @@ public class TrainingOffer {
     }
 
     public void add(TrainingPrice trainingPrice) {
+        if (hasSamePriceTypeAs(trainingPrice)) {
+            throw new RuntimeException("Price type already exists: " + trainingPrice.type());
+        }
         prices.add(trainingPrice);
     }
 
+    private boolean hasSamePriceTypeAs(TrainingPrice trainingPrice) {
+        return prices.stream().anyMatch(price -> price.hasSameTypeAs(trainingPrice));
+    }
+
     public void add(TrainingFeature trainingFeature) {
+        if (hasSameFeatureNameAs(trainingFeature)) {
+            throw new RuntimeException("Feature name already exists: " + trainingFeature.name());
+        }
         features.add(trainingFeature);
+    }
+
+    private boolean hasSameFeatureNameAs(TrainingFeature trainingFeature) {
+        return features.stream().anyMatch(feature -> feature.hasSameNameAs(trainingFeature));
     }
 }

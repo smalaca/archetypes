@@ -9,8 +9,6 @@ to dos:
 
 
 ## Product
-Product Type and Price
-Product Instance and Price
 Product Catalog and Catalog Entry
 Package Type and Package Instance
 ProductFeatureType and ProductFeatureInstance
