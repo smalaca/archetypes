@@ -9,7 +9,6 @@ to dos:
 
 
 ## Product
-Add archetype and annotation
 Product Type and Price
 Product Instance and Price
 Product Catalog and Catalog Entry
@@ -19,19 +18,16 @@ ProductFeatureType and ProductFeatureInstance
 Examples in form of tests
 
 ## Inventory
-Add archetype and annotation
 Inventory + InventoryEntry
 Examples in form of tests
 
 ## Availability
-Add archetype and annotation
 ReservationRequest and Reservation (id to the product instance as well)
 availability policy
 cancellation policy
 Examples in form of tests
 
 ## Order
-Add archetype and annotation
 Order and OrderItem
 PurchaseOrder
 SalesOrder
@@ -48,6 +44,14 @@ RuleContext
 RuleOverride
 PartySignature
 Examples in form of tests
+
+## Add archetypes 
+- validate Party
+- validate Rule
+- Product
+- Inventory
+- Availability
+- Order
 
 ## Integrate with Sonar 
 increase the coverage
