@@ -20,6 +20,11 @@ public @interface ArchetypeProduct {
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
+    @interface ProductFeatureType {
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
     @interface Price {
     }
 
@@ -31,5 +36,10 @@ public @interface ArchetypeProduct {
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
     @interface ProductInstanceIdentifier {
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
+    @interface ProductFeatureInstance {
     }
 }
