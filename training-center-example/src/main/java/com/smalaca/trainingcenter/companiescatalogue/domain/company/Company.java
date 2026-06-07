@@ -21,4 +21,12 @@ public class Company {
         this.registeredIdentifiers = registeredIdentifiers;
         this.primaryName = primaryName;
     }
+
+    public void add(BusinessUnit businessUnit) {
+        businessUnits.add(businessUnit);
+    }
+
+    public void add(CompanyName alternativeName) {
+        alternativeNames.add(alternativeName);
+    }
 }
