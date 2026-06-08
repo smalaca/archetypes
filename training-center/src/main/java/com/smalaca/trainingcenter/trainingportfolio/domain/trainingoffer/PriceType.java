@@ -1,4 +1,4 @@
-package com.smalaca.trainingcenter.productcatalog.domain.trainingoffer;
+package com.smalaca.trainingcenter.trainingportfolio.domain.trainingoffer;
 
 import com.smalaca.annotations.architecture.DomainDrivenDesign;
 

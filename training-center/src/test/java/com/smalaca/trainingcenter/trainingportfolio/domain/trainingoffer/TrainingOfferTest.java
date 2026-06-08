@@ -1,4 +1,4 @@
-package com.smalaca.trainingcenter.productcatalog.domain.trainingoffer;
+package com.smalaca.trainingcenter.trainingportfolio.domain.trainingoffer;
 
 import org.junit.jupiter.api.Test;
 
@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
-import static com.smalaca.trainingcenter.productcatalog.domain.trainingoffer.PriceType.*;
+import static com.smalaca.trainingcenter.trainingportfolio.domain.trainingoffer.PriceType.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
