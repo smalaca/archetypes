@@ -8,14 +8,14 @@ import java.util.List;
 
 @DomainDrivenDesign.Entity
 @ArchetypeProduct.CatalogEntry
-public class CatalogEntry {
-    private final CatalogEntryId catalogEntryId;
+public class LearningOffer {
+    private final LearningOfferId learningOfferId;
     private final String title;
     private final String description;
     private final List<TrainingOfferId> trainingOfferIds = new ArrayList<>();
 
-    public CatalogEntry(CatalogEntryId catalogEntryId, String title, String description) {
-        this.catalogEntryId = catalogEntryId;
+    public LearningOffer(LearningOfferId learningOfferId, String title, String description) {
+        this.learningOfferId = learningOfferId;
         this.title = title;
         this.description = description;
     }
