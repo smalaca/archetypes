@@ -42,4 +42,14 @@ public @interface ArchetypeProduct {
     @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
     @interface ProductFeatureInstance {
     }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
+    @interface Catalog {
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
+    @interface CatalogEntry {
+    }
 }
