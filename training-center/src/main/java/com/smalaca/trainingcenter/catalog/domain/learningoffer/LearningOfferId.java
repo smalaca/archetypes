@@ -1,4 +1,4 @@
-package com.smalaca.trainingcenter.catalog.domain.trainingcatalog;
+package com.smalaca.trainingcenter.catalog.domain.learningoffer;
 
 import com.smalaca.annotations.architecture.DomainDrivenDesign;
 import java.util.UUID;
