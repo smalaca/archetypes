@@ -40,4 +40,15 @@ public @interface DomainDrivenDesign {
     @interface Specification {
 
     }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
+    @interface Repository {
+    }
+
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
+    @interface ApplicationLayer {
+    }
 }
