@@ -6,7 +6,7 @@ import com.smalaca.annotations.architecture.DomainDrivenDesign;
 import java.util.ArrayList;
 import java.util.List;
 
-@DomainDrivenDesign.Entity
+@DomainDrivenDesign.AggregateRoot
 @ArchetypeProduct.CatalogEntry
 public class LearningOffer {
     private final LearningOfferId learningOfferId;
