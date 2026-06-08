@@ -19,8 +19,4 @@ public class TrainingAvailability {
         this.capacity = capacity;
         this.reservedSeats = reservedSeats;
     }
-
-    public int availableSeats() {
-        return capacity.value() - reservedSeats.value();
-    }
 }

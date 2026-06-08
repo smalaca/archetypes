@@ -4,5 +4,5 @@ import com.smalaca.annotations.architecture.DomainDrivenDesign;
 import java.util.UUID;
 
 @DomainDrivenDesign.ValueObject
-record TrainingAvailabilityId(UUID id) {
+public record TrainingAvailabilityId(UUID id) {
 }

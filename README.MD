@@ -9,14 +9,9 @@ to dos:
 
 
 ## Product
-Product Catalog and Catalog Entry
 Package Type and Package Instance
 ProductFeatureType and ProductFeatureInstance
 
-Examples in form of tests
-
-## Inventory
-Inventory + InventoryEntry
 Examples in form of tests
 
 ## Availability
