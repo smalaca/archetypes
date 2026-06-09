@@ -20,21 +20,11 @@ public class LearningPathEdition {
         this.learningPathId = learningPathId;
     }
 
-    public void add(TrainingSessionId trainingSessionId, Set<LearningPathEdition> allEditions) {
-        if (alreadyBelongsToOtherEdition(trainingSessionId, allEditions)) {
+    public void add(TrainingSessionId trainingSessionId, LearningPathEditionRepository repository) {
+        if (repository.existsAnyWith(trainingSessionId)) {
             throw new LearningPathEditionException("Training Session " + trainingSessionId + " already belongs to another Learning Path Edition.");
         }
 
         trainingSessionIds.add(trainingSessionId);
-    }
-
-    private boolean alreadyBelongsToOtherEdition(TrainingSessionId trainingSessionId, Set<LearningPathEdition> allEditions) {
-        return allEditions.stream()
-                .filter(edition -> !edition.equals(this))
-                .anyMatch(edition -> edition.contains(trainingSessionId));
-    }
-
-    private boolean contains(TrainingSessionId trainingSessionId) {
-        return trainingSessionIds.contains(trainingSessionId);
     }
 }
