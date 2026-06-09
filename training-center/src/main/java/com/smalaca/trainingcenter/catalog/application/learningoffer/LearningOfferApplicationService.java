@@ -6,7 +6,7 @@ import com.smalaca.annotations.architecture.PortsAndAdaptersArchitecture;
 import com.smalaca.trainingcenter.catalog.domain.learningoffer.LearningOffer;
 import com.smalaca.trainingcenter.catalog.domain.learningoffer.LearningOfferId;
 import com.smalaca.trainingcenter.catalog.domain.learningoffer.LearningOfferRepository;
-import com.smalaca.trainingcenter.catalog.domain.learningoffer.TrainingOfferId;
+import com.smalaca.trainingcenter.catalog.domain.learningoffer.SellableItemId;
 
 import java.util.Set;
 import java.util.UUID;
@@ -33,12 +33,12 @@ public class LearningOfferApplicationService {
     }
 
     @PortsAndAdaptersArchitecture.DrivingPort
-    public void addTrainingOfferToLearningOffer(UpdateLearningOfferCommand command) {
+    public void addSellableItemToLearningOffer(UpdateLearningOfferCommand command) {
         LearningOfferId id = new LearningOfferId(command.learningOfferId());
         LearningOffer learningOffer = repository.findById(id);
-        Set<TrainingOfferId> trainingOffers = command.trainingOfferIds().stream().map(TrainingOfferId::new).collect(toSet());
+        Set<SellableItemId> sellableItems = command.sellableItemIds().stream().map(SellableItemId::new).collect(toSet());
 
-        learningOffer.add(trainingOffers);
+        learningOffer.add(sellableItems);
 
         repository.save(learningOffer);
     }

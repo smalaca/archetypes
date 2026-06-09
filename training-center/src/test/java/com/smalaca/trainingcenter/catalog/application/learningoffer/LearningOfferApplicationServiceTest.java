@@ -3,7 +3,7 @@ package com.smalaca.trainingcenter.catalog.application.learningoffer;
 import com.smalaca.trainingcenter.catalog.domain.learningoffer.LearningOffer;
 import com.smalaca.trainingcenter.catalog.domain.learningoffer.LearningOfferId;
 import com.smalaca.trainingcenter.catalog.domain.learningoffer.LearningOfferRepository;
-import com.smalaca.trainingcenter.catalog.domain.learningoffer.TrainingOfferId;
+import com.smalaca.trainingcenter.catalog.domain.learningoffer.SellableItemId;
 import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -46,46 +46,46 @@ class LearningOfferApplicationServiceTest {
     }
 
     @Test
-    void shouldAddTrainingOfferToLearningOfferWhenNoTrainingOfferIsPresent() {
-        UUID trainingOfferId = UUID.randomUUID();
+    void shouldAddSellableItemToLearningOfferWhenNoSellableItemIsPresent() {
+        UUID sellableItemId = UUID.randomUUID();
         UUID learningOfferId = existingLearningOffer();
-        UpdateLearningOfferCommand command = new UpdateLearningOfferCommand(learningOfferId, List.of(trainingOfferId));
+        UpdateLearningOfferCommand command = new UpdateLearningOfferCommand(learningOfferId, List.of(sellableItemId));
 
-        service.addTrainingOfferToLearningOffer(command);
+        service.addSellableItemToLearningOffer(command);
 
         assertThat(thenLearningOfferSaved())
-                .extracting("trainingOfferIds").asInstanceOf(InstanceOfAssertFactories.SET)
-                .containsExactly(new TrainingOfferId(trainingOfferId));
+                .extracting("sellableItemIds").asInstanceOf(InstanceOfAssertFactories.SET)
+                .containsExactly(new SellableItemId(sellableItemId));
     }
 
     @Test
-    void shouldAddTrainingOfferToLearningOfferWhenTrainingOfferIsPresent() {
-        UUID existingTrainingOfferId = UUID.randomUUID();
-        UUID learningOfferId = existingLearningOfferWithTrainingOffers(Set.of(existingTrainingOfferId));
+    void shouldAddSellableItemToLearningOfferWhenSellableItemIsPresent() {
+        UUID existingSellableItemId = UUID.randomUUID();
+        UUID learningOfferId = existingLearningOfferWithSellableItems(Set.of(existingSellableItemId));
 
-        UUID newTrainingOfferUuid = UUID.randomUUID();
-        UpdateLearningOfferCommand command = new UpdateLearningOfferCommand(learningOfferId, List.of(newTrainingOfferUuid));
+        UUID newSellableItemUuid = UUID.randomUUID();
+        UpdateLearningOfferCommand command = new UpdateLearningOfferCommand(learningOfferId, List.of(newSellableItemUuid));
 
-        service.addTrainingOfferToLearningOffer(command);
+        service.addSellableItemToLearningOffer(command);
 
         assertThat(thenLearningOfferSaved())
-                .extracting("trainingOfferIds").asInstanceOf(InstanceOfAssertFactories.SET)
+                .extracting("sellableItemIds").asInstanceOf(InstanceOfAssertFactories.SET)
                 .containsExactlyInAnyOrder(
-                        new TrainingOfferId(existingTrainingOfferId),
-                        new TrainingOfferId(newTrainingOfferUuid));
+                        new SellableItemId(existingSellableItemId),
+                        new SellableItemId(newSellableItemUuid));
     }
 
     @Test
-    void shouldAddTrainingOfferToLearningOfferWhenTrainingOfferIsPresentAndAddingTheSameAgain() {
-        UUID existingTrainingOfferId = UUID.randomUUID();
-        UUID learningOfferId = existingLearningOfferWithTrainingOffers(Set.of(existingTrainingOfferId));
-        UpdateLearningOfferCommand command = new UpdateLearningOfferCommand(learningOfferId, List.of(existingTrainingOfferId));
+    void shouldAddSellableItemToLearningOfferWhenSellableItemIsPresentAndAddingTheSameAgain() {
+        UUID existingSellableItemId = UUID.randomUUID();
+        UUID learningOfferId = existingLearningOfferWithSellableItems(Set.of(existingSellableItemId));
+        UpdateLearningOfferCommand command = new UpdateLearningOfferCommand(learningOfferId, List.of(existingSellableItemId));
 
-        service.addTrainingOfferToLearningOffer(command);
+        service.addSellableItemToLearningOffer(command);
 
         assertThat(thenLearningOfferSaved())
-                .extracting("trainingOfferIds").asInstanceOf(InstanceOfAssertFactories.SET)
-                .containsExactly(new TrainingOfferId(existingTrainingOfferId));
+                .extracting("sellableItemIds").asInstanceOf(InstanceOfAssertFactories.SET)
+                .containsExactly(new SellableItemId(existingSellableItemId));
     }
 
     @Test
@@ -98,13 +98,13 @@ class LearningOfferApplicationServiceTest {
         then(repository).should().delete(new LearningOfferId(learningOfferId));
     }
 
-    private UUID existingLearningOfferWithTrainingOffers(Set<UUID> trainingOfferIds) {
+    private UUID existingLearningOfferWithSellableItems(Set<UUID> sellableItemIds) {
         LearningOfferId learningOfferId = new LearningOfferId(UUID.randomUUID());
         LearningOffer learningOffer = new LearningOffer(learningOfferId, "Title", "Description");
-        Set<TrainingOfferId> trainingOffers = trainingOfferIds.stream()
-                .map(TrainingOfferId::new)
+        Set<SellableItemId> sellableItems = sellableItemIds.stream()
+                .map(SellableItemId::new)
                 .collect(toSet());
-        learningOffer.add(trainingOffers);
+        learningOffer.add(sellableItems);
 
         given(repository.findById(learningOfferId)).willReturn(learningOffer);
         return learningOfferId.id();

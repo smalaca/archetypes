@@ -12,7 +12,7 @@ public class LearningOffer {
     private final LearningOfferId learningOfferId;
     private final String title;
     private final String description;
-    private final Set<TrainingOfferId> trainingOfferIds = new HashSet<>();
+    private final Set<SellableItemId> sellableItemIds = new HashSet<>();
 
     public LearningOffer(LearningOfferId learningOfferId, String title, String description) {
         this.learningOfferId = learningOfferId;
@@ -20,7 +20,7 @@ public class LearningOffer {
         this.description = description;
     }
 
-    public void add(Set<TrainingOfferId> trainingOfferId) {
-        trainingOfferIds.addAll(trainingOfferId);
+    public void add(Set<SellableItemId> sellableItemIds) {
+        this.sellableItemIds.addAll(sellableItemIds);
     }
 }
