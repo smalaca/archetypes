@@ -1,6 +1,8 @@
 package com.smalaca.trainingcenter.trainingdelivery.domain.trainingsession;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -37,5 +39,44 @@ class TrainingSessionTest {
         assertThat(actual).extracting("language").isEqualTo(new Language("Polish"));
         assertThat(actual).extracting("capacity").isEqualTo(new Capacity(20));
         assertThat(actual).extracting("price").isEqualTo(new TrainingSessionPrice(amount, currency));
+    }
+
+    @ParameterizedTest
+    @EnumSource(DeliveryMode.class)
+    void shouldCreateTrainingSessionWithDeliveryMode(DeliveryMode deliveryMode) {
+        TrainingSession.Builder builder = new TrainingSession.Builder();
+        setDeliveryMode(builder, deliveryMode);
+
+        TrainingSession actual = builder.beginner().build();
+
+        assertThat(actual).extracting("deliveryMode").isEqualTo(deliveryMode);
+    }
+
+    private void setDeliveryMode(TrainingSession.Builder builder, DeliveryMode deliveryMode) {
+        switch (deliveryMode) {
+            case ONLINE -> builder.online();
+            case ONSITE -> builder.onsite();
+            case HYBRID -> builder.hybrid();
+        }
+    }
+
+    @ParameterizedTest
+    @EnumSource(SkillLevel.class)
+    void shouldCreateTrainingSessionWithSkillLevel(SkillLevel skillLevel) {
+        TrainingSession.Builder builder = new TrainingSession.Builder();
+        setSkillLevel(builder, skillLevel);
+
+        TrainingSession actual = builder.online().build();
+
+        assertThat(actual).extracting("skillLevel").isEqualTo(skillLevel);
+    }
+
+    private void setSkillLevel(TrainingSession.Builder builder, SkillLevel skillLevel) {
+        switch (skillLevel) {
+            case BEGINNER -> builder.beginner();
+            case INTERMEDIATE -> builder.intermediate();
+            case ADVANCED -> builder.advanced();
+            case EXPERT -> builder.expert();
+        }
     }
 }
