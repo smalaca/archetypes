@@ -5,5 +5,5 @@ import com.smalaca.annotations.architecture.DomainDrivenDesign;
 
 @DomainDrivenDesign.ValueObject
 @ArchetypeProduct.ProductFeatureInstance
-public record Language(String value) {
+record Language(String value) {
 }

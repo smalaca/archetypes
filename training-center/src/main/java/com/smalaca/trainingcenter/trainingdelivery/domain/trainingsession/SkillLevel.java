@@ -5,7 +5,7 @@ import com.smalaca.annotations.architecture.DomainDrivenDesign;
 
 @DomainDrivenDesign.ValueObject
 @ArchetypeProduct.ProductFeatureInstance
-public enum SkillLevel {
+enum SkillLevel {
     BEGINNER,
     INTERMEDIATE,
     ADVANCED,

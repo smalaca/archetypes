@@ -5,7 +5,7 @@ import com.smalaca.annotations.architecture.DomainDrivenDesign;
 
 @DomainDrivenDesign.ValueObject
 @ArchetypeProduct.ProductFeatureInstance
-public enum DeliveryMode {
+enum DeliveryMode {
     ONLINE,
     ONSITE,
     HYBRID

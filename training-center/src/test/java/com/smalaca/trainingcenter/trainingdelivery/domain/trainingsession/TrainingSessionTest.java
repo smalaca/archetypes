@@ -13,22 +13,29 @@ import static org.assertj.core.api.Assertions.assertThat;
 class TrainingSessionTest {
     @Test
     void shouldCreateTrainingSession() {
-        TrainingSessionId trainingSessionId = new TrainingSessionId(UUID.randomUUID());
-        TrainingOfferId offerId = new TrainingOfferId(UUID.randomUUID());
-        TrainingDateRange dateRange = new TrainingDateRange(LocalDate.of(2026, 4, 1), LocalDate.of(2026, 4, 3));
-        Language language = new Language("Polish");
-        Capacity capacity = new Capacity(20);
-        TrainingSessionPrice price = new TrainingSessionPrice(new BigDecimal("2500"), "PLN");
+        UUID offerId = UUID.randomUUID();
+        LocalDate startDate = LocalDate.of(2026, 4, 1);
+        LocalDate endDate = LocalDate.of(2026, 4, 3);
+        BigDecimal amount = new BigDecimal("2500");
+        String currency = "PLN";
 
-        TrainingSession actual = new TrainingSession(trainingSessionId, offerId, dateRange, ONSITE, BEGINNER, language, capacity, price);
+        TrainingSession actual = new TrainingSession.Builder()
+                .trainingOfferId(offerId)
+                .dateRange(startDate, endDate)
+                .onsite()
+                .beginner()
+                .language("Polish")
+                .capacity(20)
+                .price(amount, currency)
+                .build();
 
-        assertThat(actual).extracting("trainingSessionId").isEqualTo(trainingSessionId);
-        assertThat(actual).extracting("trainingOfferId").isEqualTo(offerId);
-        assertThat(actual).extracting("dateRange").isEqualTo(dateRange);
+        assertThat(actual).extracting("trainingSessionId").isNotNull();
+        assertThat(actual).extracting("trainingOfferId").isEqualTo(new TrainingOfferId(offerId));
+        assertThat(actual).extracting("dateRange").isEqualTo(new TrainingDateRange(startDate, endDate));
         assertThat(actual).extracting("deliveryMode").isEqualTo(ONSITE);
         assertThat(actual).extracting("skillLevel").isEqualTo(BEGINNER);
-        assertThat(actual).extracting("language").isEqualTo(language);
-        assertThat(actual).extracting("capacity").isEqualTo(capacity);
-        assertThat(actual).extracting("price").isEqualTo(price);
+        assertThat(actual).extracting("language").isEqualTo(new Language("Polish"));
+        assertThat(actual).extracting("capacity").isEqualTo(new Capacity(20));
+        assertThat(actual).extracting("price").isEqualTo(new TrainingSessionPrice(amount, currency));
     }
 }

@@ -7,5 +7,5 @@ import java.util.UUID;
 
 @DomainDrivenDesign.ValueObject
 @ArchetypeProduct.ProductInstanceIdentifier
-public record TrainingSessionId(UUID id) {
+record TrainingSessionId(UUID id) {
 }
