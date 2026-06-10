@@ -1,7 +1,12 @@
 package com.smalaca.trainingcenter.trainingdelivery.domain.trainingsession;
 
 import com.smalaca.annotations.archetypes.ArchetypeProduct;
+import com.smalaca.annotations.architecture.DomainDrivenDesign;
 
-@ArchetypeProduct.ProductFeatureType
-public interface DeliveryMode {
+@DomainDrivenDesign.ValueObject
+@ArchetypeProduct.ProductFeatureInstance
+public enum DeliveryMode {
+    ONLINE,
+    ONSITE,
+    HYBRID
 }

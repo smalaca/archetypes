@@ -5,5 +5,9 @@ import com.smalaca.annotations.architecture.DomainDrivenDesign;
 
 @DomainDrivenDesign.ValueObject
 @ArchetypeProduct.ProductFeatureInstance
-record Online(Platform platform) implements DeliveryMode {
+public enum SkillLevel {
+    BEGINNER,
+    INTERMEDIATE,
+    ADVANCED,
+    EXPERT
 }

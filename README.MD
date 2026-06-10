@@ -7,12 +7,6 @@ to dos:
 - tell where part is
 - tell where is the party role that can be used by both Organization and Person
 
-
-## Product
-ProductFeatureType and ProductFeatureInstance
-
-Examples in form of tests
-
 ## Availability
 ReservationRequest and Reservation (id to the product instance as well)
 availability policy

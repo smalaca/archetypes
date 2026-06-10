@@ -5,5 +5,5 @@ import com.smalaca.annotations.architecture.DomainDrivenDesign;
 
 @DomainDrivenDesign.ValueObject
 @ArchetypeProduct.ProductFeatureInstance
-record Onsite(String city, String address) implements DeliveryMode {
+public record Language(String value) {
 }
