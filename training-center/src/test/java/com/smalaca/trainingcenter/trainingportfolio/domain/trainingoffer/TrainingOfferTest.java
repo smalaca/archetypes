@@ -4,9 +4,13 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
+import static com.smalaca.trainingcenter.trainingportfolio.domain.trainingoffer.DeliveryMode.ONLINE;
+import static com.smalaca.trainingcenter.trainingportfolio.domain.trainingoffer.DeliveryMode.ONSITE;
 import static com.smalaca.trainingcenter.trainingportfolio.domain.trainingoffer.PriceType.*;
+import static com.smalaca.trainingcenter.trainingportfolio.domain.trainingoffer.SkillLevel.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -15,11 +19,17 @@ class TrainingOfferTest {
     void shouldCreateTrainingOffer() {
         TrainingOfferId id = new TrainingOfferId(UUID.randomUUID());
         TrainingOfferName name = new TrainingOfferName("DDD Training");
+        Set<DeliveryMode> deliveryModes = Set.of(ONLINE, ONSITE);
+        Set<SkillLevel> skillLevels = Set.of(BEGINNER, INTERMEDIATE, ADVANCED);
+        Set<Language> languages = Set.of(new Language("English"), new Language("Polish"));
 
-        TrainingOffer actual = new TrainingOffer(id, name);
+        TrainingOffer actual = new TrainingOffer(id, name, deliveryModes, skillLevels, languages);
 
         assertThat(actual).extracting("trainingOfferId").isEqualTo(id);
         assertThat(actual).extracting("name").isEqualTo(name);
+        assertThat(actual).extracting("supportedDeliveryModes").isEqualTo(deliveryModes);
+        assertThat(actual).extracting("supportedSkillLevels").isEqualTo(skillLevels);
+        assertThat(actual).extracting("supportedLanguages").isEqualTo(languages);
     }
 
     @Test
@@ -83,6 +93,9 @@ class TrainingOfferTest {
     }
 
     private TrainingOffer givenTrainingOffer() {
-        return new TrainingOffer(new TrainingOfferId(UUID.randomUUID()), new TrainingOfferName("DDD Training"));
+        TrainingOfferId trainingOfferId = new TrainingOfferId(UUID.randomUUID());
+        TrainingOfferName trainingOfferName = new TrainingOfferName("Any Training");
+
+        return new TrainingOffer(trainingOfferId, trainingOfferName, Set.of(ONLINE), Set.of(BEGINNER), Set.of(new Language("English")));
     }
 }

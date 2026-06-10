@@ -5,6 +5,7 @@ import com.smalaca.annotations.architecture.DomainDrivenDesign;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @DomainDrivenDesign.AggregateRoot
 @ArchetypeProduct.ProductType
@@ -14,9 +15,23 @@ public class TrainingOffer {
     private final List<TrainingPrice> prices = new ArrayList<>();
     private final List<TrainingFeature> features = new ArrayList<>();
 
-    public TrainingOffer(TrainingOfferId trainingOfferId, TrainingOfferName name) {
+    @ArchetypeProduct.ProductFeatureType
+    private final Set<DeliveryMode> supportedDeliveryModes;
+
+    @ArchetypeProduct.ProductFeatureType
+    private final Set<SkillLevel> supportedSkillLevels;
+
+    @ArchetypeProduct.ProductFeatureType
+    private final Set<Language> supportedLanguages;
+
+    public TrainingOffer(
+            TrainingOfferId trainingOfferId, TrainingOfferName name,
+            Set<DeliveryMode> supportedDeliveryModes, Set<SkillLevel> supportedSkillLevels, Set<Language> supportedLanguages) {
         this.trainingOfferId = trainingOfferId;
         this.name = name;
+        this.supportedDeliveryModes = supportedDeliveryModes;
+        this.supportedSkillLevels = supportedSkillLevels;
+        this.supportedLanguages = supportedLanguages;
     }
 
     public void add(TrainingPrice trainingPrice) {

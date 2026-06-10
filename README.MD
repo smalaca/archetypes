@@ -9,7 +9,6 @@ to dos:
 
 
 ## Product
-Package Type and Package Instance
 ProductFeatureType and ProductFeatureInstance
 
 Examples in form of tests
