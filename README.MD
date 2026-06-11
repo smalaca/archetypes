@@ -8,9 +8,6 @@ to dos:
 - tell where is the party role that can be used by both Organization and Person
 
 ## Availability
-ReservationRequest and Reservation (id to the product instance as well)
-availability policy
-cancellation policy
 Examples in form of tests
 
 ## Order
@@ -31,6 +28,9 @@ RuleOverride
 PartySignature
 Examples in form of tests
 
+## Catalog archetype
+Extract from the Product
+
 ## Add archetypes 
 - validate Party
 - validate Rule
@@ -43,7 +43,9 @@ Examples in form of tests
 increase the coverage
 onboard to sonar
 
-
 ### Documentation
 Update archetypes module to reflect proper archetypes
 Add a documentation and diagrams for every archetype
+
+## Next steps
+- add more archetypes

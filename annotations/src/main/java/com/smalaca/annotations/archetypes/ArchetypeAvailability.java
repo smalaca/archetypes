@@ -17,4 +17,14 @@ public @interface ArchetypeAvailability {
     @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
     @interface Reservation {
     }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
+    @interface AvailabilityPolicy {
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
+    @interface CancellationPolicy {
+    }
 }
