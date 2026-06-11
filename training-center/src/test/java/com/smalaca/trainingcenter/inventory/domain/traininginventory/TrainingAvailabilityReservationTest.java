@@ -2,77 +2,102 @@ package com.smalaca.trainingcenter.inventory.domain.traininginventory;
 
 import com.smalaca.trainingcenter.inventory.domain.reservation.ParticipantId;
 import com.smalaca.trainingcenter.inventory.domain.reservation.Reservation;
+import com.smalaca.trainingcenter.inventory.domain.reservation.ReservationRepository;
 import com.smalaca.trainingcenter.inventory.domain.reservation.ReservationStatus;
 import org.junit.jupiter.api.Test;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 
 class TrainingAvailabilityReservationTest {
     private static final TrainingSessionId TRAINING_SESSION_ID = new TrainingSessionId(UUID.randomUUID());
     private static final LocalDateTime REQUESTED_AT = LocalDateTime.of(2026, 4, 1, 10, 0);
+    private static final LocalDateTime STARTS_AT = LocalDateTime.of(2026, 6, 1, 9, 0);
+    private static final LocalDateTime ENDS_AT = LocalDateTime.of(2026, 6, 1, 17, 0);
+    private static final ParticipantId PARTICIPANT_ID = new ParticipantId(UUID.randomUUID());
+
+    private final ReservationRepository reservationRepository = mock(ReservationRepository.class);
+    private final TrainingAvailabilityFactory factory = TrainingAvailabilityFactory.trainingAvailabilityFactory(reservationRepository);
 
     @Test
-    void shouldCreateReservationSuccessfullyWhenSeatsAreAvailable() {
-        TrainingAvailability availability = trainingAvailability(20, 10);
-        ParticipantId participantId = participantId();
-        ReservationRequest request = new ReservationRequest(TRAINING_SESSION_ID, participantId, REQUESTED_AT);
+    void shouldCreateReservationSuccessfullyWhenAllRulesAreSatisfied() {
+        TrainingAvailability availability = trainingAvailability(20);
+        given(reservationRepository.hasNoScheduleConflict(any())).willReturn(true);
 
-        Reservation actual = availability.reserve(request);
+        Reservation actual = availability.reserve(reservationRequest());
 
         assertThat(actual).extracting("trainingSessionId").isEqualTo(TRAINING_SESSION_ID);
-        assertThat(actual).extracting("participantId").isEqualTo(participantId);
+        assertThat(actual).extracting("participantId").isEqualTo(PARTICIPANT_ID);
         assertThat(actual).extracting("reservationId").isNotNull();
         assertThat(actual).extracting("reservedAt").isEqualTo(REQUESTED_AT);
         assertThat(actual).extracting("status").isEqualTo(ReservationStatus.CONFIRMED);
     }
 
     @Test
-    void shouldUpdateReservedSeatsAfterReservation() {
-        TrainingAvailability availability = trainingAvailability(20, 10);
-        ReservationRequest request = new ReservationRequest(TRAINING_SESSION_ID, participantId(), REQUESTED_AT);
+    void shouldReserveSeatsSuccessfullyWhenAllRulesAreSatisfied() {
+        TrainingAvailability availability = trainingAvailability(20);
+        given(reservationRepository.hasNoScheduleConflict(any())).willReturn(true);
 
-        availability.reserve(request);
+        availability.reserve(reservationRequest());
+        availability.reserve(reservationRequest());
+        availability.reserve(reservationRequest());
 
-        assertReservedSeats(availability, 11);
+        assertReservedSeats(availability, 3);
     }
 
     @Test
-    void shouldReserveSuccessfullyWhenOneSeatRemains() {
-        TrainingAvailability availability = trainingAvailability(20, 19);
-        ReservationRequest request = new ReservationRequest(TRAINING_SESSION_ID, participantId(), REQUESTED_AT);
+    void shouldRejectReservationWhenAvailableSeatsRuleFails() {
+        TrainingAvailability availability = trainingAvailability(3);
+        given(reservationRepository.hasNoScheduleConflict(any())).willReturn(true);
+        availability.reserve(reservationRequest());
+        availability.reserve(reservationRequest());
+        availability.reserve(reservationRequest());
 
-        availability.reserve(request);
+        TrainingAvailabilityException actual = assertThrows(TrainingAvailabilityException.class, () -> availability.reserve(reservationRequest()));
 
-        assertReservedSeats(availability, 20);
+        assertThat(actual).hasMessage("No seats available.");
+        assertReservedSeats(availability, 3);
     }
 
     @Test
-    void shouldRejectReservationWhenCapacityIsReached() {
-        TrainingAvailability availability = trainingAvailability(20, 20);
-        ReservationRequest request = new ReservationRequest(TRAINING_SESSION_ID, participantId(), REQUESTED_AT);
+    void shouldRejectReservationWhenTrainingNotStartedRuleFails() {
+        TrainingAvailability availability = trainingAvailability(20);
+        LocalDateTime requestedAfterStart = STARTS_AT.plusHours(1);
+        ReservationRequest request = new ReservationRequest(TRAINING_SESSION_ID, PARTICIPANT_ID, requestedAfterStart, STARTS_AT, ENDS_AT);
 
         TrainingAvailabilityException actual = assertThrows(TrainingAvailabilityException.class, () -> availability.reserve(request));
 
         assertThat(actual.getMessage()).isEqualTo("No seats available.");
-        assertReservedSeats(availability, 20);
+        assertReservedSeats(availability, 0);
+    }
+
+    @Test
+    void shouldRejectReservationWhenParticipantHasScheduleConflictRuleFails() {
+        TrainingAvailability availability = trainingAvailability(20);
+        given(reservationRepository.hasNoScheduleConflict(any())).willReturn(false);
+        ReservationRequest request = reservationRequest();
+
+        TrainingAvailabilityException actual = assertThrows(TrainingAvailabilityException.class, () -> availability.reserve(request));
+
+        assertThat(actual.getMessage()).isEqualTo("No seats available.");
+        assertReservedSeats(availability, 0);
+    }
+
+    private ReservationRequest reservationRequest() {
+        return new ReservationRequest(TRAINING_SESSION_ID, PARTICIPANT_ID, REQUESTED_AT, STARTS_AT, ENDS_AT);
+    }
+
+    private TrainingAvailability trainingAvailability(int capacity) {
+        return factory.create(TRAINING_SESSION_ID, new Capacity(capacity));
     }
 
     private void assertReservedSeats(TrainingAvailability availability, int expected) {
         assertThat(availability).extracting("reservedSeats").extracting("value").isEqualTo(expected);
-    }
-
-    private ParticipantId participantId() {
-        return new ParticipantId(UUID.randomUUID());
-    }
-
-    private TrainingAvailability trainingAvailability(int capacity, int reserved) {
-        return new TrainingAvailability(
-                new TrainingAvailabilityId(UUID.randomUUID()),
-                TRAINING_SESSION_ID,
-                new Capacity(capacity),
-                new ReservedSeats(reserved));
     }
 }

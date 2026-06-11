@@ -11,19 +11,21 @@ public class TrainingAvailability {
     private final TrainingSessionId trainingSessionId;
     private final Capacity capacity;
     private ReservedSeats reservedSeats;
+    private final TrainingEnrollmentPolicy enrollmentPolicy;
 
-    public TrainingAvailability(
+    TrainingAvailability(
             TrainingAvailabilityId trainingAvailabilityId, TrainingSessionId trainingSessionId,
-            Capacity capacity, ReservedSeats reservedSeats) {
+            Capacity capacity, ReservedSeats reservedSeats, TrainingEnrollmentPolicy enrollmentPolicy) {
         this.trainingAvailabilityId = trainingAvailabilityId;
         this.trainingSessionId = trainingSessionId;
         this.capacity = capacity;
         this.reservedSeats = reservedSeats;
+        this.enrollmentPolicy = enrollmentPolicy;
     }
 
     @DomainDrivenDesign.Factory
     public Reservation reserve(ReservationRequest request) {
-        if (noSeatsAvailable()) {
+        if (doesNotAllowReserveFor(request)) {
             throw TrainingAvailabilityException.noSeatsAvailable();
         }
 
@@ -32,7 +34,23 @@ public class TrainingAvailability {
         return Reservation.confirmed(request);
     }
 
-    private boolean noSeatsAvailable() {
-        return reservedSeats.value() >= capacity.value();
+    private boolean doesNotAllowReserveFor(ReservationRequest request) {
+        return !enrollmentPolicy.allows(asContext(request));
+    }
+
+    private TrainingEnrollmentContext asContext(ReservationRequest request) {
+        return new TrainingEnrollmentContext(
+                trainingSessionId,
+                request.participantId(),
+                request.requestedAt(),
+                request.startsAt(),
+                request.endsAt(),
+                capacity.value(),
+                reservedSeats.value()
+        );
+    }
+
+    public TrainingAvailabilityId getTrainingAvailabilityId() {
+        return trainingAvailabilityId;
     }
 }

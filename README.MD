@@ -21,9 +21,6 @@ OrderEvents
 Examples in form of tests
 
 ## Rule
-Rule
-RuleSet
-RuleContext
 RuleOverride
 PartySignature
 Examples in form of tests

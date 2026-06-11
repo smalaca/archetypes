@@ -5,4 +5,8 @@ import java.util.UUID;
 
 @DomainDrivenDesign.ValueObject
 public record TrainingAvailabilityId(UUID id) {
+    @DomainDrivenDesign.Factory
+    public static TrainingAvailabilityId trainingAvailabilityId() {
+        return new TrainingAvailabilityId(UUID.randomUUID());
+    }
 }

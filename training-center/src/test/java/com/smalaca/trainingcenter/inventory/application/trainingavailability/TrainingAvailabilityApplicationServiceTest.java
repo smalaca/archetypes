@@ -1,5 +1,6 @@
 package com.smalaca.trainingcenter.inventory.application.trainingavailability;
 
+import com.smalaca.trainingcenter.inventory.domain.reservation.ReservationRepository;
 import com.smalaca.trainingcenter.inventory.domain.traininginventory.TrainingAvailability;
 import com.smalaca.trainingcenter.inventory.domain.traininginventory.TrainingAvailabilityId;
 import com.smalaca.trainingcenter.inventory.domain.traininginventory.TrainingAvailabilityRepository;
@@ -11,12 +12,11 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 class TrainingAvailabilityApplicationServiceTest {
-    private final TrainingAvailabilityRepository repository = mock(TrainingAvailabilityRepository.class);
-    private final TrainingAvailabilityApplicationService service = new TrainingAvailabilityApplicationService(repository);
-
+    private final TrainingAvailabilityRepository trainingAvailabilityRepository = mock(TrainingAvailabilityRepository.class);
+    private final ReservationRepository reservationRepository = mock(ReservationRepository.class);
+    private final TrainingAvailabilityApplicationService service = TrainingAvailabilityApplicationService.create(trainingAvailabilityRepository, reservationRepository);
 
     @Test
     void shouldReturnIdOfCreatedTrainingAvailability() {
@@ -40,12 +40,12 @@ class TrainingAvailabilityApplicationServiceTest {
         assertThat(actual).extracting("trainingAvailabilityId").isEqualTo(id);
         assertThat(actual).extracting("trainingSessionId").extracting("id").isEqualTo(trainingSessionId);
         assertThat(actual).extracting("capacity").extracting("value").isEqualTo(20);
-        assertThat(actual).extracting("reservedSeats").extracting("value").isEqualTo(5);
+        assertThat(actual).extracting("reservedSeats").extracting("value").isEqualTo(0);
     }
 
     private TrainingAvailability thenSavedTrainingAvailability() {
         ArgumentCaptor<TrainingAvailability> captor = ArgumentCaptor.forClass(TrainingAvailability.class);
-        verify(repository).save(captor.capture());
+        then(trainingAvailabilityRepository).should().save(captor.capture());
         return captor.getValue();
     }
 
@@ -56,6 +56,6 @@ class TrainingAvailabilityApplicationServiceTest {
 
         service.removeTrainingAvailability(command);
 
-        then(repository).should().delete(new TrainingAvailabilityId(trainingAvailabilityId));
+        then(trainingAvailabilityRepository).should().delete(new TrainingAvailabilityId(trainingAvailabilityId));
     }
 }
