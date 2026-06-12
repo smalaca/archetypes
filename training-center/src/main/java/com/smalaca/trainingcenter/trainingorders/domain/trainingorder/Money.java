@@ -4,5 +4,5 @@ import com.smalaca.annotations.architecture.DomainDrivenDesign;
 import java.math.BigDecimal;
 
 @DomainDrivenDesign.ValueObject
-record Money(BigDecimal amount, String currency) {
+public record Money(BigDecimal amount, String currency) {
 }

@@ -4,5 +4,5 @@ import com.smalaca.annotations.architecture.DomainDrivenDesign;
 import java.math.BigDecimal;
 
 @DomainDrivenDesign.ValueObject
-record Quantity(BigDecimal value) {
+public record Quantity(BigDecimal value) {
 }

@@ -30,4 +30,8 @@ public class TrainingOrder {
                 TrainingOrderId.trainingOrderId(), List.copyOf(participants), List.copyOf(orderLines),
                 OrderStatus.CREATED, orderedAt);
     }
+
+    public TrainingOrderId getTrainingOrderId() {
+        return trainingOrderId;
+    }
 }
