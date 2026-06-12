@@ -8,12 +8,7 @@ to dos:
 - tell where is the party role that can be used by both Organization and Person
 
 ## Order
-Order and OrderItem
-PurchaseOrder
-SalesOrder
 OrderManager
-OrderStatus
-PartySummary
 OrderEvents
 Examples in form of tests
 
