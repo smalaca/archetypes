@@ -70,4 +70,8 @@ public class Reservation {
     public ReservationDto asReservationDto() {
         return new ReservationDto(status, participantId, trainingStartsAt, trainingEndsAt);
     }
+
+    public void complete() {
+        status = ReservationStatus.COMPLETED;
+    }
 }

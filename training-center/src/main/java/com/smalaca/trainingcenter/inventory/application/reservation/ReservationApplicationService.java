@@ -15,6 +15,8 @@ import com.smalaca.trainingcenter.inventory.domain.traininginventory.TrainingAva
 import com.smalaca.trainingcenter.inventory.domain.traininginventory.TrainingAvailabilityId;
 import com.smalaca.trainingcenter.inventory.domain.traininginventory.TrainingAvailabilityRepository;
 
+import java.util.UUID;
+
 @DomainDrivenDesign.ApplicationLayer
 @ArchetypeAvailability.Availability
 @ArchetypeInventory.Inventory
@@ -57,6 +59,15 @@ public class ReservationApplicationService {
         reservationCancellationService.cancel(reservation, trainingAvailability);
 
         trainingAvailabilityRepository.save(trainingAvailability);
+        reservationRepository.save(reservation);
+    }
+
+    @PortsAndAdaptersArchitecture.DrivingPort
+    public void complete(UUID reservationId) {
+        Reservation reservation = reservationRepository.findById(new ReservationId(reservationId));
+
+        reservation.complete();
+
         reservationRepository.save(reservation);
     }
 }

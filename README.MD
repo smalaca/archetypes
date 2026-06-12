@@ -17,11 +17,6 @@ PartySummary
 OrderEvents
 Examples in form of tests
 
-## Rule
-RuleOverride
-PartySignature
-Examples in form of tests
-
 ## Catalog archetype
 Extract from the Product
 
