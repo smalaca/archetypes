@@ -1,9 +1,10 @@
 package com.smalaca.trainingcenter.trainingorders.application.trainingorder;
 
 import com.smalaca.trainingcenter.trainingorders.domain.clock.Clock;
-import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.TrainingOrder;
-import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.TrainingOrderId;
-import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.TrainingOrderRepository;
+import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.*;
+import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.command.CreateTrainingOrderCommand;
+import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.command.OrderParticipantDto;
+import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.command.TrainingOrderLineDto;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
@@ -37,15 +38,44 @@ class TrainingOrderApplicationServiceTest {
     void shouldCreateTrainingOrder() {
         LocalDateTime now = LocalDateTime.now();
         given(clock.now()).willReturn(now);
-        CreateTrainingOrderCommand command = command();
+        UUID sellerId = UUID.randomUUID();
+        UUID buyerId = UUID.randomUUID();
+        UUID itemId = UUID.randomUUID();
+        CreateTrainingOrderCommand command = new CreateTrainingOrderCommand(
+                List.of(
+                        new OrderParticipantDto(sellerId, "Seller Name", "SELLER"),
+                        new OrderParticipantDto(buyerId, "Buyer Name", "BUYER")),
+                List.of(
+                        new TrainingOrderLineDto(itemId, BigDecimal.valueOf(1), BigDecimal.valueOf(100), "PLN"))
+        );
 
         TrainingOrderId id = service.create(command);
 
         TrainingOrder actual = thenSavedTrainingOrder();
         assertThat(actual).extracting("trainingOrderId").isEqualTo(id);
         assertThat(actual).extracting("orderedAt").isEqualTo(now);
-        assertThat(actual).extracting("participants").asList().hasSize(2);
-        assertThat(actual).extracting("orderLines").asList().hasSize(1);
+        assertThat(actual).extracting("status").asString().isEqualTo("CREATED");
+        assertThat(actual).extracting("participants").asList()
+                .containsExactlyInAnyOrder(
+                        new OrderParticipant(new OrderParticipantId(sellerId), "Seller Name", OrderParticipantRole.SELLER),
+                        new OrderParticipant(new OrderParticipantId(buyerId), "Buyer Name", OrderParticipantRole.BUYER));
+        List<?> orderLines = (List<?>) getFieldValue(actual, "orderLines");
+        assertThat(orderLines).hasSize(1);
+        Object actualLine = orderLines.get(0);
+        assertThat(actualLine).extracting("sellableItemId").isEqualTo(new SellableItemId(itemId));
+        assertThat(actualLine).extracting("quantity").isEqualTo(new Quantity(BigDecimal.valueOf(1)));
+        assertThat(actualLine).extracting("price").isEqualTo(new Money(BigDecimal.valueOf(100), "PLN"));
+        assertThat(actualLine).extracting("trainingOrderLineId").isNotNull();
+    }
+
+    private Object getFieldValue(Object object, String fieldName) {
+        try {
+            java.lang.reflect.Field field = object.getClass().getDeclaredField(fieldName);
+            field.setAccessible(true);
+            return field.get(object);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private CreateTrainingOrderCommand command() {

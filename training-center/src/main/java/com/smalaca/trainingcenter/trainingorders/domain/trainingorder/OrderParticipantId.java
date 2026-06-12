@@ -4,5 +4,5 @@ import com.smalaca.annotations.architecture.DomainDrivenDesign;
 import java.util.UUID;
 
 @DomainDrivenDesign.ValueObject
-public record OrderParticipantId(UUID id) {
+record OrderParticipantId(UUID id) {
 }

@@ -5,7 +5,7 @@ import com.smalaca.annotations.architecture.DomainDrivenDesign;
 
 @DomainDrivenDesign.ValueObject
 @ArchetypeOrder.PartySummary
-public record OrderParticipant(OrderParticipantId orderParticipantId, String displayName, OrderParticipantRole role) {
+record OrderParticipant(OrderParticipantId orderParticipantId, String displayName, OrderParticipantRole role) {
     boolean isSeller() {
         return OrderParticipantRole.SELLER.equals(role);
     }

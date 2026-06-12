@@ -4,12 +4,11 @@ import com.smalaca.annotations.archetypes.ArchetypeOrder;
 import com.smalaca.annotations.architecture.DomainDrivenDesign;
 import com.smalaca.annotations.architecture.PortsAndAdaptersArchitecture;
 import com.smalaca.trainingcenter.trainingorders.domain.clock.Clock;
-import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.*;
-
-import java.util.List;
-import java.util.UUID;
-
-import static java.util.stream.Collectors.toList;
+import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.TrainingOrder;
+import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.TrainingOrderFactory;
+import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.TrainingOrderId;
+import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.TrainingOrderRepository;
+import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.command.CreateTrainingOrderCommand;
 
 @DomainDrivenDesign.ApplicationLayer
 @ArchetypeOrder.Order
@@ -30,31 +29,9 @@ public class TrainingOrderApplicationService {
 
     @PortsAndAdaptersArchitecture.DrivingPort
     public TrainingOrderId create(CreateTrainingOrderCommand command) {
-        List<OrderParticipant> participants = command.participants().stream()
-                .map(this::orderParticipant)
-                .collect(toList());
-        List<TrainingOrderLine> orderLines = command.orderLines().stream()
-                .map(this::trainingOrderLine)
-                .collect(toList());
-
-        TrainingOrder trainingOrder = factory.create(participants, orderLines);
+        TrainingOrder trainingOrder = factory.create(command.participants(), command.orderLines());
 
         trainingOrderRepository.save(trainingOrder);
         return trainingOrder.getTrainingOrderId();
-    }
-
-    private OrderParticipant orderParticipant(OrderParticipantDto dto) {
-        return new OrderParticipant(
-                new OrderParticipantId(dto.participantId()),
-                dto.displayName(),
-                OrderParticipantRole.valueOf(dto.role()));
-    }
-
-    private TrainingOrderLine trainingOrderLine(TrainingOrderLineDto dto) {
-        return new TrainingOrderLine(
-                new TrainingOrderLineId(UUID.randomUUID()),
-                new SellableItemId(dto.sellableItemId()),
-                new Quantity(dto.quantity()),
-                new Money(dto.priceAmount(), dto.currency()));
     }
 }

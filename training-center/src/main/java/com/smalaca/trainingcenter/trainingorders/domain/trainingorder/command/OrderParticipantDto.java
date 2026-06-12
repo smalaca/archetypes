@@ -1,4 +1,4 @@
-package com.smalaca.trainingcenter.trainingorders.application.trainingorder;
+package com.smalaca.trainingcenter.trainingorders.domain.trainingorder.command;
 
 import java.util.UUID;
 

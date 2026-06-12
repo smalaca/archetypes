@@ -7,5 +7,5 @@ import java.util.UUID;
 
 @DomainDrivenDesign.ValueObject
 @ArchetypeProduct.ProductTypeIdentifier
-public record SellableItemId(UUID id) {
+record SellableItemId(UUID id) {
 }
