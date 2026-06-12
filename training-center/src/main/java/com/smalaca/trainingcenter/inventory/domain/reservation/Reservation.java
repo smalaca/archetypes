@@ -19,6 +19,7 @@ public class Reservation {
     private final LocalDateTime trainingStartsAt;
     private final LocalDateTime trainingEndsAt;
     private ReservationStatus status;
+    private EnrollmentApproval enrollmentApproval;
 
     private Reservation(
             ReservationId reservationId, TrainingSessionId trainingSessionId,
@@ -35,6 +36,16 @@ public class Reservation {
 
     @DomainDrivenDesign.Factory
     public static Reservation confirmed(ReservationRequest request) {
+        return reservation(request, ReservationStatus.CONFIRMED);
+    }
+
+    @DomainDrivenDesign.Factory
+    public static Reservation rejected(ReservationRequest request) {
+        return reservation(request, ReservationStatus.REJECTED);
+    }
+
+    @DomainDrivenDesign.Factory
+    private static Reservation reservation(ReservationRequest request, ReservationStatus reservationStatus) {
         return new Reservation(
                 new ReservationId(UUID.randomUUID()),
                 request.trainingSessionId(),
@@ -42,7 +53,14 @@ public class Reservation {
                 request.requestedAt(),
                 request.startsAt(),
                 request.endsAt(),
-                ReservationStatus.CONFIRMED);
+                reservationStatus);
+    }
+
+    public void accept(ApprovalSignature approvalSignature, String justification) {
+        if (ReservationStatus.REJECTED.equals(status)) {
+            enrollmentApproval = new EnrollmentApproval(approvalSignature, justification);
+            status = ReservationStatus.CONFIRMED;
+        }
     }
 
     public void cancel() {

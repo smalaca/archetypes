@@ -31,7 +31,7 @@ public class TrainingAvailability {
     @DomainDrivenDesign.Factory
     public Reservation reserve(ReservationRequest request) {
         if (doesNotAllowReserveFor(request)) {
-            throw TrainingAvailabilityException.noSeatsAvailable();
+            return Reservation.rejected(request);
         }
 
         reservedSeats = reservedSeats.increment();
