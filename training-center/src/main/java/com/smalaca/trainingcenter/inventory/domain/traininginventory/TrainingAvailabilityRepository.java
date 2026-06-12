@@ -11,4 +11,6 @@ public interface TrainingAvailabilityRepository {
     void save(TrainingAvailability trainingAvailability);
 
     void delete(TrainingAvailabilityId id);
+
+    TrainingAvailability findById(TrainingAvailabilityId trainingAvailabilityId);
 }

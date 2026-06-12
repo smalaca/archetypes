@@ -10,6 +10,11 @@ import java.lang.annotation.Target;
 public @interface ArchetypeAvailability {
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
+    @interface Availability {
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
     @interface ReservationRequest {
     }
 

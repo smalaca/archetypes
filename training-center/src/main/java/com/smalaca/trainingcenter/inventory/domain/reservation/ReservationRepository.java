@@ -7,4 +7,8 @@ import com.smalaca.annotations.architecture.PortsAndAdaptersArchitecture;
 @PortsAndAdaptersArchitecture.DrivenPort
 public interface ReservationRepository {
     boolean hasNoScheduleConflict(ParticipantAvailabilityRequest request);
+
+    void save(Reservation reservation);
+
+    Reservation findById(ReservationId reservationId);
 }
