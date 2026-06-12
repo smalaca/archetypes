@@ -1,5 +1,6 @@
 package com.smalaca.trainingcenter.inventory.domain.traininginventory;
 
+import com.smalaca.annotations.archetypes.ArchetypeAvailability;
 import com.smalaca.annotations.archetypes.ArchetypeRule;
 import com.smalaca.annotations.architecture.DomainDrivenDesign;
 import com.smalaca.trainingcenter.inventory.domain.reservation.ParticipantAvailabilityRequest;
@@ -7,6 +8,7 @@ import com.smalaca.trainingcenter.inventory.domain.reservation.ReservationReposi
 
 @DomainDrivenDesign.Specification
 @ArchetypeRule.Rule
+@ArchetypeAvailability.AvailabilityPolicy
 class ParticipantHasNoScheduleConflictRule implements TrainingEnrollmentRule {
     private final ReservationRepository reservationRepository;
 

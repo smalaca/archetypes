@@ -6,5 +6,6 @@ import com.smalaca.annotations.architecture.DomainDrivenDesign;
 public enum ReservationStatus {
     PENDING,
     CONFIRMED,
-    CANCELLED
+    CANCELLED,
+    COMPLETED
 }

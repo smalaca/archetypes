@@ -6,10 +6,10 @@ import com.smalaca.annotations.architecture.DomainDrivenDesign;
 
 @DomainDrivenDesign.Specification
 @ArchetypeRule.Rule
-@ArchetypeAvailability.AvailabilityPolicy
-class AvailableSeatsRule implements TrainingEnrollmentRule {
+@ArchetypeAvailability.CancellationPolicy
+class TrainingNotFinishedRule implements TrainingCancellationRule {
     @Override
-    public boolean isSatisfiedBy(TrainingEnrollmentContext context) {
-        return context.reservedSeats() < context.capacity();
+    public boolean isSatisfiedBy(TrainingCancellationContext context) {
+        return context.cancellationRequestedAt().isBefore(context.trainingEndsAt());
     }
 }

@@ -1,7 +1,7 @@
 package com.smalaca.trainingcenter.inventory.domain.traininginventory;
 
 import com.smalaca.annotations.archetypes.ArchetypeRule;
-import com.smalaca.trainingcenter.inventory.domain.reservation.ParticipantId;
+import com.smalaca.trainingcenter.inventory.domain.participantid.ParticipantId;
 
 import java.time.LocalDateTime;
 

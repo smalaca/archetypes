@@ -4,6 +4,6 @@ import com.smalaca.trainingcenter.inventory.domain.participantid.ParticipantId;
 
 import java.time.LocalDateTime;
 
-public record ParticipantAvailabilityRequest(
-        ParticipantId participantId, LocalDateTime startsAt, LocalDateTime endsAt) {
+public record ReservationDto(
+        ReservationStatus status, ParticipantId participantId, LocalDateTime trainingStartsAt, LocalDateTime trainingEndsAt) {
 }

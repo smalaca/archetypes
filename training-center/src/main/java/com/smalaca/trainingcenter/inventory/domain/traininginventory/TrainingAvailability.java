@@ -2,7 +2,11 @@ package com.smalaca.trainingcenter.inventory.domain.traininginventory;
 
 import com.smalaca.annotations.archetypes.ArchetypeInventory;
 import com.smalaca.annotations.architecture.DomainDrivenDesign;
+import com.smalaca.trainingcenter.inventory.domain.participantid.ParticipantId;
 import com.smalaca.trainingcenter.inventory.domain.reservation.Reservation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @DomainDrivenDesign.AggregateRoot
 @ArchetypeInventory.InventoryEntry
@@ -12,6 +16,7 @@ public class TrainingAvailability {
     private final Capacity capacity;
     private ReservedSeats reservedSeats;
     private final TrainingEnrollmentPolicy enrollmentPolicy;
+    private final List<ParticipantId> participantIds = new ArrayList<>();
 
     TrainingAvailability(
             TrainingAvailabilityId trainingAvailabilityId, TrainingSessionId trainingSessionId,
@@ -30,6 +35,7 @@ public class TrainingAvailability {
         }
 
         reservedSeats = reservedSeats.increment();
+        participantIds.add(request.participantId());
 
         return Reservation.confirmed(request);
     }
@@ -48,6 +54,11 @@ public class TrainingAvailability {
                 capacity.value(),
                 reservedSeats.value()
         );
+    }
+
+    public void releaseSeat(ParticipantId participantId) {
+        reservedSeats = reservedSeats.decrement();
+        participantIds.remove(participantId);
     }
 
     public TrainingAvailabilityId getTrainingAvailabilityId() {
