@@ -1,7 +1,10 @@
 package com.smalaca.trainingcenter.trainingorders.application.trainingorder;
 
 import com.smalaca.trainingcenter.trainingorders.domain.clock.Clock;
-import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.*;
+import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.TrainingOrder;
+import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.TrainingOrderAssertion;
+import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.TrainingOrderId;
+import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.TrainingOrderRepository;
 import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.command.CreateTrainingOrderCommand;
 import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.command.OrderParticipantDto;
 import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.command.TrainingOrderLineDto;
@@ -51,31 +54,20 @@ class TrainingOrderApplicationServiceTest {
 
         TrainingOrderId id = service.create(command);
 
-        TrainingOrder actual = thenSavedTrainingOrder();
-        assertThat(actual).extracting("trainingOrderId").isEqualTo(id);
-        assertThat(actual).extracting("orderedAt").isEqualTo(now);
-        assertThat(actual).extracting("status").asString().isEqualTo("CREATED");
-        assertThat(actual).extracting("participants").asList()
-                .containsExactlyInAnyOrder(
-                        new OrderParticipant(new OrderParticipantId(sellerId), "Seller Name", OrderParticipantRole.SELLER),
-                        new OrderParticipant(new OrderParticipantId(buyerId), "Buyer Name", OrderParticipantRole.BUYER));
-        List<?> orderLines = (List<?>) getFieldValue(actual, "orderLines");
-        assertThat(orderLines).hasSize(1);
-        Object actualLine = orderLines.get(0);
-        assertThat(actualLine).extracting("sellableItemId").isEqualTo(new SellableItemId(itemId));
-        assertThat(actualLine).extracting("quantity").isEqualTo(new Quantity(BigDecimal.valueOf(1)));
-        assertThat(actualLine).extracting("price").isEqualTo(new Money(BigDecimal.valueOf(100), "PLN"));
-        assertThat(actualLine).extracting("trainingOrderLineId").isNotNull();
+        thenSavedTrainingOrder()
+                .hasTrainingOrderIdEqualTo(id)
+                .hasOrderedAtEqualTo(now)
+                .isCreated()
+                .hasSeller(sellerId, "Seller Name")
+                .hasBuyer(buyerId, "Buyer Name")
+                .hasOrderLines(1)
+                .hasOrderLine(0, itemId, BigDecimal.valueOf(1), BigDecimal.valueOf(100), "PLN");
     }
 
-    private Object getFieldValue(Object object, String fieldName) {
-        try {
-            java.lang.reflect.Field field = object.getClass().getDeclaredField(fieldName);
-            field.setAccessible(true);
-            return field.get(object);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    private TrainingOrderAssertion thenSavedTrainingOrder() {
+        ArgumentCaptor<TrainingOrder> captor = ArgumentCaptor.forClass(TrainingOrder.class);
+        then(trainingOrderRepository).should().save(captor.capture());
+        return TrainingOrderAssertion.assertThat(captor.getValue());
     }
 
     private CreateTrainingOrderCommand command() {
@@ -88,9 +80,4 @@ class TrainingOrderApplicationServiceTest {
         );
     }
 
-    private TrainingOrder thenSavedTrainingOrder() {
-        ArgumentCaptor<TrainingOrder> captor = ArgumentCaptor.forClass(TrainingOrder.class);
-        then(trainingOrderRepository).should().save(captor.capture());
-        return captor.getValue();
-    }
 }
