@@ -1,6 +1,6 @@
 package com.smalaca.trainingcenter.inventory.domain.traininginventory;
 
-class TrainingAvailabilityException extends RuntimeException {
+public class TrainingAvailabilityException extends RuntimeException {
     private TrainingAvailabilityException(String message) {
         super(message);
     }

@@ -7,10 +7,6 @@ to dos:
 - tell where part is
 - tell where is the party role that can be used by both Organization and Person
 
-## Availability
-cancellation policy - should it be in the reservation request? should it be as domain service to update training availability?
-Examples in form of tests
-
 ## Order
 Order and OrderItem
 PurchaseOrder
