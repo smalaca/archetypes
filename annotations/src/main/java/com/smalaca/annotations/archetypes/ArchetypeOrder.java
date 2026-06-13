@@ -38,4 +38,9 @@ public @interface ArchetypeOrder {
     @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
     @interface OrderManager {
     }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
+    @interface OrderEvent {
+    }
 }
