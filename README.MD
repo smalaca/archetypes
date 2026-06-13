@@ -13,10 +13,6 @@ to dos:
 - tell where part is
 - tell where is the party role that can be used by both Organization and Person
 
-## Integrate with Sonar 
-increase the coverage
-onboard to sonar
-
 ### Documentation
 Update archetypes module to reflect proper archetypes
 Add a documentation and diagrams for every archetype

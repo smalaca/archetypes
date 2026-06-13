@@ -1,0 +1,64 @@
+name: Training Center Archetypes
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'training-center/**'
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'training-center/**'
+
+permissions:
+  pull-requests: read
+
+jobs:
+  Tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Build Archetypes Parent Pom
+        run: mvn clean install
+
+      - name: Build Annotations
+        working-directory: ./annotations
+        run: mvn clean install
+
+      - name: Tests
+        working-directory: ./training-center
+        run: mvn clean verify
+
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@v5.3.1
+        with:
+          projectBaseDir: ./training-center
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io
