@@ -7,11 +7,6 @@ to dos:
 - tell where part is
 - tell where is the party role that can be used by both Organization and Person
 
-## Order
-OrderManager
-OrderEvents
-Examples in form of tests
-
 ## Catalog archetype
 Extract from the Product
 
