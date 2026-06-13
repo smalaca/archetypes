@@ -11,7 +11,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>archetype-models</module>
         <module>annotations</module>
         <module>training-center</module>
     </modules>
