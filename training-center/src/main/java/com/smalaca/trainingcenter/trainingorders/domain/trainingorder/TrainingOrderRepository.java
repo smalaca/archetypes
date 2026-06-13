@@ -6,7 +6,7 @@ import com.smalaca.annotations.architecture.PortsAndAdaptersArchitecture;
 
 @DomainDrivenDesign.Repository
 @PortsAndAdaptersArchitecture.DrivenPort
-@ArchetypeOrder.Order
+@ArchetypeOrder.OrderManager
 public interface TrainingOrderRepository {
     void save(TrainingOrder trainingOrder);
 }

@@ -11,7 +11,7 @@ import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.TrainingOr
 import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.command.CreateTrainingOrderCommand;
 
 @DomainDrivenDesign.ApplicationLayer
-@ArchetypeOrder.Order
+@ArchetypeOrder.OrderManager
 public class TrainingOrderApplicationService {
     private final TrainingOrderRepository trainingOrderRepository;
     private final TrainingOrderFactory factory;
