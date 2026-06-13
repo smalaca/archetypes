@@ -2,6 +2,8 @@ package com.smalaca.trainingcenter.trainingorders.domain.trainingorder;
 
 import com.smalaca.annotations.archetypes.ArchetypeOrder;
 import com.smalaca.annotations.architecture.DomainDrivenDesign;
+import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.events.TrainingOrderCancelled;
+import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.events.TrainingOrderPaid;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,5 +35,17 @@ public class TrainingOrder {
 
     public TrainingOrderId getTrainingOrderId() {
         return trainingOrderId;
+    }
+
+    public TrainingOrderCancelled cancel(LocalDateTime occurredAt) {
+        status = OrderStatus.CANCELLED;
+
+        return new TrainingOrderCancelled(trainingOrderId.id(), occurredAt);
+    }
+
+    public TrainingOrderPaid pay(LocalDateTime occurredAt) {
+        status = OrderStatus.PAID;
+
+        return new TrainingOrderPaid(trainingOrderId.id(), occurredAt);
     }
 }

@@ -1,10 +1,12 @@
 package com.smalaca.trainingcenter.trainingorders.domain.trainingorder;
 
 import com.smalaca.annotations.architecture.DomainDrivenDesign;
-import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.command.OrderParticipantDto;
-import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.command.TrainingOrderLineDto;
+import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.commands.OrderParticipantDto;
+import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.commands.TrainingOrderLineDto;
 import com.smalaca.trainingcenter.trainingorders.domain.clock.Clock;
+import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.events.TrainingOrderOpened;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -17,7 +19,7 @@ public class TrainingOrderFactory {
         this.clock = clock;
     }
 
-    public TrainingOrder create(List<OrderParticipantDto> participantsDto, List<TrainingOrderLineDto> orderLinesDto) {
+    public OrderCreationResult create(List<OrderParticipantDto> participantsDto, List<TrainingOrderLineDto> orderLinesDto) {
         List<OrderParticipant> participants = participantsDto.stream()
                 .map(this::orderParticipant)
                 .collect(toList());
@@ -27,7 +29,11 @@ public class TrainingOrderFactory {
 
         validateParticipants(participants);
 
-        return TrainingOrder.created(participants, orderLines, clock.now());
+        LocalDateTime now = clock.now();
+        TrainingOrder trainingOrder = TrainingOrder.created(participants, orderLines, now);
+        TrainingOrderOpened event = new TrainingOrderOpened(trainingOrder.getTrainingOrderId().id(), now);
+
+        return new OrderCreationResult(trainingOrder, event);
     }
 
     private OrderParticipant orderParticipant(OrderParticipantDto dto) {

@@ -9,4 +9,6 @@ import com.smalaca.annotations.architecture.PortsAndAdaptersArchitecture;
 @ArchetypeOrder.OrderManager
 public interface TrainingOrderRepository {
     void save(TrainingOrder trainingOrder);
+
+    TrainingOrder findById(TrainingOrderId trainingOrderId);
 }

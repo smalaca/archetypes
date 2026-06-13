@@ -32,8 +32,13 @@ public class TrainingOrderAssertion extends AbstractAssert<TrainingOrderAssertio
         return this;
     }
 
-    public TrainingOrderAssertion hasParticipants(int size) {
-        Assertions.assertThat(actual).extracting("participants").asList().hasSize(size);
+    public TrainingOrderAssertion isCancelled() {
+        Assertions.assertThat(actual).extracting("status").isEqualTo(OrderStatus.CANCELLED);
+        return this;
+    }
+
+    public TrainingOrderAssertion isPaid() {
+        Assertions.assertThat(actual).extracting("status").isEqualTo(OrderStatus.PAID);
         return this;
     }
 

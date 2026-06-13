@@ -43,4 +43,19 @@ public @interface ArchetypeOrder {
     @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
     @interface OrderEvent {
     }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
+    @interface OpenEvent {
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
+    @interface CancelEvent {
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
+    @interface PaymentEvent {
+    }
 }

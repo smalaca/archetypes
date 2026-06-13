@@ -1,4 +1,4 @@
-package com.smalaca.trainingcenter.trainingorders.domain.trainingorder.command;
+package com.smalaca.trainingcenter.trainingorders.domain.trainingorder.commands;
 
 import java.math.BigDecimal;
 import java.util.UUID;

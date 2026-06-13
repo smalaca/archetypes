@@ -1,13 +1,14 @@
 package com.smalaca.trainingcenter.trainingorders.application.trainingorder;
 
 import com.smalaca.trainingcenter.trainingorders.domain.clock.Clock;
+import com.smalaca.trainingcenter.trainingorders.domain.eventpublisher.DomainEventPublisher;
 import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.TrainingOrder;
 import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.TrainingOrderAssertion;
 import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.TrainingOrderId;
 import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.TrainingOrderRepository;
-import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.command.CreateTrainingOrderCommand;
-import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.command.OrderParticipantDto;
-import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.command.TrainingOrderLineDto;
+import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.commands.CreateTrainingOrderCommand;
+import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.commands.OrderParticipantDto;
+import com.smalaca.trainingcenter.trainingorders.domain.trainingorder.commands.TrainingOrderLineDto;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
@@ -23,8 +24,9 @@ import static org.mockito.Mockito.mock;
 
 class TrainingOrderApplicationServiceTest {
     private final TrainingOrderRepository trainingOrderRepository = mock(TrainingOrderRepository.class);
+    private final DomainEventPublisher domainEventPublisher = mock(DomainEventPublisher.class);
     private final Clock clock = mock(Clock.class);
-    private final TrainingOrderApplicationService service = TrainingOrderApplicationService.create(trainingOrderRepository, clock);
+    private final TrainingOrderApplicationService service = TrainingOrderApplicationService.create(trainingOrderRepository, domainEventPublisher, clock);
 
     @Test
     void shouldReturnIdOfCreatedTrainingOrder() {
