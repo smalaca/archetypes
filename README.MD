@@ -1,21 +1,2 @@
-To Dos:
-- convert below into gitlab issues
-- introduce readme.md
-- make the repo public
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=smalaca_archetypes&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=smalaca_archetypes)
 
-
-to dos: 
-- what each module is about
-- explain every archetype
-- explain the example and the fact it is using modularized monolith internally
-- explain different identifier - technical and business, and why this is important - form of the article with link here
-- highlight those are bounded contexts and archetypes does not have to sit in one context
-- tell where part is
-- tell where is the party role that can be used by both Organization and Person
-
-### Documentation
-Update archetypes module to reflect proper archetypes
-Add a documentation and diagrams for every archetype
-
-## Next steps
-- add more archetypes
