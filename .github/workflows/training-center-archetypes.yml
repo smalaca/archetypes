@@ -44,6 +44,9 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
+      - name: Build Archetypes Parent Pom
+        run: mvn clean install
+
       - name: Build Annotations
         working-directory: ./annotations
         run: mvn clean install
