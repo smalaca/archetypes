@@ -1,3 +1,9 @@
+To Dos:
+- convert below into gitlab issues
+- introduce readme.md
+- make the repo public
+
+
 to dos: 
 - what each module is about
 - explain every archetype
@@ -6,17 +12,6 @@ to dos:
 - highlight those are bounded contexts and archetypes does not have to sit in one context
 - tell where part is
 - tell where is the party role that can be used by both Organization and Person
-
-## Catalog archetype
-Extract from the Product
-
-## Add archetypes 
-- validate Party
-- validate Rule
-- Product
-- Inventory
-- Availability
-- Order
 
 ## Integrate with Sonar 
 increase the coverage

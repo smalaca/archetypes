@@ -45,16 +45,6 @@ public @interface ArchetypeProduct {
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
-    @interface Catalog {
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
-    @interface CatalogEntry {
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
     @interface PackageType {
     }
 

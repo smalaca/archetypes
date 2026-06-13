@@ -1,12 +1,12 @@
 package com.smalaca.trainingcenter.catalog.query.learningoffer;
 
-import com.smalaca.annotations.archetypes.ArchetypeProduct;
+import com.smalaca.annotations.archetypes.ArchetypeCatalog;
 import com.smalaca.trainingcenter.catalog.domain.learningoffer.LearningOfferId;
 
 import java.util.List;
 import java.util.Optional;
 
-@ArchetypeProduct.Catalog
+@ArchetypeCatalog.Catalog
 public interface LearningOfferReadModelRepository {
     List<LearningOfferView> findAll();
 

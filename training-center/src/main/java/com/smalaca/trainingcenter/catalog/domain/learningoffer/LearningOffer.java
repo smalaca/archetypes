@@ -1,13 +1,13 @@
 package com.smalaca.trainingcenter.catalog.domain.learningoffer;
 
-import com.smalaca.annotations.archetypes.ArchetypeProduct;
+import com.smalaca.annotations.archetypes.ArchetypeCatalog;
 import com.smalaca.annotations.architecture.DomainDrivenDesign;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @DomainDrivenDesign.AggregateRoot
-@ArchetypeProduct.CatalogEntry
+@ArchetypeCatalog.CatalogEntry
 public class LearningOffer {
     private final LearningOfferId learningOfferId;
     private final String title;

@@ -1,6 +1,6 @@
 package com.smalaca.trainingcenter.catalog.application.learningoffer;
 
-import com.smalaca.annotations.archetypes.ArchetypeProduct;
+import com.smalaca.annotations.archetypes.ArchetypeCatalog;
 import com.smalaca.annotations.architecture.DomainDrivenDesign;
 import com.smalaca.annotations.architecture.PortsAndAdaptersArchitecture;
 import com.smalaca.trainingcenter.catalog.domain.learningoffer.LearningOffer;
@@ -14,7 +14,7 @@ import java.util.UUID;
 import static java.util.stream.Collectors.toSet;
 
 @DomainDrivenDesign.ApplicationLayer
-@ArchetypeProduct.Catalog
+@ArchetypeCatalog.Catalog
 public class LearningOfferApplicationService {
     private final LearningOfferRepository repository;
 
