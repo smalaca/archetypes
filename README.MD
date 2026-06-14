@@ -41,6 +41,13 @@ Represents an individual or an organization involved in business processes.
 - **Party Relationship Type**: The nature of the relationship (e.g., Employment, Ownership).
 - **Party Relationship Constraint**: Rules governing a relationship.
 
+#### Examples
+- **Party**: [`Users Management Bounded Context: User`](training-center/src/main/java/com/smalaca/trainingcenter/usersmanagement/domain/user/User.java)
+- **Person**: [`Users Management Bounded Context: User`](training-center/src/main/java/com/smalaca/trainingcenter/usersmanagement/domain/user/User.java)
+- **Organization**: [`Companies Catalogue Bounded Context: Company`](training-center/src/main/java/com/smalaca/trainingcenter/companiescatalogue/domain/company/Company.java)
+- **Party Role**: [`Accounting Bounded Context: Buyer`](training-center/src/main/java/com/smalaca/trainingcenter/accounting/domain/buyer/Buyer.java)
+- **Party Relationship**: [`Companies Catalogue Bounded Context: Representation`](training-center/src/main/java/com/smalaca/trainingcenter/companiescatalogue/domain/representation/Representation.java)
+
 ### Product
 Describes the types of products or services offered by the enterprise.
 - **Product Type**: The definition of a category of products.
@@ -53,15 +60,36 @@ Describes the types of products or services offered by the enterprise.
 - **Product Feature Instance**: A specific occurrence of a feature on a product instance.
 - **Price**: The cost associated with a product or service.
 
+#### Examples
+- **Product Type**: [`Training Portfolio Bounded Context: TrainingOffer`](training-center/src/main/java/com/smalaca/trainingcenter/trainingportfolio/domain/trainingoffer/TrainingOffer.java)
+- **Product Instance**: [`Training Delivery Bounded Context: TrainingSession`](training-center/src/main/java/com/smalaca/trainingcenter/trainingdelivery/domain/trainingsession/TrainingSession.java)
+- **Package Type**: [`Training Portfolio Bounded Context: LearningPath`](training-center/src/main/java/com/smalaca/trainingcenter/trainingportfolio/domain/learningpath/LearningPath.java)
+- **Package Instance**: [`Training elivery Bounded Context: LearningPathEdition`](training-center/src/main/java/com/smalaca/trainingcenter/trainingdelivery/domain/learningpathedition/LearningPathEdition.java)
+
 ### Catalog
 A collection of catalog entries that describe products or services available to the business.
 - **Catalog**: The collection or container of available entries.
 - **Catalog Entry**: An individual item within a catalog, providing details about a specific product or service type.
 
+#### Examples
+- **Catalog**: The full implementation of the Catalog is across multiple classes responsible for managing products and their availability:
+  - [`Catalog Bounded Context: LearningOfferApplicationService`](training-center/src/main/java/com/smalaca/trainingcenter/catalog/application/learningoffer/LearningOfferApplicationService.java)
+  - [`Catalog Bounded Context: LearningOfferRepository`](training-center/src/main/java/com/smalaca/trainingcenter/catalog/domain/learningoffer/LearningOfferRepository.java)
+  - [`Catalog Bounded Context: LearningOfferReadModelRepository`](training-center/src/main/java/com/smalaca/trainingcenter/catalog/query/learningoffer/LearningOfferReadModelRepository.java)
+- **Catalog Entry**: [`Catalog Bounded Context: LearningOffer`](training-center/src/main/java/com/smalaca/trainingcenter/catalog/domain/learningoffer/LearningOffer.java)
+
 ### Inventory
 Manages the tracking of physical or virtual items that are in stock or available for use.
 - **Inventory**: The system or container for tracking items.
 - **Inventory Entry**: A record of a specific item or group of items within the inventory.
+
+#### Examples
+- **Inventory**: The full implementation of the Inventory is across multiple classes responsible for managing products and their availability:
+  - [`Inventory Bounded Context: TrainingAvailabilityApplicationService`](training-center/src/main/java/com/smalaca/trainingcenter/inventory/application/trainingavailability/TrainingAvailabilityApplicationService.java)
+  - [`Inventory Bounded Context: ReservationApplicationService`](training-center/src/main/java/com/smalaca/trainingcenter/inventory/application/reservation/ReservationApplicationService.java)
+  - [`Inventory Bounded Context: TrainingAvailabilityRepository`](training-center/src/main/java/com/smalaca/trainingcenter/inventory/domain/traininginventory/TrainingAvailabilityRepository.java)
+  - [`Inventory Bounded Context: TrainingAvailabilityReadModelRepository`](training-center/src/main/java/com/smalaca/trainingcenter/inventory/query/trainingavailability/TrainingAvailabilityReadModelRepository.java)
+- **Inventory Entry**: [`Inventory Bounded Context: TrainingAvailability`](training-center/src/main/java/com/smalaca/trainingcenter/inventory/domain/traininginventory/TrainingAvailability.java)
 
 ### Availability
 Represents the ability to provide or reserve a resource or service within a specific timeframe.
@@ -70,6 +98,11 @@ Represents the ability to provide or reserve a resource or service within a spec
 - **Reservation**: A confirmed hold on a resource for a specific party.
 - **Availability Policy**: Rules governing how availability is determined.
 - **Cancellation Policy**: Rules governing the cancellation of reservations.
+
+#### Examples
+- **Availability**: [`Inventory Bounded Context: TrainingAvailability`](training-center/src/main/java/com/smalaca/trainingcenter/inventory/domain/traininginventory/TrainingAvailability.java)
+- **Reservation**: [`Inventory Bounded Context: Reservation`](training-center/src/main/java/com/smalaca/trainingcenter/inventory/domain/reservation/Reservation.java)
+- **Reservation Request**: [`Inventory Bounded Context: ReservationRequest`](training-center/src/main/java/com/smalaca/trainingcenter/inventory/domain/traininginventory/ReservationRequest.java)
 
 ### Order
 Represents a formal agreement or request for the provision of products or services.
@@ -84,6 +117,12 @@ Represents a formal agreement or request for the provision of products or servic
 - **Cancel Event**: Event indicating the cancellation of an order.
 - **Payment Event**: Event indicating a payment action related to the order.
 
+#### Examples
+- **Order**: [`Training Orders Bounded Context: TrainingOrder`](training-center/src/main/java/com/smalaca/trainingcenter/trainingorders/domain/trainingorder/TrainingOrder.java)
+- **Order Manager**: The full implementation of the Order Manager is across multiple classes responsible for managing orders and their lifecycle:
+  - [`Training Orders Bounded Context: TrainingOrderApplicationService`](training-center/src/main/java/com/smalaca/trainingcenter/trainingorders/application/trainingorder/TrainingOrderApplicationService.java)
+  - [`Training Orders Bounded Context: TrainingOrderRepository`](training-center/src/main/java/com/smalaca/trainingcenter/trainingorders/domain/trainingorder/TrainingOrderRepository.java)
+
 ### Rule
 Defines business rules and constraints that govern behavior and decision-making.
 - **Rule Set**: A collection of related business rules.
@@ -91,6 +130,11 @@ Defines business rules and constraints that govern behavior and decision-making.
 - **Rule Context**: The environment or state in which a rule is evaluated.
 - **Rule Override**: A mechanism to bypass or change a rule's behavior in specific cases.
 - **Party Signature**: A formal sign-off or approval required by a party.
+
+#### Examples
+- **Rule Set**: [`Inventory Bounded Context: TrainingEnrollmentPolicy`](training-center/src/main/java/com/smalaca/trainingcenter/inventory/domain/traininginventory/TrainingEnrollmentPolicy.java)
+- **Rule Context**: [`Inventory Bounded Context: TrainingEnrollmentContext`](training-center/src/main/java/com/smalaca/trainingcenter/inventory/domain/traininginventory/TrainingEnrollmentContext.java)
+- **Rule Override**: [`Inventory Bounded Context: EnrollmentApproval`](training-center/src/main/java/com/smalaca/trainingcenter/inventory/domain/reservation/EnrollmentApproval.java)
 
 ## Collaboration
 I welcome contributions and feedback!
