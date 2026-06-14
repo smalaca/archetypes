@@ -1,15 +1,10 @@
 package com.smalaca.trainingcenter.inventory.application.reservation;
 
-import com.smalaca.annotations.archetypes.ArchetypeAvailability;
 import com.smalaca.annotations.archetypes.ArchetypeInventory;
 import com.smalaca.annotations.architecture.DomainDrivenDesign;
 import com.smalaca.annotations.architecture.PortsAndAdaptersArchitecture;
-import com.smalaca.trainingcenter.inventory.domain.reservation.ApprovalSignature;
 import com.smalaca.trainingcenter.inventory.domain.clock.Clock;
-import com.smalaca.trainingcenter.inventory.domain.reservation.Reservation;
-import com.smalaca.trainingcenter.inventory.domain.reservation.ReservationId;
-import com.smalaca.trainingcenter.inventory.domain.reservation.ReservationRepository;
-import com.smalaca.trainingcenter.inventory.domain.reservation.TrainingCoordinatorId;
+import com.smalaca.trainingcenter.inventory.domain.reservation.*;
 import com.smalaca.trainingcenter.inventory.domain.traininginventory.ReservationCancellationService;
 import com.smalaca.trainingcenter.inventory.domain.traininginventory.TrainingAvailability;
 import com.smalaca.trainingcenter.inventory.domain.traininginventory.TrainingAvailabilityId;
@@ -18,7 +13,6 @@ import com.smalaca.trainingcenter.inventory.domain.traininginventory.TrainingAva
 import java.util.UUID;
 
 @DomainDrivenDesign.ApplicationLayer
-@ArchetypeAvailability.Availability
 @ArchetypeInventory.Inventory
 public class ReservationApplicationService {
     private final TrainingAvailabilityRepository trainingAvailabilityRepository;

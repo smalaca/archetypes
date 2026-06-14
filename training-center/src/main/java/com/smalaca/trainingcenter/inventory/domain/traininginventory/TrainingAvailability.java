@@ -1,5 +1,6 @@
 package com.smalaca.trainingcenter.inventory.domain.traininginventory;
 
+import com.smalaca.annotations.archetypes.ArchetypeAvailability;
 import com.smalaca.annotations.archetypes.ArchetypeInventory;
 import com.smalaca.annotations.architecture.DomainDrivenDesign;
 import com.smalaca.trainingcenter.inventory.domain.participantid.ParticipantId;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @DomainDrivenDesign.AggregateRoot
 @ArchetypeInventory.InventoryEntry
+@ArchetypeAvailability.Availability
 public class TrainingAvailability {
     private final TrainingAvailabilityId trainingAvailabilityId;
     private final TrainingSessionId trainingSessionId;
