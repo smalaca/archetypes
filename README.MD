@@ -12,6 +12,14 @@ The `training-center` directory contains the core domain model implementation of
 - **Mono-repository**: Top-level packages represent separate Bounded Contexts within the system.
 - **Purpose**: While there is enough logic to demonstrate the archetypes in action, this is not intended to be a fully functional, production-ready training center application.
 
+## Annotations
+The repository uses custom annotations to categorize and document the implementation according to archetypes, architecture patterns, and Domain-Driven Design principles.
+- **Archetype Annotations**: These annotations are used to identify the archetypes and their specific elements within the code. You can find the full list of these annotations in the [archetypes folder](annotations/src/main/java/com/smalaca/annotations/archetypes).
+- **Architecture Annotations**: Used to document the architectural patterns applied in the project, such as [Ports and Adapters](annotations/src/main/java/com/smalaca/annotations/architecture/PortsAndAdaptersArchitecture.java).
+- **DDD Annotations**: These annotations represent [Domain-Driven Design](annotations/src/main/java/com/smalaca/annotations/architecture/DomainDrivenDesign.java) building blocks like Aggregates, Entities, and Value Objects.
+
+If you want to see the implementation of a specific archetype element listed below, you can simply navigate to the corresponding archetype annotation and check its usage in the IDE.
+
 ## Archetypes and Elements
 The repository uses custom annotations to identify the archetypes and their constituent elements. Below is the list of archetypes implemented in this project:
 
