@@ -1,3 +1,92 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=smalaca_archetypes&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=smalaca_archetypes)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=smalaca_archetypes&metric=coverage)](https://sonarcloud.io/summary/new_code?id=smalaca_archetypes)
 
+# Archetypes
+
+## Goal of the repository
+The goal of this repository is to present implementations of archetypes using Domain-Driven Design (DDD) patterns. These archetypes are based on the book *"Enterprise Patterns and MDA: Building Better Software with Archetype Patterns and UML"* by Jim Arlow and Ila Neustadt.
+
+## Training Center Repository
+The `training-center` directory contains the core domain model implementation of a training center system.
+- **Domain Model Only**: The code focuses strictly on the domain model implementation.
+- **Mono-repository**: Top-level packages represent separate Bounded Contexts within the system.
+- **Purpose**: While there is enough logic to demonstrate the archetypes in action, this is not intended to be a fully functional, production-ready training center application.
+
+## Archetypes and Elements
+The repository uses custom annotations to identify the archetypes and their constituent elements. Below is the list of archetypes implemented in this project:
+
+### Party
+Represents an individual or an organization involved in business processes.
+- **Party**: The base archetype for individuals and organizations.
+- **Party Identifier**: A unique identifier for a party.
+- **Person**: An individual human being.
+- **Organization**: A group of people or a legal entity.
+- **Organization Name**: The formal name of an organization.
+- **Registered Identifier**: An identifier provided by an official registry.
+- **Organization Unit**: A sub-unit or department within an organization.
+- **Address**: A physical or virtual location associated with a party.
+- **Party Role**: The role a party plays in a specific context (e.g., Customer, Supplier).
+- **Party Role Type**: The definition or category of a role.
+- **Party Role Identifier**: A unique identifier for a specific role.
+- **Party Role Constraint**: Rules or constraints applied to a role.
+- **Party Relationship**: A connection between two parties.
+- **Party Relationship Type**: The nature of the relationship (e.g., Employment, Ownership).
+- **Party Relationship Constraint**: Rules governing a relationship.
+
+### Product
+Describes the types of products or services offered by the enterprise.
+- **Product Type**: The definition of a category of products.
+- **Product Type Identifier**: Unique identifier for a product type.
+- **Product Instance**: A specific, individual occurrence of a product.
+- **Product Instance Identifier**: Unique identifier for a specific product instance.
+- **Package Type**: A definition of a bundle of products or services.
+- **Package Instance**: A specific instance of a product package.
+- **Product Feature Type**: A characteristic or feature that can be associated with a product type.
+- **Product Feature Instance**: A specific occurrence of a feature on a product instance.
+- **Price**: The cost associated with a product or service.
+
+### Catalog
+A collection of catalog entries that describe products or services available to the business.
+- **Catalog**: The collection or container of available entries.
+- **Catalog Entry**: An individual item within a catalog, providing details about a specific product or service type.
+
+### Inventory
+Manages the tracking of physical or virtual items that are in stock or available for use.
+- **Inventory**: The system or container for tracking items.
+- **Inventory Entry**: A record of a specific item or group of items within the inventory.
+
+### Availability
+Represents the ability to provide or reserve a resource or service within a specific timeframe.
+- **Availability**: Defines the period or conditions under which something is available.
+- **Reservation Request**: A request to hold a specific resource.
+- **Reservation**: A confirmed hold on a resource for a specific party.
+- **Availability Policy**: Rules governing how availability is determined.
+- **Cancellation Policy**: Rules governing the cancellation of reservations.
+
+### Order
+Represents a formal agreement or request for the provision of products or services.
+- **Order**: The overall agreement or transaction.
+- **Sales Order**: A specific type of order representing a sale to a customer.
+- **Order Line**: An individual item or service line within an order.
+- **Party Summary**: A summary of the parties involved in the order.
+- **Order Status**: Represents the current state of an order in its lifecycle.
+- **Order Manager**: Responsible for managing the lifecycle and rules of orders.
+- **Order Event**: An event that triggers a change in the order state.
+- **Open Event**: Event indicating the opening of an order.
+- **Cancel Event**: Event indicating the cancellation of an order.
+- **Payment Event**: Event indicating a payment action related to the order.
+
+### Rule
+Defines business rules and constraints that govern behavior and decision-making.
+- **Rule Set**: A collection of related business rules.
+- **Rule**: An individual business rule or constraint.
+- **Rule Context**: The environment or state in which a rule is evaluated.
+- **Rule Override**: A mechanism to bypass or change a rule's behavior in specific cases.
+- **Party Signature**: A formal sign-off or approval required by a party.
+
+## Collaboration
+I welcome contributions and feedback!
+- **Issues**: Feel free to create issues for bugs, suggestions, or questions.
+- **Fork**: Feel free to fork the repository to experiment with your own changes.
+- **Pull Requests**: Feel free to submit pull requests with improvements or new archetype examples.
+
