@@ -3,6 +3,21 @@
 
 # Archetypes
 
+## Table of Contents
+- [Goal of the repository](#goal-of-the-repository)
+- [Training Center Repository](#training-center-repository)
+- [Annotations](#annotations)
+- [Archetypes and Elements](#archetypes-and-elements)
+  - [Party](#party)
+  - [Product](#product)
+  - [Catalog](#catalog)
+  - [Inventory](#inventory)
+  - [Availability](#availability)
+  - [Order](#order)
+  - [Rule](#rule)
+- [Learn More: Articles](#learn-more-articles)
+- [Collaboration](#collaboration)
+
 ## Goal of the repository
 The goal of this repository is to present implementations of archetypes using Domain-Driven Design (DDD) patterns. These archetypes are based on the book *"Enterprise Patterns and MDA: Building Better Software with Archetype Patterns and UML"* by Jim Arlow and Ila Neustadt.
 
@@ -135,6 +150,10 @@ Defines business rules and constraints that govern behavior and decision-making.
 - **Rule Set**: [`Inventory Bounded Context: TrainingEnrollmentPolicy`](training-center/src/main/java/com/smalaca/trainingcenter/inventory/domain/traininginventory/TrainingEnrollmentPolicy.java)
 - **Rule Context**: [`Inventory Bounded Context: TrainingEnrollmentContext`](training-center/src/main/java/com/smalaca/trainingcenter/inventory/domain/traininginventory/TrainingEnrollmentContext.java)
 - **Rule Override**: [`Inventory Bounded Context: EnrollmentApproval`](training-center/src/main/java/com/smalaca/trainingcenter/inventory/domain/reservation/EnrollmentApproval.java)
+
+## Learn More: Articles
+If you want to dive deeper into the concept of archetypes and how they are applied in this repository, check out the following articles:
+- **[Beyond DDD Building Blocks: Why You Need Archetypes](https://www.sebastianmalaca.com/beyond-ddd-building-blocks-why-you-need-archetypes/)** – An introduction to archetypes and why they are the missing blueprints in Domain-Driven Design.
 
 ## Collaboration
 I welcome contributions and feedback!
