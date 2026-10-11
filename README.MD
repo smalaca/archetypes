@@ -25,6 +25,7 @@ The goal of this repository is to present implementations of archetypes using Do
 If you want to dive deeper into the concept of archetypes and how they are applied in this repository, check out the following articles:
 - **[Beyond DDD Building Blocks: Why You Need Archetypes](https://www.sebastianmalaca.com/beyond-ddd-building-blocks-why-you-need-archetypes/)** – An introduction to archetypes and why they are the missing blueprints in Domain-Driven Design.
 - **[The Anatomy of the Party Archetype](https://www.sebastianmalaca.com/the-anatomy-of-the-party-archetype/)** – Learn how the Party archetype separates identity from behavior, enabling flexible models that support multiple roles and evolving business relationships.
+- **[Decoupling Archetypes: Identity Over Inheritance](https://www.sebastianmalaca.com/decoupling-archetypes-identity-over-inheritance/)** – Learn why Business Archetypes should be connected by identity, not shared base classes, and how this keeps Bounded Contexts independent and maintainable.
 
 ## Training Center Repository
 The `training-center` directory contains the core domain model implementation of a training center system.
